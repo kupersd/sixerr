@@ -44,3 +44,34 @@ button {
     // }
 
 }
+
+.main-container {
+    display: grid;
+    grid-template-columns: 
+    minmax(0.6rem, 1fr)
+    minmax(auto, $wideLayout)
+    minmax(0.6rem, 1fr);
+    
+    & > * {
+        grid-column: 2;
+    }
+
+    @media screen and (min-width: $smallLayout) {
+        grid-template-columns: 
+        minmax(0.6rem, 1fr)
+        minmax(auto, $mobile-breakpoint)
+        minmax(0.6rem, 1fr);
+    }
+    @media screen and (min-width: $mediumLayout) {
+        grid-template-columns: 
+        minmax(0.6rem, 1fr)
+        minmax(auto, $narrow-breakpoint)
+        minmax(0.6rem, 1fr);
+    }
+    @media screen and (min-width: $wideLayout) {
+        grid-template-columns: 
+        minmax(0.6rem, 1fr)
+        minmax(auto, $normal-breakpoint)
+        minmax(0.6rem, 1fr);
+    }
+}

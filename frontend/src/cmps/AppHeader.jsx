@@ -29,30 +29,32 @@ class _AppHeader extends React.Component {
         const { isLoginOpen } = this.state
         return (
             <>
-                <section className="app-header flex space-between align-center main-layout">
-                    <NavLink to="/">
-                    <h1>Sixerr<span>.</span></h1>
-                    </NavLink>
-                    <ul className="header-nav clean-list flex align-center bold">
+                <div className="site-header main-container">
 
-                        <NavLink className="fast-trans" to="/"><li>Home</li></NavLink>
-                        <NavLink className="fast-trans" to="/gig"><li>Explore</li></NavLink>
-                        {/* <NavLink className="fast-trans" to="/chat"><li>Messages</li></NavLink> */}
-                        {/* <NavLink className="fast-trans" to="/order"><li>Orders</li></NavLink> */}
-                        {user && <NavLink className="fast-trans" to="#" onClick={this.onLogout}>
-                            <li>Logout</li>
-                        </NavLink>}
-                        {!user &&
-                            <NavLink className="" to="#" onClick={this.onToggleLogin}>
-                                <li>Login</li>
-                            </NavLink>}
-                        <NavLink to="/profile">
-                            {/* {user && <h3>{user.username}</h3>} */}
-                            {user && <li><img src={user.imgUrl} alt="user" /></li>}
+                    <section className="app-header flex space-between align-center">
+                        <NavLink to="/">
+                            <h1>Sixerr<span>.</span></h1>
                         </NavLink>
-                    </ul>
+                        <ul className="header-nav clean-list flex align-center bold">
 
-                </section>
+                            <NavLink className="fast-trans" to="/"><li>Home</li></NavLink>
+                            <NavLink className="fast-trans" to="/gig"><li>Explore</li></NavLink>
+                            {/* <NavLink className="fast-trans" to="/chat"><li>Messages</li></NavLink> */}
+                            {user && <NavLink className="fast-trans" to="#" onClick={this.onLogout}>
+                                <li>Logout</li>
+                            </NavLink>}
+                            {!user &&
+                                <NavLink className="" to="#" onClick={this.onToggleLogin}>
+                                    <li>Login</li>
+                                </NavLink>}
+                            <NavLink to="/profile">
+                                {/* {user && <h3>{user.username}</h3>} */}
+                                {user && <li className="profile-img"><img src={user.imgUrl} alt="user" /></li>}
+                            </NavLink>
+                        </ul>
+
+                    </section>
+                </div>
                 {isLoginOpen && !user && <Login toggleLogin={this.onToggleLogin} />}
             </>
         )

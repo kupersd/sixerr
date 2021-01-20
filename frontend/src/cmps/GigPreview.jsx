@@ -4,7 +4,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 
 export function GigPreview({ gig, onUserViewGig, onFavoriteToggle, user, removeViewed }) {
     return (
-        <li onClick={() => { onUserViewGig(gig._id) }} className="preview-item mrg-bottom">
+        <li onClick={() => { onUserViewGig(gig._id) }} className="preview-item">
             <div className="preview-inner">
                 {removeViewed && <ClearIcon className="clear-icon pointer" onClick={(ev) => {
                     ev.stopPropagation()
@@ -13,7 +13,7 @@ export function GigPreview({ gig, onUserViewGig, onFavoriteToggle, user, removeV
 
                 <Link to={`/gig/${gig._id}`}>
                     <div className="preview-img">
-                        <img src={gig.imgUrls[0]} alt="" />
+                        <img src={gig.imgUrls[0]} alt="gig preview" />
                     </div>
                 </Link>
                 <Link to="/profile">
