@@ -1,0 +1,61 @@
+header {
+    background-color: $lightColor;
+    color: $headerColor;
+    height: 10vh;
+    border-bottom: $border;
+    
+    .app-header {
+        height: 100%;
+
+        a {
+            color: inherit;
+        }
+        h1 {
+            color: $ctgColor;
+            font-size: 2rem;
+            // font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            letter-spacing: -1px;
+            font-weight: 900;
+            display: inline-block;
+            transition: .8s;
+            span {
+                color: $greenColor;
+            }
+        }
+        
+        ul {
+            height: 100%;
+            
+            a {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100%;
+                text-decoration: none;
+                &:hover {
+                    // background-color: $lightColor;
+                    color: $greenColor;
+                }
+            }
+
+            li {
+                padding: 0px 10px;
+            }
+
+            img {
+                margin-inline-start: 15px;
+                width: 40px;
+                height: 40px;
+                object-fit: cover;
+
+                display: inline-block;
+                border-radius: 50%;
+                overflow: hidden;
+                opacity: 1;
+                
+                transition: .3s;
+            }
+        }
+    }
+    
+}

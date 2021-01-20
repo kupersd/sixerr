@@ -1,0 +1,153 @@
+.preview-item {
+    width: 25%;
+    padding: 1.125rem;
+    
+    @media screen and (max-width: $mediumLayout) {
+        width: 33.3%;
+    }
+    @media screen and (max-width: $smallLayout) {
+        width: 50%;
+    }
+    @media screen and (max-width: $mobileLayout) {
+        width: 100%;
+    }
+    a, a:visited {
+        color: initial;
+        text-decoration: none;
+    }
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 1;
+        transition: .2s;
+    }
+    
+    .preview-inner {
+        border: $border;
+        position: relative;
+
+        &:hover .clear-icon {
+            opacity: 1;
+        }
+        .clear-icon {
+            color: $darkColor;
+            position: absolute;
+            right: -10%;
+            top: -10%;
+            font-size: 2rem;
+            opacity: 0;
+
+            transition: .3s;
+        }
+
+        .preview-img {
+            background: #000;
+            width: 100%;
+            height: 13vw;
+            margin-bottom: 0.75rem;
+
+            @media screen and (max-width: $mediumLayout) {
+                height: 18vw;
+            }
+            @media screen and (max-width: $smallLayout) {
+                height: 28vw;
+            }
+            @media screen and (max-width: $mobileLayout) {
+                height: 60vw;
+            }
+            &:hover img {
+                opacity: 0.7;
+            }
+        }
+
+        .gig-owner {
+            padding: 0rem 0.75rem 1rem;
+
+            p {
+                margin: 0;
+                color: $darkColor;
+                font-size: 0.8em;
+
+                &:first-of-type {
+                    font-weight: bold;
+                }
+            }
+
+        }
+
+        .preview-title {
+
+            padding: 0rem 0.75rem 1rem;
+            h2 {
+                color: $titleColor;
+                font-size: 1.1rem;
+                font-weight: normal;
+                line-height: 1.3em;
+                height: 2.7em;
+                margin: 0px;
+                overflow: hidden;
+                transition: .15s;
+        
+
+                &:hover {
+                    color: $greenColor;
+                }
+            }
+            
+        }
+
+        .gig-rating {
+            align-items: center;
+            padding: 0rem 0.75rem 0.75rem;
+            margin-inline-start: -0.15rem;
+            color: $starsColor;
+            span {
+                display: inline-block;
+                margin-top: 2px;
+                margin-inline-start: 5px;
+                font-size: 0.875rem;
+                font-weight: bold;
+            }
+            .gig-voters {
+                margin-inline-start: 0.125rem;
+                color: $iconsColor;
+                font-weight: normal;
+                font-size: 0.875rem;
+            }
+        }
+
+        .preview-bottom {
+            padding: 0.625rem 0.75rem;
+            border-top: $border;
+
+            h3 {
+                color: $priceColor;
+                margin: 0;
+                font-size: 0.85rem;
+                text-transform: uppercase;
+                font-weight: normal;
+            }
+            span {
+                font-size: 1.1rem;
+            }
+
+            .heart {
+                color: $iconsColor;
+                // margin-inline-start: 10px;
+                transition: .2s;
+                &:hover {
+                    color: darken($iconsColor, 10);
+                }
+            }
+
+            .liked {
+                color: rgb(245, 41, 75);
+                &:hover {
+                    color: darken(rgb(245, 41, 75), 10);
+                }
+            }
+        }
+    
+    }
+}
