@@ -1,7 +1,6 @@
-header {
+.site-header {
     background-color: $lightColor;
     color: $headerColor;
-    height: 10vh;
     border-bottom: $border;
     
     .app-header {
@@ -11,6 +10,7 @@ header {
             color: inherit;
         }
         h1 {
+            margin: 1rem 0;
             color: $ctgColor;
             font-size: 2rem;
             // font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
@@ -54,6 +54,10 @@ header {
                 opacity: 1;
                 
                 transition: .3s;
+            }
+
+            .profile-img {
+                padding: 0px 0px 0 10px;
             }
         }
     }

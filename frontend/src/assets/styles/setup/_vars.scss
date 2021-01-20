@@ -15,7 +15,11 @@ $greenColor: rgb(43, 190, 118);
 
 $border: 1px solid $borderColor;
 
-$wideLayout: 1040px;
+$wideLayout: 1200px;
 $mediumLayout: 860px;
 $smallLayout: 600px;
 $mobileLayout: 500px;
+
+$normal-breakpoint: 1000px;
+$narrow-breakpoint: 1000px;
+$mobile-breakpoint: 820px;

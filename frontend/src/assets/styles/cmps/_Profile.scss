@@ -74,7 +74,11 @@
             padding-inline-start: 1rem;
 
             button {
-                margin-inline-start: 1rem;
+
+                    width: 150px;
+                    margin: 15px auto;
+                    @include defButton;
+                    margin-inline-start: 1rem;
             }
         }
 

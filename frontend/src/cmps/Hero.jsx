@@ -72,8 +72,8 @@ class _Hero extends React.Component {
         const hero = heros[currHeroIdx]
 
         const jsGigs = [...this.props.gigs.slice(3)]
-        const musicGigs = [...this.props.gigs.slice(6)]
-        const suggestedGigs = [...this.props.gigs.slice(9)]
+        const musicGigs = [...this.props.gigs.slice(5)]
+        const suggestedGigs = [...this.props.gigs.slice(4)]
         return (
             <>
                 <section className="hero">
@@ -116,7 +116,7 @@ class _Hero extends React.Component {
                         onFavoriteToggle={this.onFavoriteToggle}
                         user={this.props.user}
                         onDelete={this.onDelete} />
-                    <h3>Suggested</h3>
+                    <h3 className="main-layout">Suggested</h3>
                     <GigList gigs={suggestedGigs} onDelete={this.onDelete} onUserViewGig={() => { }} onFavoriteToggle={this.onFavoriteToggle} isSmallPreview={true} />
 
                 </section>
