@@ -3,6 +3,7 @@
     h2 {
         align-self: start;
         margin-inline-end: rem(10px);
+        font-size: rem(18px);
     }
     svg {
         color: $starsColor;
@@ -10,10 +11,10 @@
         // margin-inline-start:rem(10px) ;
     }
     span {
-        padding-inline-start: rem(5px);
         align-self: center;
         color: #ffb33e;
         font-weight: 700;
+        font-size: rem(20px);
     }
 }
 
@@ -71,16 +72,18 @@
     .right-side-stats {
         display: flex;
         flex-direction: column;
-        padding-block-start: rem(16px);
+        padding-block-start: rem(18px);
         // display: grid;
         // grid-template-rows: 1fr;
         // color: $lightColor;
         // color: $altColor;
+        font-size: rem(12px);
         h6 {
             margin: 0;
             margin-block-end: rem(10px);
             // padding-bottom: 16px;
             font-weight: 600;
+            font-size: rem(15px);
         }
         span {
             display: -webkit-box;
@@ -90,32 +93,36 @@
             -ms-flex-pack: justify;
             justify-content: space-between;
             color: #95979d;
-            padding-bottom: 8px;
+            padding-bottom: rem(8px);
+            font-weight: 700;
+
         }
     }
-    // svg{
-    //     padding-block-start: 10px;
-    // }
 }
-// .x{
-//     display: grid;
-//     grid-template-columns: 1fr 1fr;
-// }
+
 
 
 .stars{
-    padding-block-start: rem(50px);
-
+    padding-block-start: rem(53.8px);
+    // padding-block-start: rem(53.8px);
     div{
-        margin-block-end: rem(8.25px);
+        margin-block-end: rem(6.45px);
+        // margin-block-end: rem(6.45px);
+        display: flex;
+        div{
+            // background-color: #4a73e8;
+            padding-block-start: rem(4px);
+        }
         span{
             color: #62646a;
             white-space: nowrap;
             margin-left: 12px;
             padding-inline-end: rem(4px);
+            font-size: rem(14px);
         }
         svg{
             color: $starsColor;
+            font-weight: 10rem;
         }
     }
 }
