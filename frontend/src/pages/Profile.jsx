@@ -93,8 +93,8 @@ class _Profile extends React.Component {
         console.log(user)
         if (!user) return <div>Loading...</div>
         return (
-            <section className="profile main-layout mrg-top">
-                <div className="flex top-section space-around">
+            <section className="profile main-container mrg-top">
+                <div className="flex top-section space-between">
                     <div className="about-user flex column">
                         <label className="img-upload pointer" htmlFor="uploadImg">
                             <img src={user.imgUrl} />

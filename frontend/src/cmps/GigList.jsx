@@ -4,7 +4,7 @@ import { GigPreview } from "./GigPreview"
 export function GigList({ gigs, onUserViewGig, onFavoriteToggle, user, removeViewed, isSmallPreview }) {
 
     return (
-        <section className="gig-list main-container">
+        <section className="gig-list">
             <ul className="previews-wrap clean-list">
                 {isSmallPreview &&
                      gigs.map(gig => <GigMiniPreview key={gig._id} gig={gig}></GigMiniPreview>) }

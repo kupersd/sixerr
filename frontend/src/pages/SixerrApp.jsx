@@ -41,7 +41,7 @@ class _SixerrApp extends React.Component {
         const {user} = this.props
         if (user) console.log('user favorites', user.favoriteIds)
         return (
-            <section className="sixerr-app">
+            <section className="sixerr-app main-container">
                 {/* <div className="flex space-around align-center mrg-top mrg-bottom">
                     <GigFilter />
                 </div> */}

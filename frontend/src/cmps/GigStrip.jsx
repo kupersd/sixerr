@@ -40,7 +40,7 @@ export class GigStrip extends React.Component {
         const bgStyle = { backgroundColor: this.props.bgColor }
 
         return (
-            <section className="gig-strip main-layout" style={bgStyle}>
+            <section className="gig-strip main-container" style={bgStyle}>
                 <h2 className="strip-title">{this.props.title}</h2>
                 <ul className="strip-wrap clean-list" style={inlineStyle}>
                     {this.props.gigs.map(gig =>
@@ -52,8 +52,8 @@ export class GigStrip extends React.Component {
                         />
                     )}
                 </ul>
-                { posX !== 0 && <button className="scroll-left" onClick={this.scrollLeft}>&lt;</button>}
-                <button className="scroll-right" onClick={this.scrollRight}>&gt;</button>
+                {/* { posX !== 0 && <button className="scroll-left" onClick={this.scrollLeft}>&lt;</button>}
+                <button className="scroll-right" onClick={this.scrollRight}>&gt;</button> */}
             </section>
         )
     }
