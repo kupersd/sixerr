@@ -27,7 +27,7 @@
         position: absolute;
         width: 60vw;
         top: 60%;
-        left: 5%;
+        left: 9.9%;
         font-size: 2.5rem;
         color: $lightColor;
 
@@ -51,10 +51,10 @@
             color: $starsColor
         }
     }
-
     h3 {
-        padding-inline-start: 1rem;
+        margin: 2rem 0 0;
+        // padding-inline-start: 1rem;
         color: $darkColor;
-        margin: 0.75rem 0 0;
     }
+
 }

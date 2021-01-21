@@ -72,12 +72,14 @@ class _Hero extends React.Component {
         const hero = heros[currHeroIdx]
 
         const jsGigs = [...this.props.gigs.slice(3)]
-        const musicGigs = [...this.props.gigs.slice(6)]
-        const suggestedGigs = [...this.props.gigs.slice(9)]
+        const musicGigs = [...this.props.gigs.slice(5)]
+        const suggestedGigs = [...this.props.gigs.slice(4)]
         return (
             <>
                 <section className="hero">
-                    <h1 className="main-layout">Find the perfect <span>freelance</span> for your business</h1>
+                    <div className="main-container">
+                        <h1>Find the perfect <span>freelance</span> for your business</h1>
+                    </div>
                     <img src={hero.imgUrl} alt="" />
                     <div className="hero-snippet">
                         <div className="stars">
@@ -89,35 +91,38 @@ class _Hero extends React.Component {
                         </div>
                         <span>{hero.username}</span>, {hero.occupation}
                     </div>
-                    {/* <SixerrApp /> */}
-                    <GigStrip title={'Design'}
-                        gigs={this.props.gigs}
-                        onUserViewGig={this.onUserViewGig}
-                        onFavoriteToggle={this.onFavoriteToggle}
-                        user={this.props.user}
-                        onDelete={this.onDelete} />
-                    <GigStrip title={'Software'}
-                        bgColor={'#eeeeee'}
-                        gigs={jsGigs}
-                        onUserViewGig={this.onUserViewGig}
-                        onFavoriteToggle={this.onFavoriteToggle}
-                        user={this.props.user}
-                        onDelete={this.onDelete} />
-                    <GigStrip title={'Music'}
-                        gigs={musicGigs}
-                        onUserViewGig={this.onUserViewGig}
-                        onFavoriteToggle={this.onFavoriteToggle}
-                        user={this.props.user}
-                        onDelete={this.onDelete} />
-                    <GigStrip title={'Video'}
-                        bgColor={'#eeeeee'}
-                        gigs={this.props.gigs}
-                        onUserViewGig={this.onUserViewGig}
-                        onFavoriteToggle={this.onFavoriteToggle}
-                        user={this.props.user}
-                        onDelete={this.onDelete} />
-                    <h3>Suggested</h3>
-                    <GigList gigs={suggestedGigs} onDelete={this.onDelete} onUserViewGig={() => { }} onFavoriteToggle={this.onFavoriteToggle} isSmallPreview={true} />
+                    <div className="main-container">
+
+                        {/* <SixerrApp /> */}
+                        <GigStrip title={'Design'}
+                            gigs={this.props.gigs}
+                            onUserViewGig={this.onUserViewGig}
+                            onFavoriteToggle={this.onFavoriteToggle}
+                            user={this.props.user}
+                            onDelete={this.onDelete} />
+                        <GigStrip title={'Software'}
+                            bgColor={'#f7f7f7'}
+                            gigs={jsGigs}
+                            onUserViewGig={this.onUserViewGig}
+                            onFavoriteToggle={this.onFavoriteToggle}
+                            user={this.props.user}
+                            onDelete={this.onDelete} />
+                        <GigStrip title={'Music'}
+                            gigs={musicGigs}
+                            onUserViewGig={this.onUserViewGig}
+                            onFavoriteToggle={this.onFavoriteToggle}
+                            user={this.props.user}
+                            onDelete={this.onDelete} />
+                        <GigStrip title={'Video'}
+                            bgColor={'#f7f7f7'}
+                            gigs={this.props.gigs}
+                            onUserViewGig={this.onUserViewGig}
+                            onFavoriteToggle={this.onFavoriteToggle}
+                            user={this.props.user}
+                            onDelete={this.onDelete} />
+                        <h3>Suggested</h3>
+                        <GigList gigs={suggestedGigs} onDelete={this.onDelete} onUserViewGig={() => { }} onFavoriteToggle={this.onFavoriteToggle} isSmallPreview={true} />
+                    </div>
 
                 </section>
             </>

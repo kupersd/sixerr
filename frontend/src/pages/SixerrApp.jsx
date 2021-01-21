@@ -42,10 +42,10 @@ class _SixerrApp extends React.Component {
         const {user} = this.props
         if (user) console.log('user favorites', user.favoriteIds)
         return (
-            <section className="sixerr-app">
-                <div className="flex space-around align-center mrg-top mrg-bottom">
-                    <GigFilter onSetFilter={this.onSetFilter} />
-                </div>
+            <section className="sixerr-app main-container">
+                {/* <div className="flex space-around align-center mrg-top mrg-bottom">
+                    <GigFilter />
+                </div> */}
                 <GigList gigs={this.props.gigs} onUserViewGig={this.onUserViewGig} onFavoriteToggle={this.onFavoriteToggle} user={this.props.user} onDelete={this.onDelete} />
             </section>
 

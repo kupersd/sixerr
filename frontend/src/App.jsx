@@ -8,7 +8,7 @@ export function App() {
   return (
     <>
       <div className="App">
-        <header className="">
+        <header>
           <AppHeader />
         </header>
         <main>
