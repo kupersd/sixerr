@@ -18,6 +18,8 @@ import { ShortReviewList } from '../cmps/ShortReviewList.jsx'
 import { ImgGallery } from '../cmps/ImgGallery.jsx'
 import { CarouselImgs } from '../cmps/Carousel.jsx'
 import AnchorLink from 'react-anchor-link-smooth-scroll'
+import { socketService } from '../services/socketService.js';
+
 import RichTextEditor from '../cmps/RichTextEditor.jsx'
 import { GigList } from '../cmps/GigList.jsx'
 import Loader from 'react-loader-spinner'
@@ -45,6 +47,7 @@ class _GigDetails extends React.Component {
     }
 
     async componentDidMount() {
+        socketService.setup()
         const gigId = this.props.match.params.gigId
         const gig = await loadGig(gigId)
         const gigs = await loadGigs() // TODO: CHANGE all waits to first go and then get all at the end....
@@ -176,9 +179,11 @@ class _GigDetails extends React.Component {
             console.log('remove succefully');
         })
     }
-
-    onGigOrder = () => {
-        this.props.orderGig(this.state.gig, this.props.user)
+    
+    onGigOrder = async () => {
+        const { gig } = this.state
+        await this.props.orderGig(this.state.gig, this.props.user)
+        socketService.emit('new order', { from: this.props.user, txt: 'NEW ORDER !!!!', gig})
     }
 
 

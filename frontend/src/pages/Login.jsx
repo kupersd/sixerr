@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { connect } from 'react-redux'
+import { socketService } from '../services/socketService.js';
 
 import { login, logout, addUser } from "../store/actions/userActions.js"
 
