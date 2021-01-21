@@ -43,7 +43,7 @@ class _AppHeader extends React.Component {
 
                             <NavLink className="fast-trans" to="/"><li>Home</li></NavLink>
                             <NavLink className="fast-trans" to="/gig"><li>Explore</li></NavLink>
-                            {/* <NavLink className="fast-trans" to="/chat"><li>Messages</li></NavLink> */}
+                            <NavLink className="fast-trans" to="/chat"><li>Messages</li></NavLink>
                             {user && <NavLink className="fast-trans" to="#" onClick={this.onLogout}>
                                 <li>Logout</li>
                             </NavLink>}
