@@ -27,14 +27,14 @@ class _GigEdit extends Component {
         this.setState({ gig })
     }
 
-    onSaveNewGig = (ev) => {
+    onSaveNewGig = async (ev) => {
         ev.preventDefault()
         const { gig } = this.state
         gig.tags.filter(tag => tag.length < 1)
         gig.packages[0].features.filter(feature => feature.length < 1)
-        this.props.addGig(gig).then(() => {
-            this.props.history.push('/gig');
-        })
+        await this.props.addGig(gig)
+        this.props.history.push('/gig');
+
     }
 
     createTemplatePackages = () => {
@@ -222,17 +222,17 @@ class _GigEdit extends Component {
                         <h4>Add some tags</h4>
                         <div className="gig-tags flex">
 
-                        <input type="text" name="tag" placeholder="video editing, session musician"
-                            value={this.state.currTag} onChange={this.addTag} onKeyUp={this.addTag} />
-                        <ul className="clean-list flex">
-                            {gig.tags.map(tag => {
-                                return <li key={tag}>
-                                    {tag}
-                                    <ClearIcon className="clear-icon pointer" onClick={() => this.removeTag(tag)} />
+                            <input type="text" name="tag" placeholder="video editing, session musician"
+                                value={this.state.currTag} onChange={this.addTag} onKeyUp={this.addTag} />
+                            <ul className="clean-list flex">
+                                {gig.tags.map(tag => {
+                                    return <li key={tag}>
+                                        {tag}
+                                        <ClearIcon className="clear-icon pointer" onClick={() => this.removeTag(tag)} />
 
-                                </li>
-                            })}
-                        </ul>
+                                    </li>
+                                })}
+                            </ul>
                         </div>
                     </div>
                     <div className="gig-package">
