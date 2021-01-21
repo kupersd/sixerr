@@ -4,6 +4,7 @@ import { GigEdit } from './pages/GigEdit.jsx'
 import { Profile } from './pages/Profile.jsx'
 import { Hero } from './cmps/Hero.jsx'
 import { Checkout } from './pages/Checkout.jsx'
+import { Chat } from './cmps/Chat.jsx'
 
 export const routes = [
     {
@@ -29,6 +30,10 @@ export const routes = [
     {
         path:'/profile',
         component: Profile
+    },
+    {
+        path:'/chat',
+        component: Chat
     },
     {
         path:'/',
