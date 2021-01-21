@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { GigFilter } from '../cmps/GigFilter.jsx';
 import { GigList } from '../cmps/GigList.jsx';
 import { loadGigs, setFilter, removeGig } from "../store/actions/gigActions.js";
 import { updateUser } from "../store/actions/userActions.js";
@@ -42,9 +43,9 @@ class _SixerrApp extends React.Component {
         if (user) console.log('user favorites', user.favoriteIds)
         return (
             <section className="sixerr-app">
-                {/* <div className="flex space-around align-center mrg-top mrg-bottom">
-                    <GigFilter />
-                </div> */}
+                <div className="flex space-around align-center mrg-top mrg-bottom">
+                    <GigFilter onSetFilter={this.onSetFilter} />
+                </div>
                 <GigList gigs={this.props.gigs} onUserViewGig={this.onUserViewGig} onFavoriteToggle={this.onFavoriteToggle} user={this.props.user} onDelete={this.onDelete} />
             </section>
 

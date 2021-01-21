@@ -13,8 +13,9 @@ export const gigService = {
 function query(filterBy) {
     console.log('filterBy', filterBy)
     const queryString = Object.keys(filterBy).map(key => `${key}=${filterBy[key]}`).join('&');
-    console.log('queryString',queryString)
-    return httpService.get(`${BASE_URL}/?${queryString}`)
+    console.log('queryString', queryString)
+    // return httpService.get(`${BASE_URL}/?${queryString}`)
+    return httpService.get(BASE_URL, filterBy)
 }
 
 async function getById(gigId) {
