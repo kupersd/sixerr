@@ -26,7 +26,7 @@
     ::selection {
         background: $altColor;
     }
-    .gig-review-list:first-child{
+    .gig-review-list:first-child {
         border-top: 1px solid #dadbdd;
     }
 
@@ -190,7 +190,7 @@
 }
 
 @media screen and (max-width: 900px) {
-    .gig-details{
+    .gig-details {
         .right-side-stats {
             display: none !important;
         }
@@ -293,9 +293,15 @@
             }
             h1 {
                 font-size: rem(23px) !important;
+                // font-size: 15px;
+                // padding-block-end: 0.645px;
             }
             .content-edit-wrapper {
                 justify-self: start !important;
+            }
+            .total-reviews{
+                font-size: 15px;
+                padding-block-end: 0.645px;
             }
         }
         // .desc {
@@ -377,6 +383,7 @@
             .seller-stars-container {
                 span {
                     margin-block-start: rem(1.625px);
+                    font-size: 16px;
                 }
             }
         }

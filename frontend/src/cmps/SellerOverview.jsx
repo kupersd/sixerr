@@ -4,7 +4,7 @@ import Rating from '@material-ui/lab/Rating';
 export function SellerOverview({ gig, htmlStars }) {
     return (
         <section className="seller-overview flex">
-            <Avatar className="avatar" alt="Remy Sharp" src="https://avataaars.io/?avatarStyle=Circle&topType=LongHairStraight&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light" />
+            <Avatar className="avatar" alt="Remy Sharp" src={`${gig.owner.imgUrl}`} />
             <div className="flex align-center info">
                 <span className="owner-fullname">{gig.owner.fullname}</span>
                 <span className="level">Level 2 Seller </span>
