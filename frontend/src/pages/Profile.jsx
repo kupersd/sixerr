@@ -24,15 +24,15 @@ class _Profile extends React.Component {
     }
 
     async componentDidMount() {
+        const { user } = this.props
+        // await this.props.loadGigs({owner: user._id, gigList: user.viewedGigIds })
         await this.props.loadGigs() // TODO: CHANGE all waits to first go and then get all at the end....
         await this.props.loadOrders()
         console.log('orders', this.props.orders)
-        const { user } = this.props
         const ordersAsBuyer = this.props.orders.filter(order => order.buyer._id === user._id)
         const ordersAsSeller = this.props.orders.filter(order => user.myGigIds?.some(gigId => gigId === order.gig._id))
-        console.log(ordersAsSeller)
         const myGigs = user.myGigIds ? await getGigs(user.myGigIds) : []
-        // const myGigs = await loadGigs({owner: user._id})
+        
         const lastViewed = user.viewedGigIds ? await getGigs(user.viewedGigIds) : []
         const favoriteGigs = user.favoriteIds ? await getGigs(user.favoriteIds) : []
         this.setState(prevState =>
@@ -93,8 +93,8 @@ class _Profile extends React.Component {
         console.log(user)
         if (!user) return <div>Loading...</div>
         return (
-            <section className="profile main-layout mrg-top">
-                <div className="flex top-section space-around">
+            <section className="profile main-container mrg-top">
+                <div className="flex top-section space-between">
                     <div className="about-user flex column">
                         <label className="img-upload pointer" htmlFor="uploadImg">
                             <img src={user.imgUrl} />

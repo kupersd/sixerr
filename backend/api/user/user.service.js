@@ -81,9 +81,9 @@ async function update(user) {
             username: user.username,
             fullname: user.fullname,
             imgUrl: user.imgUrl,
-            myGigIds: user.myGigIds.map (myGigId => ObjectId(myGigId)),
-            viewedGigIds: user.viewedGigIds.map (viewedGigId => ObjectId(viewedGigId)),
-            favoriteIds: user.favoriteIds.map (favoriteId => ObjectId(favoriteId))
+            myGigIds: user.myGigIds.map(myGigId => ObjectId(myGigId)),
+            viewedGigIds: user.viewedGigIds.map(viewedGigId => ObjectId(viewedGigId)),
+            favoriteIds: user.favoriteIds.map(favoriteId => ObjectId(favoriteId))
         }
         const collection = await dbService.getCollection('user')
         await collection.updateOne({ '_id': userToSave._id }, { $set: userToSave })
@@ -101,10 +101,10 @@ async function add(user) {
             username: user.username,
             password: await bcrypt.hash(user.password, 10),
             fullname: user.fullname,
-            imgUrl: user.imgUrl,
-            myGigIds: user.myGigIds? user.myGigIds : [],
-            viewedGigIds: user.viewedGigIds? user.viewedGigIds :[],
-            favoriteIds: user.favoriteIds? user.favoriteIds : []
+            imgUrl: user.imgUrl ? user.imgUrl : '',
+            myGigIds: user.myGigIds ? user.myGigIds : [],
+            viewedGigIds: user.viewedGigIds ? user.viewedGigIds : [],
+            favoriteIds: user.favoriteIds ? user.favoriteIds : []
         }
         const collection = await dbService.getCollection('user')
         await collection.insertOne(userToAdd)

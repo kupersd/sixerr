@@ -40,7 +40,7 @@ export class EditableElement extends React.Component {
         const { editable } = this.state
         const editableStyle = (editable) ? { border: '1px solid #888' } : {}
         return (
-            <div className="content-edit-wrapper flex space-around align-center">
+            <div className="content-edit-wrapper flex align-center">
                 <ContentEditable
                     innerRef={this.contentEditable}
                     html={this.state.html} // innerHTML of the editable div

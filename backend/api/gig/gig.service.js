@@ -91,15 +91,12 @@ function _buildCriteria(filterBy) {
         },
         {
             desc: txtCriteria
-        }
-    ]
-    if (filterBy.owner) {
-        console.log(filterBy.owner)
-        criteria.owner = {}
-        criteria.owner.fullname = { $regex: '', $options: 'i' }
-        criteria.owner.imgUrl = { $regex: '', $options: 'i' }
-        criteria.owner._id = filterBy.owner}
-
+        }]
+    //     {
+    //         ['owner._id']: filterBy.owner 
+    //     },
+    //     ...filterBy.gigList.map(id => ({_id: id}))
+    // ]
     // if (filterBy.type !== 'all') {
     //     criteria.type = filterBy.type
     // }
