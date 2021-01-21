@@ -37,6 +37,7 @@ class _GigDetails extends React.Component {
         htmlDesc: '',
         suggestedGigs: [],
         mobileStarStats: false,
+        isHelful:false,
     }
 
     async componentDidMount() {
@@ -62,10 +63,11 @@ class _GigDetails extends React.Component {
         if (windowWitdh > 1200) shortReviewSize = 33.4375;
         // if (windowWitdh < 1200 && windowWitdh >= 1040) shortReviewSize = 39.4189375
         // if (windowWitdh < 1040 && windowWitdh >= 860) shortReviewSize = 45
-        if (windowWitdh < 1040 && windowWitdh >= 860) shortReviewSize = 30.9375
+        if (windowWitdh < 1040 && windowWitdh >= 860) shortReviewSize = 33.4375
         if (windowWitdh < 860) shortReviewSize = 30
-        if (windowWitdh <= 900) isFullSizeScreen = false
+        if (windowWitdh <= 860) isFullSizeScreen = false
         if (windowWitdh <= 700) { } mobileStarStats = true;
+        if(windowWitdh <= 945 && windowWitdh >900) shortReviewSize=29.2375
         // if(<=1040 )
         this.setState({ shortReviewSize, isFullSizeScreen, mobileStarStats })
     }
@@ -181,10 +183,15 @@ class _GigDetails extends React.Component {
         this.toggleIsDescEditble()
     }
 
+    onToggleHelfull = () =>{
+        let {isHelful} = this.state
+        console.log("isHelful", isHelful)
+        this.setState({isHelful:!isHelful})
+    }
 
 
     render() {
-        const { gig, numImgChoosen, isTitleEditble, isGigOwner, isDescEditble, isLightBoxOpen, isFullSizeScreen, shortReviewSize } = this.state
+        const { gig, numImgChoosen, isTitleEditble, isGigOwner, isDescEditble, isLightBoxOpen, isFullSizeScreen, shortReviewSize, isHelful } = this.state
         const { user } = this.props
         const { currImg } = this.state
         const htmlStars = this.getAvgRate()
@@ -205,8 +212,9 @@ class _GigDetails extends React.Component {
                 {/* <RichTextEditor desc={'<h1>tomer<h1>'} onSaveHtml={this.onSaveHtml} /> */}
                 {/* <PrintEditor html={gig.desc} /> */}
                 {isLightBoxOpen && <GigImgLightBox gig={gig} onToggleImgLightbox={this.onToggleImgLightbox} currImg={currImg} onNextPageLightBox={this.onNextPageLightBox} onPrevPageLightBox={this.onPrevPageLightBox} />}
-                <div className="details-wrapper main-layout">
-                    <section className="gig-details main-layout">
+                <div className="details-wrapper main-container">
+                {/* <div className="details-wrapper main-layout"> */}
+                    <section className="gig-details">
                         <div className="main-details">
                             <EditableElement field={'title'} type={'h1'} text={gig.title} save={this.onSave} editable={isTitleEditble} />
                             {isTitleEditble && <button onClick={this.onEdit}>Save</button>}
@@ -246,8 +254,8 @@ class _GigDetails extends React.Component {
                             {/* <h1>Suggested</h1> */}
                             {/* <GigList onUserViewGig={() => { }} onFavoriteToggle={this.onFavoriteToggle} user={user} /> */}
                             {user && <GigAddReview gig={gig} user={user} onAddReview={this.onAddReview} mobileStarStats={this.state.mobileStarStats} />}
-                            <div>
-                                <ReviewList gig={gig} user={user} />
+                            <div className="review-list-wrapper">
+                                <ReviewList gig={gig} user={user} onToggleHelfull={this.onToggleHelfull} isHelful={isHelful} />
                             </div>
                         </div>
                         {isFullSizeScreen && <SideBar gig={gig} onGigOrder={this.onGigOrder} />}

@@ -4,6 +4,10 @@
         align-self: start;
         margin-inline-end: rem(10px);
         font-size: rem(18px);
+        margin-block-end:0 ;
+    }
+    .stars-container{
+        padding-block-start: rem(16px);
     }
     svg {
         color: $starsColor;
@@ -19,7 +23,11 @@
 }
 
 .review-stats-container {
-    padding-block-end: 30px;
+    padding-block-end: 45px;
+    // padding-block-end: 30px;
+    // padding-block-end: rem(62px);
+    
+
     font-size: rem(20px);
     display: flex;
     justify-content: space-between;

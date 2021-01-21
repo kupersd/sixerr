@@ -6,7 +6,7 @@
     // border-radius: 4px;
     height: 100%;
     .content-wrapper {
-        padding-inline-start: rem(30px);
+        padding-inline-start: rem(14px);
         padding-block-start: rem(8px);
     }
     p {
@@ -17,7 +17,7 @@
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         margin-block-end: 0;
-        padding-inline-start: 86.5px;
+        padding-inline-start: rem(70.5px);
         padding-block-end: rem(4.3px);
     }
     .content {
