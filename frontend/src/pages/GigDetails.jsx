@@ -169,8 +169,9 @@ class _GigDetails extends React.Component {
         })
     }
 
-    onGigOrder = () => {
-        this.props.orderGig(this.state.gig, this.props.user)
+    onGigOrder = async () => {
+        console.log('ORDER');
+        await this.props.orderGig(this.state.gig, this.props.user)
     }
 
 
