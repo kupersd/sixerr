@@ -13,11 +13,13 @@ async function getGig(req, res) {
 
 async function getGigs(req, res) {
     console.log('Query', req.query)
-    console.log('Params', req.params)
-    const { text, owner } = req.query
+    const { text, owner, gigList, tags } = req.query
     const filterBy = {
         text: text || '',
         owner: owner || '',
+        gigList: gigList || [],
+        tags: tags || []
+        
         // type: type || 'all',
         // inStock: inStock === 'true',
         // price: +price || 0

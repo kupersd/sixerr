@@ -12,10 +12,15 @@ function emit({ type, data }) {
 
 
 function connectSockets(http, session) {
-    gIo = require('socket.io')(http);
-
+    gIo = require("socket.io")(http, {
+        cors: {
+            origin: 'http://localhost:3000',
+            methods: ["GET", "POST"],
+            allowedHeaders: ["my-custom-header"],
+            credentials: true
+        }
+    });
     const sharedSession = require('express-socket.io-session');
-
     gIo.use(sharedSession(session, {
         autoSave: true
     }));
@@ -23,12 +28,13 @@ function connectSockets(http, session) {
         // console.log('socket.handshake', socket.handshake)
         gSocketBySessionIdMap[socket.handshake.sessionID] = socket
         socket.on('disconnect', socket => {
-            console.log('Someone disconnected')
+            console.log('Someone disconnected', socket)
             if (socket.handshake) {
                 gSocketBySessionIdMap[socket.handshake.sessionID] = null
             }
         })
         socket.on('chat topic', topic => {
+            console.log ('topic' ,topic)
             if (socket.myTopic) {
                 socket.leave(socket.myTopic)
             }
@@ -37,10 +43,18 @@ function connectSockets(http, session) {
             socket.myTopic = topic
         })
         socket.on('chat newMsg', msg => {
+            console.log ('msg' ,msg)
             // emits to all sockets:
             // gIo.emit('chat addMsg', msg)
             // emits only to sockets in the same room
             gIo.to(socket.myTopic).emit('chat addMsg', msg)
+        })
+        socket.on('new order', msg => {
+            console.log ('msg' ,msg)
+            // emits to all sockets:
+            // gIo.emit('chat addMsg', msg)
+            // emits only to sockets in the same room
+            gIo.to(msg.gig.owner._id).emit('order received', msg)
         })
 
     })
