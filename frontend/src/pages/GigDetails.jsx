@@ -18,8 +18,14 @@ import { ShortReviewList } from '../cmps/ShortReviewList.jsx'
 import { ImgGallery } from '../cmps/ImgGallery.jsx'
 import { CarouselImgs } from '../cmps/Carousel.jsx'
 import AnchorLink from 'react-anchor-link-smooth-scroll'
+import { socketService } from '../services/socketService.js';
+
 import RichTextEditor from '../cmps/RichTextEditor.jsx'
 import { GigList } from '../cmps/GigList.jsx'
+import Loader from 'react-loader-spinner'
+
+// import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
+
 
 class _GigDetails extends React.Component {
 
@@ -35,11 +41,13 @@ class _GigDetails extends React.Component {
         shortReviewSize: 39.4189375,
         isFullSizeScreen: true,
         htmlDesc: '',
-        suggestedGigs:[],
-        mobileStarStats:false,
+        suggestedGigs: [],
+        mobileStarStats: false,
+        isHelful: false,
     }
 
     async componentDidMount() {
+        socketService.setup()
         const gigId = this.props.match.params.gigId
         const gig = await loadGig(gigId)
         const gigs = await loadGigs() // TODO: CHANGE all waits to first go and then get all at the end....
@@ -51,7 +59,7 @@ class _GigDetails extends React.Component {
         const currImg = gig.imgUrls[numImgChoosen]
         if (currImg) this.setState({ gig, currImg })
         this.onSetSizes()
-        this.setState({ gig})
+        this.setState({ gig })
     }
 
     onSetSizes = () => {
@@ -59,13 +67,16 @@ class _GigDetails extends React.Component {
         let shortReviewSize;
         let mobileStarStats = false;
         const windowWitdh = window.innerWidth
-        if (windowWitdh > 1200) shortReviewSize = 39.4189375;
-        if (windowWitdh < 1200 && windowWitdh >= 1040) shortReviewSize = 39.4189375
-        if (windowWitdh < 1040 && windowWitdh >= 860) shortReviewSize = 45
+        if (windowWitdh > 1200) shortReviewSize = 33.4375;
+        // if (windowWitdh < 1200 && windowWitdh >= 1040) shortReviewSize = 39.4189375
+        // if (windowWitdh < 1040 && windowWitdh >= 860) shortReviewSize = 45
+        if (windowWitdh < 1040 && windowWitdh >= 860) shortReviewSize = 33.4375
         if (windowWitdh < 860) shortReviewSize = 30
-        if (windowWitdh <= 1040) isFullSizeScreen = false
-        if(windowWitdh <= 700){} mobileStarStats=true;
-        this.setState({ shortReviewSize, isFullSizeScreen,mobileStarStats })
+        if (windowWitdh <= 860) isFullSizeScreen = false
+        if (windowWitdh <= 700) { } mobileStarStats = true;
+        if (windowWitdh <= 945 && windowWitdh > 900) shortReviewSize = 29.2375
+        // if(<=1040 )
+        this.setState({ shortReviewSize, isFullSizeScreen, mobileStarStats })
     }
 
     onToggleImgLightbox = () => {
@@ -168,10 +179,11 @@ class _GigDetails extends React.Component {
             console.log('remove succefully');
         })
     }
-
+    
     onGigOrder = async () => {
-        console.log('ORDER');
+        const { gig } = this.state
         await this.props.orderGig(this.state.gig, this.props.user)
+        socketService.emit('new order', { from: this.props.user, txt: 'NEW ORDER !!!!', gig})
     }
 
 
@@ -180,15 +192,21 @@ class _GigDetails extends React.Component {
         this.toggleIsDescEditble()
     }
 
+    onToggleHelfull = () => {
+        let { isHelful } = this.state
+        this.setState({ isHelful: !isHelful })
+    }
 
 
     render() {
-        const { gig, numImgChoosen, isTitleEditble, isGigOwner, isDescEditble, isLightBoxOpen, isFullSizeScreen, shortReviewSize } = this.state
+        const { gig, numImgChoosen, isTitleEditble, isGigOwner, isDescEditble, isLightBoxOpen, isFullSizeScreen, shortReviewSize, isHelful } = this.state
         const { user } = this.props
         const { currImg } = this.state
         const htmlStars = this.getAvgRate()
         console.log('this.props.gigs', this.props.gigs);
-        if (!gig) return <div>Loading...</div>
+        // if (!gig) return <Loader type="BallTriangle" color="#00BFFF" className="flex justify-center" height={80} width={80} />
+        if (!gig) return <Loader className="flex justify-center" type="ThreeDots" height={80} width={80} color={`#2bbe76`} />
+        // if (!gig) return
         return (
             <>
                 {/* <div className="main-layout">
@@ -203,9 +221,11 @@ class _GigDetails extends React.Component {
                 </div> */}
                 {/* <RichTextEditor desc={'<h1>tomer<h1>'} onSaveHtml={this.onSaveHtml} /> */}
                 {/* <PrintEditor html={gig.desc} /> */}
+                
                 {isLightBoxOpen && <GigImgLightBox gig={gig} onToggleImgLightbox={this.onToggleImgLightbox} currImg={currImg} onNextPageLightBox={this.onNextPageLightBox} onPrevPageLightBox={this.onPrevPageLightBox} />}
-                <div className="details-wrapper main-layout">
-                    <section className="gig-details main-layout">
+                <div className="details-wrapper main-container">
+                    {/* <div className="details-wrapper main-layout"> */}
+                    <section className="gig-details">
                         <div className="main-details">
                             <EditableElement field={'title'} type={'h1'} text={gig.title} save={this.onSave} editable={isTitleEditble} />
                             {isTitleEditble && <button onClick={this.onEdit}>Save</button>}
@@ -231,11 +251,11 @@ class _GigDetails extends React.Component {
                                 <h2>About This Gig</h2>
                                 <div className="about flex">
                                     {isGigOwner && <EditableElement dangerouslySetInnerHTML={{ __html: `${this.state.htmlDesc}` }} className="gig-desc" field={'desc'} type={'h4'} text={gig.desc} save={this.onSave} editable={isDescEditble} />}
-                                    {/* {!isDescEditble && <div dangerouslySetInnerHTML={{ __html: `${this.state.htmlDesc}` }}>
+                                    {!isDescEditble && <div dangerouslySetInnerHTML={{ __html: `${this.state.htmlDesc}` }}>
                                     </div>}
                                     {isDescEditble &&
                                         <RichTextEditor desc={'<h1>tomer<h1>'} onSaveHtml={this.onSaveHtml} />
-                                    } */}
+                                    }
                                 </div>
                                 {/* {!isDescEditble && < button onClick={this.toggleIsDescEditble}>edit</button>} */}
                             </div>
@@ -245,7 +265,9 @@ class _GigDetails extends React.Component {
                             {/* <h1>Suggested</h1> */}
                             {/* <GigList onUserViewGig={() => { }} onFavoriteToggle={this.onFavoriteToggle} user={user} /> */}
                             {user && <GigAddReview gig={gig} user={user} onAddReview={this.onAddReview} mobileStarStats={this.state.mobileStarStats} />}
-                            <ReviewList gig={gig} user={user} />
+                            <div className="review-list-wrapper">
+                                <ReviewList gig={gig} user={user} onToggleHelfull={this.onToggleHelfull} isHelful={isHelful} />
+                            </div>
                         </div>
                         {isFullSizeScreen && <SideBar gig={gig} onGigOrder={this.onGigOrder} />}
                     </section>

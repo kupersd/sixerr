@@ -8,13 +8,17 @@
         margin-inline-end: 0.3rem;
     }
     .owner-fullname {
+        color: #404145;
         font-weight: bold;
         font: 400 16px/24px "Macan", "Helvetica Neue", Helvetica, Arial, sans-serif;
         font-weight: bold;
+        font-size: rem(14px);
     }
+
 
     .order-count {
         color: rgb(192, 192, 192);
+        padding-block-start: rem(2px);
     }
     .avatar {
         width: rem(32px);
@@ -36,11 +40,21 @@
             color: #ffbf00;
             font-weight: 700;
             margin-inline-start: rem(2px);
+            margin-block-start: rem(1px);
         }
         span{
+            margin-block-start: rem(3.625px);
             margin-inline-start: rem(5px);
-
         }
+
     }
-    
+    .level{
+        padding-inline-start:rem(1px) ;
+        font-size: 14px;
+        color: #62646a;
+    }
+    .total-reviews{
+        padding-block-start: rem(1.625px);
+        color: #404145;
+    }
 }

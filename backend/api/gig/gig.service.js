@@ -84,19 +84,27 @@ async function add(gig) {
 
 function _buildCriteria(filterBy) {
     const criteria = {}
+    console.log('list', filterBy.gigList)
     const txtCriteria = { $regex: filterBy.text, $options: 'i' }
-    criteria.$or = [
-        {
-            title: txtCriteria
-        },
-        {
-            desc: txtCriteria
-        }]
-    //     {
-    //         ['owner._id']: filterBy.owner 
-    //     },
-    //     ...filterBy.gigList.map(id => ({_id: id}))
-    // ]
+    // const tagCriterias = filterBy.tags.map(tag => ({ $regex: tag, $options: 'i' }))
+    if (filterBy.owner || filterBy.gigList.length) {
+        criteria.$or = [
+            {
+                ['owner._id']: filterBy.owner
+            },
+            ...filterBy.gigList.map(id => ({ _id: ObjectId(id) }))
+        ]
+    } else if (filterBy.tags.length) criteria.$or = filterBy.tags.map(tag => ( { tags:tag } ) )
+    else {
+        criteria.$or = [
+            {
+                title: txtCriteria
+            },
+            {
+                desc: txtCriteria
+            },
+        ]
+    }
     // if (filterBy.type !== 'all') {
     //     criteria.type = filterBy.type
     // }

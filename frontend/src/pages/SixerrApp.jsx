@@ -9,6 +9,7 @@ import { updateUser } from "../store/actions/userActions.js";
 class _SixerrApp extends React.Component {
 
     componentDidMount() {
+        // this.props.loadGigs({tags: ['logo', 'graphic design']})
         this.props.loadGigs()
     }
 

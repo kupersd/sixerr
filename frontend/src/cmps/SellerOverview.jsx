@@ -7,9 +7,9 @@ export function SellerOverview({ gig, htmlStars }) {
             <Avatar className="avatar" alt="Remy Sharp" src="https://avataaars.io/?avatarStyle=Circle&topType=LongHairStraight&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light" />
             <div className="flex align-center info">
                 <span className="owner-fullname">{gig.owner.fullname}</span>
-                <span>Level 2 Seller </span>
-                <span className="space">|</span>
+                <span className="level">Level 2 Seller </span>
             </div>
+                <span className="space">|</span>
             <div className="seller-stars-container flex">
                 {/* <Rating name="disabled" value={htmlStars.length - 1} disabled /> */}
                 {htmlStars.map((star) => {
@@ -17,8 +17,8 @@ export function SellerOverview({ gig, htmlStars }) {
                 })}
                 <span>{(htmlStars.length - 1 === -1) ? 0 : htmlStars.length - 1}</span>
             </div>
-            <span>({gig.reviews.length})</span>
-            <span>|</span>
+            <span className="total-reviews">({gig.reviews.length})</span>
+            <span className="space space-end">|</span>
             {/* get orders from gig */}
             <span className="order-count">1 Orders in Queue</span>
         </section>

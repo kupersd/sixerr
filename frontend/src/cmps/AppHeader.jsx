@@ -4,6 +4,7 @@ import { NavLink, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { Login } from '../pages/Login'
 import { logout } from '../store/actions/userActions'
+import { socketService } from '../services/socketService'
 
 
 class _AppHeader extends React.Component {
@@ -16,7 +17,10 @@ class _AppHeader extends React.Component {
     }
 
     onToggleLogin = () => {
+        const { user } = this.props
         this.setState({ isLoginOpen: !this.state.isLoginOpen })
+        if (user) socketService.emit('chat topic', user._id)
+
     }
 
     onLogout = async () => {
