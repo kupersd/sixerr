@@ -3,11 +3,16 @@ import { GigDetails } from './pages/GigDetails.jsx'
 import { GigEdit } from './pages/GigEdit.jsx'
 import { Profile } from './pages/Profile.jsx'
 import { Hero } from './cmps/Hero.jsx'
+import { Checkout } from './pages/Checkout.jsx'
 
 export const routes = [
     {
         path:'/gig/edit/:gigId?',
         component: GigEdit
+    },
+    {
+        path:'/gig/checkout/:gigId?',
+        component:Checkout
     },
     {
         path:'/gig/:gigId',

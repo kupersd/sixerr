@@ -30,6 +30,18 @@
     }
     .btns-container {
         margin-block-start: 2rem;
+        a {
+            width: 100%;
+            cursor: pointer;
+            &:hover {
+                background: #19a463 !important;
+            }
+            button {
+                &:hover {
+                    background: #19a463 !important;
+                }
+            }
+        }
         .continue {
             background-color: $boldColor;
             color: $lightColor;

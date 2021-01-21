@@ -20,6 +20,10 @@ import { CarouselImgs } from '../cmps/Carousel.jsx'
 import AnchorLink from 'react-anchor-link-smooth-scroll'
 import RichTextEditor from '../cmps/RichTextEditor.jsx'
 import { GigList } from '../cmps/GigList.jsx'
+import Loader from 'react-loader-spinner'
+
+// import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
+
 
 class _GigDetails extends React.Component {
 
@@ -37,7 +41,7 @@ class _GigDetails extends React.Component {
         htmlDesc: '',
         suggestedGigs: [],
         mobileStarStats: false,
-        isHelful:false,
+        isHelful: false,
     }
 
     async componentDidMount() {
@@ -67,7 +71,7 @@ class _GigDetails extends React.Component {
         if (windowWitdh < 860) shortReviewSize = 30
         if (windowWitdh <= 860) isFullSizeScreen = false
         if (windowWitdh <= 700) { } mobileStarStats = true;
-        if(windowWitdh <= 945 && windowWitdh >900) shortReviewSize=29.2375
+        if (windowWitdh <= 945 && windowWitdh > 900) shortReviewSize = 29.2375
         // if(<=1040 )
         this.setState({ shortReviewSize, isFullSizeScreen, mobileStarStats })
     }
@@ -183,10 +187,9 @@ class _GigDetails extends React.Component {
         this.toggleIsDescEditble()
     }
 
-    onToggleHelfull = () =>{
-        let {isHelful} = this.state
-        console.log("isHelful", isHelful)
-        this.setState({isHelful:!isHelful})
+    onToggleHelfull = () => {
+        let { isHelful } = this.state
+        this.setState({ isHelful: !isHelful })
     }
 
 
@@ -196,7 +199,9 @@ class _GigDetails extends React.Component {
         const { currImg } = this.state
         const htmlStars = this.getAvgRate()
         console.log('this.props.gigs', this.props.gigs);
-        if (!gig) return <div>Loading...</div>
+        // if (!gig) return <Loader type="BallTriangle" color="#00BFFF" className="flex justify-center" height={80} width={80} />
+        if (!gig) return <Loader className="flex justify-center" type="ThreeDots" height={80} width={80} color={`#2bbe76`} />
+        // if (!gig) return
         return (
             <>
                 {/* <div className="main-layout">
@@ -211,9 +216,10 @@ class _GigDetails extends React.Component {
                 </div> */}
                 {/* <RichTextEditor desc={'<h1>tomer<h1>'} onSaveHtml={this.onSaveHtml} /> */}
                 {/* <PrintEditor html={gig.desc} /> */}
+                
                 {isLightBoxOpen && <GigImgLightBox gig={gig} onToggleImgLightbox={this.onToggleImgLightbox} currImg={currImg} onNextPageLightBox={this.onNextPageLightBox} onPrevPageLightBox={this.onPrevPageLightBox} />}
                 <div className="details-wrapper main-container">
-                {/* <div className="details-wrapper main-layout"> */}
+                    {/* <div className="details-wrapper main-layout"> */}
                     <section className="gig-details">
                         <div className="main-details">
                             <EditableElement field={'title'} type={'h1'} text={gig.title} save={this.onSave} editable={isTitleEditble} />

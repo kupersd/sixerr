@@ -2,14 +2,17 @@ import React from 'react'
 import QueryBuilderIcon from '@material-ui/icons/QueryBuilder';
 import LoopIcon from '@material-ui/icons/Loop';
 import DoneIcon from '@material-ui/icons/Done';
+import { Link } from 'react-router-dom'
+
 export default function SideBar({ gig, onGigOrder }) {
+    console.log('gig package',gig.packages[0].desc);
     return (
         <>
             <div className="sidebar">
                 <div className="package-content">
                     <div>
                         <h3 className="flex space-between">
-                            200 words Thai SEO content
+                            {gig.packages[0].desc}
                 <span>${gig.packages[0].price}</span>
                         </h3>
                         <p>SEO research, keyword optimizing and content writing</p>
@@ -31,7 +34,8 @@ export default function SideBar({ gig, onGigOrder }) {
                         </ul>
                     </div>
                     <div className="btns-container flex justify-center">
-                        <button className="continue" onClick={onGigOrder} >Continue<span>{' '}</span>(${gig.packages[0].price})</button>
+                        <Link to={`/gig/checkout/${gig._id}`}><button className="continue">Continue<span>{' '}</span>(${gig.packages[0].price})</button></Link>
+                        {/* <button className="continue" onClick={onGigOrder} >Continue<span>{' '}</span>(${gig.packages[0].price})</button> */}
                     </div>
                 </div>
             </div>
@@ -41,3 +45,4 @@ export default function SideBar({ gig, onGigOrder }) {
         </>
     )
 }
+               
