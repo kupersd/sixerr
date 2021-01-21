@@ -1,6 +1,7 @@
 .about-seller-container {
     margin-block-end: rem(25px);
     h2 {
+        color: #404145;
         margin: 0;
         padding-block-end: rem(25px);
         font-size: rem(20px);
@@ -16,29 +17,46 @@
             padding-inline-end: rem(25px);
         }
         .stars-container {
-            padding-block-start: rem(5px);
             align-items: center;
             svg {
                 margin-inline-end: rem(3px);
                 color: #ffbf00;
-                    font-weight: 700;
+                font-weight: 700;
             }
         }
-        .contact-btn-div{
+        .contact-btn-div {
             margin-block-start: rem(18px);
-            button {
-                @include defButton;
-                width: 130px;
-                margin-block-start: 0.5rem;
+            // button {
+            //     // @include defButton;
+            //     width: 130px;
+            //     margin-block-start: 0.5rem;
+            // }
+        }
+        button {
+            margin-block-start: rem(20px);
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            border: 1px solid #62646a;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 130px;
+            @include defButton;
+            background-color: white;
+            color: #62646a;
+            font-size: rem(15px);
+            padding-block-end:rem(2px) ;
+            &:hover{
+                color: #fff;
+                background: #7a7d85;
             }
         }
-        button{
-            @include defButton;
-
-        }
+        
     }
-    .content{
+    .content {
         padding-block-end: rem(20px);
+        span{
+            color:#62646a;
+        }
     }
 }
 
@@ -64,6 +82,9 @@
             padding: 0.5rem;
         }
         border-bottom: 1px solid grey;
+        span{
+            color:#7a7d85;
+        }
     }
     .bold {
         display: block;
@@ -71,5 +92,8 @@
         color: #62646a;
         padding-block-start: 0;
         padding-block-end: 1rem;
+    }
+    p{
+        color: #62646a;
     }
 }

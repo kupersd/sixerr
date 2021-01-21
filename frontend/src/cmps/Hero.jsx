@@ -5,6 +5,7 @@ import { GigStrip } from './GigStrip.jsx';
 import { loadGigs } from "../store/actions/gigActions.js";
 import { updateUser } from "../store/actions/userActions.js";
 import { GigList } from './GigList.jsx';
+import { GigCtgList } from './GigCtgStrip.jsx';
 
 
 class _Hero extends React.Component {
@@ -91,6 +92,7 @@ class _Hero extends React.Component {
                         </div>
                         <span>{hero.username}</span>, {hero.occupation}
                     </div>
+                    </section>
                     <div className="main-container">
 
                         {/* <SixerrApp /> */}
@@ -100,6 +102,7 @@ class _Hero extends React.Component {
                             onFavoriteToggle={this.onFavoriteToggle}
                             user={this.props.user}
                             onDelete={this.onDelete} />
+                        <GigCtgList />
                         <GigStrip title={'Software'}
                             bgColor={'#f7f7f7'}
                             gigs={jsGigs}
@@ -124,7 +127,7 @@ class _Hero extends React.Component {
                         <GigList gigs={suggestedGigs} onDelete={this.onDelete} onUserViewGig={() => { }} onFavoriteToggle={this.onFavoriteToggle} isSmallPreview={true} />
                     </div>
 
-                </section>
+                {/* </section> */}
             </>
         )
     }
