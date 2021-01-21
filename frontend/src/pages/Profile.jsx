@@ -8,6 +8,7 @@ import { GigList } from '../cmps/GigList.jsx';
 import { EditableElement } from '../cmps/EditableElement.jsx';
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 import { OrderList } from '../cmps/OrderList.jsx';
+import { socketService } from '../services/socketService.js';
 
 class _Profile extends React.Component {
 
@@ -25,14 +26,19 @@ class _Profile extends React.Component {
 
     async componentDidMount() {
         const { user } = this.props
-        // await this.props.loadGigs({owner: user._id, gigList: user.viewedGigIds })
+
+        socketService.on('order received', this.onNewOrder)
+        // const gigList = user.viewedGigIds ? user.viewedGigIds : []
+        // user.favoriteIds?.forEach(favId => { if (!gigList.find(id => id === favId)) gigList.push(favId) })
+        // await this.props.loadGigs({ owner: user._id, gigList })
+        // console.log('GIGS', this.props.gigs)
         await this.props.loadGigs() // TODO: CHANGE all waits to first go and then get all at the end....
         await this.props.loadOrders()
         console.log('orders', this.props.orders)
         const ordersAsBuyer = this.props.orders.filter(order => order.buyer._id === user._id)
         const ordersAsSeller = this.props.orders.filter(order => user.myGigIds?.some(gigId => gigId === order.gig._id))
         const myGigs = user.myGigIds ? await getGigs(user.myGigIds) : []
-        
+
         const lastViewed = user.viewedGigIds ? await getGigs(user.viewedGigIds) : []
         const favoriteGigs = user.favoriteIds ? await getGigs(user.favoriteIds) : []
         this.setState(prevState =>
@@ -45,6 +51,26 @@ class _Profile extends React.Component {
             ordersAsBuyer,
             ordersAsSeller
         }))
+    }
+
+    componentWillUnmount() {
+        socketService.off('order received', this.onNewOrder)
+        // clearTimeout(this.timeout)
+    }
+
+    onNewOrder = async (newMsg) => {
+        const { user } = this.props
+        // TODO: INTERNAL FUNCTION FOR LOADING ORDERS
+        await this.props.loadOrders()
+        const ordersAsBuyer = this.props.orders.filter(order => order.buyer._id === user._id)
+        const ordersAsSeller = this.props.orders.filter(order => user.myGigIds?.some(gigId => gigId === order.gig._id))
+        this.setState(prevState =>
+        ({
+            ...prevState,
+            ordersAsBuyer,
+            ordersAsSeller
+        }))
+        console.log('NEWWWWWW', newMsg)
     }
 
     handleInput = ({ target }) => {
@@ -126,7 +152,7 @@ class _Profile extends React.Component {
                     {myGigs.length === 0 &&
                         <div className="start-selling flex align-center">
                             <h2>You do not have any gigs yet.</h2>
-                            <button onClick={() => this.props.history.push('/gig/edit')}> 
+                            <button onClick={() => this.props.history.push('/gig/edit')}>
                                 Start Selling
                             </button>
                         </div>}
@@ -141,7 +167,7 @@ class _Profile extends React.Component {
                 <h1>Favorites</h1>
                 <GigList gigs={favoriteGigs} onDelete={this.onDelete} onUserViewGig={() => { }} onFavoriteToggle={this.onFavoriteToggle} user={user} />
                 <h1>Suggested</h1>
-                <GigList gigs={suggestedGigs} onDelete={this.onDelete} onUserViewGig={() => { }} onFavoriteToggle={this.onFavoriteToggle} user={user} isSmallPreview={true}/>
+                <GigList gigs={suggestedGigs} onDelete={this.onDelete} onUserViewGig={() => { }} onFavoriteToggle={this.onFavoriteToggle} user={user} isSmallPreview={true} />
             </section>
         )
     }

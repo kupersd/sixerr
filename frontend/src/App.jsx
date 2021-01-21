@@ -3,8 +3,10 @@ import { Switch, Route } from 'react-router-dom'
 import './assets/styles/basics/styles.scss';
 import { AppHeader } from './cmps/AppHeader';
 import { routes } from './routes';
+import { socketService } from './services/socketService';
 
 export function App() {
+  socketService.setup()
   return (
     <>
       <div className="App">
