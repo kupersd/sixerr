@@ -25,13 +25,23 @@ export const httpService = {
 }
 
 async function ajax(endpoint, method = 'get', data = null) {
-    console.log('endpoint', endpoint)
+    console.log('data', data)
     try {
-        const res = await axios({
-            url: `${BASE_URL}${endpoint}`,
-            method,
-            data
-        })
+        var res
+        if (method === 'GET') {
+            res = await axios({
+                url: `${BASE_URL}${endpoint}`,
+                method,
+                params: data
+            })
+        }
+        else {
+            res = await axios({
+                url: `${BASE_URL}${endpoint}`,
+                method,
+                data
+            })
+        }
         return res.data
     } catch (err) {
         console.log(`Had Issues ${method}ing to the backend, endpoint: ${endpoint}, with data: ${data}`)

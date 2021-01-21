@@ -22,8 +22,9 @@ async function signup(username, password, fullname) {
     logger.debug(`auth.service - signup with username: ${username}, fullname: ${fullname}`)
     if (!username || !password || !fullname) return Promise.reject('fullname, username and password are required!')
 
-    const hash = await bcrypt.hash(password, saltRounds)
-    return userService.add({ username, password: hash, fullname })
+    // const hash = await bcrypt.hash(password, saltRounds)
+    // return userService.add({ username, password: hash, fullname })
+    return userService.add({ username, password, fullname })
 }
 
 module.exports = {

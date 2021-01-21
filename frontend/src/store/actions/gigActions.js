@@ -2,6 +2,7 @@ import { gigService } from "../../services/gigService.js";
 import { cloudinaryService } from "../../services/cloudinaryService.js";
 
 export function loadGigs(filterBy ={}) {
+    console.log(filterBy)
     return async (dispatch) => {
     // return async (dispatch, getState) => {
         // const { filterBy } = getState().gigModule
