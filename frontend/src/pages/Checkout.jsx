@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { withRouter,Link } from 'react-router-dom'
 import InfoIcon from '@material-ui/icons/Info';
 import { loadGig } from '../store/actions/gigActions';
 import { utilService } from '../services/utilService.js'
@@ -7,6 +7,8 @@ import DoneIcon from '@material-ui/icons/Done';
 import { connect } from 'react-redux'
 import { orderGig } from '../store/actions/orderActions'
 import ContactSupportIcon from '@material-ui/icons/ContactSupport';
+import { socketService } from '../services/socketService.js';
+
 
 
 class _Checkout extends Component {
@@ -40,8 +42,16 @@ class _Checkout extends Component {
         this.setState({ isAprrovedInfo: !isAprrovedInfo })
     }
 
-    onGigOrder = () => {
-        this.props.orderGig(this.state.gig, this.props.user)
+    // onGigOrder = () => {
+    //     this.props.orderGig(this.state.gig, this.props.user)
+    // }
+
+    onGigOrder = async () => {
+        const { gig } = this.state
+        console.log("onGigOrder= , gig", gig)
+        await this.props.orderGig(gig, this.props.user)
+        socketService.emit('new order', { from: this.props.user, txt: 'NEW ORDER !!!!', gig})
+        this.props.history.push(`/gig/${gig._id}`)
     }
 
     render() {
@@ -129,11 +139,11 @@ class _Checkout extends Component {
                             <span>{gig.packages[0].deliveryDays} Days</span>
                         </div>
                         <div className="buy-btn-container">
-                            <button onClick={() => this.onGigOrder()} >Continue to Checkout</button>
+                            <button onClick={() => this.onGigOrder()} >Purchase now</button>
                         </div>
-                        <div className="wont-be-charged flex justify-center">
-                            <span >You Wont Be Charged Yet</span>
-                        </div>
+                        {/* <div className="wont-be-charged flex justify-center"> */}
+                            {/* <span >You Wont Be Charged Yet</span>
+                        </div> */}
                     </div>
                 </div>
             </section>
@@ -153,4 +163,4 @@ const mapDispatchToProps = {
     orderGig
 }
 
-export const Checkout = connect(mapStateToProps, mapDispatchToProps)(_Checkout)
+export const Checkout = connect(mapStateToProps, mapDispatchToProps)(withRouter(_Checkout))
