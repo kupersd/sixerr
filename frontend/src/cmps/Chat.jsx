@@ -1,43 +1,65 @@
-import React from 'react'
+import React, { Component } from 'react'
+import ChatBox, { ChatFrame } from 'react-chat-plugin';
 import { connect } from 'react-redux'
 
-class _Chat extends React.Component {
+
+class _Chat extends Component {
     state = {
-        filterBy: {
-            text: ''
-        }
-    }
+        user: null,
+        messages: [],
+    };
 
     componentDidMount() {
-        console.log('chat cmp loaded')
+        const { user } = this.props
+        this.setState({ user })
     }
 
-    render() {
 
+    handleOnSendMessage = (message) => {
+        const { user } = this.state;
+        const username = user.username
+        const avatarUrl = user.imgUrl
+        const id = user._id
+        this.setState({
+            messages: this.state.messages.concat({
+                author: {
+                    username,
+                    id,
+                    avatarUrl,
+                },
+                text: message,
+                timestamp: +new Date(),
+                type: 'text',
+            }),
+        });
+    };
+
+    render() {
+        const { user } = this.state
+        console.log("render!!!!!!! , user", user)
+        if (!user) return <div>log in you stupid!</div>
         return (
-            <>
-                <section className="chat-wrapper">
-                    <h1>CHAT</h1>
-                    <ul>
-                        <li>msg #1</li>
-                        <li>msg #2</li>
-                        <li>msg #3</li>
-                    </ul>
-                </section>
-            </>
+            <ChatBox
+                messages={this.state.messages}
+                userId={user._id}
+                onSendMessage={this.handleOnSendMessage}
+                width={'500px'}
+                height={'500px'}
+            />
         )
     }
 }
 
+
 const mapStateToProps = (state) => {
+
     return {
         gigs: state.gigModule.gigs,
+        user: state.userModule.user
     }
 }
 
 const mapDispatchToProps = {
-    // addGig,
-    // updateGig
 }
 
 export const Chat = connect(mapStateToProps, mapDispatchToProps)(_Chat)

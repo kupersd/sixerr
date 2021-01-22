@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { GigAddReview } from '../cmps/GigAddReview.jsx'
-// import { PackageList } from '../cmps/PackageList.jsx'
+import { PackageList } from '../cmps/PackageList.jsx'
 import { SellerPreview } from '../cmps/SellerPreview'
 import { addGig, loadGig, updateGig, removeGig, loadGigs } from '../store/actions/gigActions'
 import { orderGig } from '../store/actions/orderActions'
@@ -214,7 +214,9 @@ class _GigDetails extends React.Component {
                 </div> */}
                 {/* <RichTextEditor desc={'<h1>tomer<h1>'} onSaveHtml={this.onSaveHtml} /> */}
                 {/* <PrintEditor html={gig.desc} /> */}
-
+                {/* <div className="flex justify-center">
+                    <PackageList packages={gig.packages} />
+                </div> */}
                 {isLightBoxOpen && <GigImgLightBox gig={gig} onToggleImgLightbox={this.onToggleImgLightbox} currImg={currImg} onNextPageLightBox={this.onNextPageLightBox} onPrevPageLightBox={this.onPrevPageLightBox} />}
                 <div className="details-wrapper main-container">
                     {/* <div className="details-wrapper main-layout"> */}
@@ -253,7 +255,6 @@ class _GigDetails extends React.Component {
                                 {/* {!isDescEditble && < button onClick={this.toggleIsDescEditble}>edit</button>} */}
                             </div>
                             <SellerPreview seller={gig.owner} />
-                            {/* <PackageList packages={gig.packages} /> */}
                             <ReviewStats htmlStars={htmlStars} />
                             {/* <h1>Suggested</h1> */}
                             {/* <GigList onUserViewGig={() => { }} onFavoriteToggle={this.onFavoriteToggle} user={user} /> */}
