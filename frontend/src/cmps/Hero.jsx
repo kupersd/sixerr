@@ -1,16 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux'
+import { withRouter,Link } from 'react-router-dom'
 import StarRateIcon from '@material-ui/icons/StarRate';
-import { GigStrip } from './GigStrip.jsx';
-import { loadGigs } from "../store/actions/gigActions.js";
+import { loadGigs, setFilter } from "../store/actions/gigActions.js";
 import { updateUser } from "../store/actions/userActions.js";
-import { GigList } from './GigList.jsx';
-import { GigCtgList } from './GigCtgStrip.jsx';
-
+import SearchIcon from '@material-ui/icons/Search';
 
 class _Hero extends React.Component {
 
     state = {
+
+        filterBy: {
+            text: ''
+        },
+
         currHeroIdx: 0,
         heros: [
             {
@@ -35,17 +38,7 @@ class _Hero extends React.Component {
                 occupation: 'Producer',
             }
         ],
-        ctgs: [
-            { imgUrl: '/assets/img/ctg/pencils.jpg', title: 'Logo design', cta: 'Build your brand' },
-            { imgUrl: '/assets/img/ctg/guitar1.jpg', title: 'Guitar session', cta: 'Publish your art' },
-            { imgUrl: '/assets/img/ctg/condenser1.jpg', title: 'Voice over', cta: 'Share your message' },
-            { imgUrl: '/assets/img/ctg/coding1.jpg', title: 'Programming', cta: 'Create amazing things' },
-            { imgUrl: '/assets/img/ctg/canvas.jpg', title: 'Drawing', cta: 'Visualize your dream' },
-            { imgUrl: '/assets/img/ctg/coach.jpg', title: 'Marketing', cta: 'Spread the word' },
-            { imgUrl: '/assets/img/ctg/mixing.jpg', title: 'Mixing', cta: 'Finish your song' },
-            { imgUrl: '/assets/img/ctg/piano.jpg', title: 'Piano Lessons', cta: 'Learn to play' }
 
-        ]
     }
 
     heroInterval
@@ -57,6 +50,22 @@ class _Hero extends React.Component {
 
     componentWillUnmount() {
         clearInterval(this.heroInterval)
+    }
+
+    handleChange = ({ target }) => {
+        const field = target.name
+        const value = target.value
+        this.setState(prevState => ({ filterBy: { ...prevState.filterBy, [field]: value } }), () => {
+            this.onSetFilter(this.state.filterBy)
+        })
+    }
+
+    onSetFilter = (filterBy) => {
+        this.props.setFilter(filterBy)
+    }
+
+    onSearch = () => {
+        this.props.history.push('/gig')
     }
 
     onUserViewGig = (gigId) => {
@@ -82,14 +91,25 @@ class _Hero extends React.Component {
 
         const jsGigs = [...this.props.gigs.slice(3)]
         const musicGigs = [...this.props.gigs.slice(5)]
-        const suggestedGigs = [...this.props.gigs.slice(4)]
+        const suggestedGigs = [...this.props.gigs.slice(8, 16)]
         return (
             <>
                 <section className="hero">
                     <div className="main-container">
-                        <h1>Find the perfect <span>freelance</span> for your business</h1>
+                        <div className="hero-cta">
+                            <h1>Find the perfect <span>freelance</span> for your business</h1>
+                            <div className="hero-search">
+                                <SearchIcon className="search-icon" />
+                                <input value={this.state.filterBy.text}
+                                    type="search"
+                                    name="text"
+                                    placeholder={`Try "building mobile app"`}
+                                    onChange={this.handleChange} />
+                                <button onClick={this.onSearch}>Search</button>
+                            </div>
+                        </div>
                     </div>
-                    <img src={hero.imgUrl} alt="" />
+                    <img src={hero.imgUrl} alt="hero" />
                     <div className="hero-snippet">
                         <div className="stars">
                             <StarRateIcon />
@@ -101,40 +121,6 @@ class _Hero extends React.Component {
                         <span>{hero.username}</span>, {hero.occupation}
                     </div>
                 </section>
-                <div className="main-container">
-
-                    {/* <SixerrApp /> */}
-                    <GigStrip title={'Design'}
-                        gigs={this.props.gigs}
-                        onUserViewGig={this.onUserViewGig}
-                        onFavoriteToggle={this.onFavoriteToggle}
-                        user={this.props.user}
-                        onDelete={this.onDelete} />
-                    <GigCtgList ctgs={ctgs.slice(0, 4)} title={`For you`}/>
-                    <GigStrip title={'Software'}
-                        gigs={jsGigs}
-                        onUserViewGig={this.onUserViewGig}
-                        onFavoriteToggle={this.onFavoriteToggle}
-                        user={this.props.user}
-                        onDelete={this.onDelete} />
-                    <GigCtgList ctgs={ctgs.slice(4, 8)} title={`Editor's Pick`}/>
-                    <GigStrip title={'Music'}
-                        gigs={musicGigs}
-                        onUserViewGig={this.onUserViewGig}
-                        onFavoriteToggle={this.onFavoriteToggle}
-                        user={this.props.user}
-                        onDelete={this.onDelete} />
-                    <GigStrip title={'Video'}
-                        gigs={this.props.gigs}
-                        onUserViewGig={this.onUserViewGig}
-                        onFavoriteToggle={this.onFavoriteToggle}
-                        user={this.props.user}
-                        onDelete={this.onDelete} />
-                    <h3>Suggested</h3>
-                    <GigList gigs={suggestedGigs} onDelete={this.onDelete} onUserViewGig={() => { }} onFavoriteToggle={this.onFavoriteToggle} isSmallPreview={true} />
-                </div>
-
-                {/* </section> */}
             </>
         )
     }
@@ -151,9 +137,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
     loadGigs,
-    updateUser
-    // addGig,
+    updateUser,
+    setFilter
     // updateGig
 }
 
-export const Hero = connect(mapStateToProps, mapDispatchToProps)(_Hero)
+export const Hero = connect(mapStateToProps, mapDispatchToProps)(withRouter(_Hero))

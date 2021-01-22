@@ -10,7 +10,8 @@ class _SixerrApp extends React.Component {
 
     componentDidMount() {
         // this.props.loadGigs({tags: ['logo', 'graphic design']})
-        this.props.loadGigs()
+        // this.props.loadGigs({text: 'string'})
+        this.props.loadGigs(this.props.filterBy)
     }
 
     onUserViewGig = (gigId) => {
@@ -21,6 +22,10 @@ class _SixerrApp extends React.Component {
         this.props.updateUser(user)
     }
 
+    componentWillUnmount() {
+        this.props.setFilter({})
+    }
+    
     onDelete = () => { }
 
     onSetFilter = (filterBy) => {
