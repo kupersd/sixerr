@@ -68,6 +68,9 @@
                 user-select: none;
             }
             .stars-container {
+                padding-block-start: rem(2.9px);
+
+                align-items: center;
                 .rate {
                     padding-left: 5px;
                     color: #62646a;
@@ -81,7 +84,7 @@
                 .total-reviews {
                     margin-bottom: rem(2.45px);
                     color: #95979d;
-                    font-weight: 400;
+                    font-weight: 500;
                     font-size: 14px;
                     padding-inline-start: rem(4px);
                 }
@@ -168,7 +171,7 @@
                 span {
                     // font-size: 14px;
                     color: #62646a;
-                    font-size: rem(14px);
+                    font-size: rem(15px);
                     font-weight: 500;
                     // color
                 }
@@ -194,11 +197,11 @@
 
 @media screen and (max-width: 920px) {
     .chackout-container {
-        .requirements{
+        .requirements {
             width: 75%;
             flex-direction: column;
             align-items: center;
-            .MuiSvgIcon-root{
+            .MuiSvgIcon-root {
                 display: none;
             }
         }
@@ -214,17 +217,47 @@
                 margin-top: rem(30px);
             }
         }
-        .pricing  {
+        .pricing {
             display: grid;
+        }
+        .requirements{
+            padding:5px;
+            padding-bottom: 7px;
         }
     }
 }
 
 @media screen and (max-width: $smallLayout) {
     .chackout-container {
+        font-size:15px;
         .pricing {
             display: flex;
             flex-direction: column;
+        }
+        .content-container {
+            padding: 0;
+            h3{
+                padding-bottom: 1.25rem !important;
+            }
+        }
+        .requirements{
+            width: 92%;
+            margin-bottom: 20px;
+            span{
+                text-align: center;
+            }
+            a{
+                font-weight: 700;
+            }
+        }
+        .checkout-bar{
+            margin-bottom: rem(8px);
+            span{
+                font-size: 16.45px !important;
+            }
+        }
+        .price{
+            color: white;
         }
     }
 }

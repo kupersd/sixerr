@@ -98,13 +98,15 @@
             left: -8px;
             top: 50%;
             z-index: 2;
+            cursor: pointer;
+
         }
         .slide-right-review {
             transform: translateY(-50%);
             position: absolute;
             right: -7.8px;
             top: 50%;
-
+            cursor: pointer;
             z-index: 2;
         }
         .slide {
@@ -133,6 +135,9 @@
 
 @media screen and(max-width:$wideLayout) {
     .gig-details {
+        > * {
+            max-width: 100% !important;
+        }
         margin-top: 20px;
         padding: 0;
         .MuiAvatar-root {
@@ -141,12 +146,21 @@
         .carousle-container {
             img {
                 width: 100%;
-                height: 100%;
+                // height: 100%;
+                height: 400px;
                 object-fit: cover;
             }
         }
+        // .carousle-container {
+        //     img {
+        //         width: 100%;
+        //         // height: 100%;
+        //         height: 220px;
+        //         object-fit: cover;
+        //     }
+        // }
         .short-review-main {
-            width: rem(495px);
+            // width: rem(495px);
         }
     }
 }
@@ -239,6 +253,14 @@
             font-size: rem(16px);
             // background-color: blue;
         }
+        .carousle-container {
+            img {
+                width: 100%;
+                // height: 100%;
+                height: 220px;
+                object-fit: cover;
+            }
+        }
     }
 }
 
@@ -289,9 +311,9 @@
             font-size: rem(20px);
         }
         .main-details {
-            width: 98vw;
+            width: 100%;
             .carousle-container {
-                width: 94vw;
+                width: 100%;
             }
             h1 {
                 font-size: rem(23px) !important;
@@ -299,9 +321,10 @@
                 // padding-block-end: 0.645px;
             }
             .content-edit-wrapper {
+                width: 100%;
                 justify-self: start !important;
             }
-            .total-reviews{
+            .total-reviews {
                 font-size: 15px;
                 padding-block-end: 0.645px;
             }
@@ -315,24 +338,33 @@
         // }
         .sidebar {
             // width: 95vw;
-            margin: 0;
-            margin-left: rem(2px);
+            margin: 0 auto;
+            width: 100%;
+            // margin-left: rem(2px);
+        }
+        .responsive-side-bar-container {
+            width: 100%;
         }
         .review-stats-container {
             padding-block-end: rem(50px);
+            .left-side-stats {
+                .progresses-ctonainer{
+                    grid-template-columns: 1.1fr 3fr 0.5fr;
+                }
+            }
         }
         .carousle-container {
-            width: 95vw;
+            // width: 95vw;
         }
         .content-edit-wrapper {
             justify-content: start;
             h1 {
                 max-width: 85vw;
             }
-            width: 100vw;
+            width: 100%;
         }
         .short-review-header {
-            margin-block-start: rem(30px);
+            // margin-block-start: rem(30px);
             flex-direction: column;
             justify-content: center;
             h2 {
@@ -341,19 +373,19 @@
             }
         }
 
-        .seller-stats {
-            max-width: 93.5vw;
-        }
         textarea {
-            max-width: 98vw;
             margin: rem(0px) rem(0px) rem(10px);
             height: rem(80px);
             border: 0.1px solid#dadbdd;
+            // display: none;
         }
         .rate-mobile-view-container {
-            margin: 0 auto;
-            div {
-                max-width: rem(130px) !important;
+            display: flex;
+            div
+            {
+                // width: auto;
+                width: fit-content !important;
+                margin: 0 auto;
             }
         }
         .add-review {
@@ -363,7 +395,6 @@
             margin-block-start: rem(10px);
         }
         .desc {
-            padding-inline-end: 2vw;
             h2 {
                 display: flex;
                 justify-content: center;
@@ -402,15 +433,13 @@
                 padding: 0 !important;
             }
         }
-    }
-}
-
-@media screen and (max-width: 420px) {
-    .details-wrapper {
-        width: 94vw;
-        .sidebar {
-            // width: 95vw;
-            margin: 0;
+        .add-review-wrapper{
+            // margin-bottom: 1.8125rem;
+            // margin-bottom: 2.2rem;
+            .add-review-container{
+                width: 120px;
+                margin:0 auto;
+            }
         }
     }
 }

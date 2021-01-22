@@ -5,20 +5,20 @@ import { PackageList } from '../cmps/PackageList.jsx'
 import { SellerPreview } from '../cmps/SellerPreview'
 import { addGig, loadGig, updateGig, removeGig, loadGigs } from '../store/actions/gigActions'
 import { orderGig } from '../store/actions/orderActions'
-import StarRateIcon from '@material-ui/icons/StarRate';
+import StarRateIcon from '@material-ui/icons/StarRate'
 import SideBar from '../cmps/SideBar.jsx'
 import ReviewList from '../cmps/ReviewList.jsx'
-import { GigImgLightBox } from '../cmps/GigImgLightBox';
+import { GigImgLightBox } from '../cmps/GigImgLightBox'
 import { EditableElement } from '../cmps/EditableElement.jsx'
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight'
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import { SellerOverview } from '../cmps/SellerOverview'
 import { ReviewStats } from '../cmps/ReviewStats.jsx'
 import { ShortReviewList } from '../cmps/ShortReviewList.jsx'
 import { ImgGallery } from '../cmps/ImgGallery.jsx'
 import { CarouselImgs } from '../cmps/Carousel.jsx'
 import AnchorLink from 'react-anchor-link-smooth-scroll'
-import { socketService } from '../services/socketService.js';
+import { socketService } from '../services/socketService.js'
 import RichTextEditor from '../cmps/RichTextEditor.jsx'
 import { GigList } from '../cmps/GigList.jsx'
 import Loader from 'react-loader-spinner'
@@ -203,11 +203,6 @@ class _GigDetails extends React.Component {
                 {/* <div className="main-layout">
                     <CarouselImgs imgUrls={gig.imgUrls} />
                 </div> */}
-                {/* <div className="add-remove-btn-container main-layout">
-                    <Link className="edit-link" to={`/gig/edit/${gig._id}`}><button>Edit Gig</button></Link>
-                    {user && <Link to='/gig/edit'  ><button className="add-btn">Add Gig</button></Link>}
-                    <button className="remove-btn" onClick={this.onRemoveGig}>Remove Gig</button>
-                </div> */}
                 {/* <div dangerouslySetInnerHTML={{ __html: `${this.state.htmlDesc}` }}>
                 </div> */}
                 {/* <RichTextEditor desc={'<h1>tomer<h1>'} onSaveHtml={this.onSaveHtml} /> */}
@@ -243,6 +238,7 @@ class _GigDetails extends React.Component {
                             <div id="description" className="desc">
                                 <h2>About This Gig</h2>
                                 <div className="about flex">
+                                    
                                     {isGigOwner && <EditableElement dangerouslySetInnerHTML={{ __html: `${this.state.htmlDesc}` }} className="gig-desc" field={'desc'} type={'h4'} text={gig.desc} save={this.onSave} editable={isDescEditble} />}
                                     {!isDescEditble && <div dangerouslySetInnerHTML={{ __html: `${this.state.htmlDesc}` }}>
                                     </div>}
@@ -253,7 +249,7 @@ class _GigDetails extends React.Component {
                                 {/* {!isDescEditble && < button onClick={this.toggleIsDescEditble}>edit</button>} */}
                             </div>
                             <SellerPreview seller={gig.owner} />
-                            <ReviewStats htmlStars={htmlStars} />
+                            <ReviewStats gig={gig} htmlStars={htmlStars} />
                             {/* <h1>Suggested</h1> */}
                             {/* <GigList onUserViewGig={() => { }} onFavoriteToggle={this.onFavoriteToggle} user={user} /> */}
                             {user && <GigAddReview gig={gig} user={user} onAddReview={this.onAddReview} mobileStarStats={this.state.mobileStarStats} />}

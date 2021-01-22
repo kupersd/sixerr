@@ -70,12 +70,18 @@ class _GigAddReview extends Component {
         if (!review) return <div></div>
         return (
             <>
-                {!mobileStarStats && <HoverRating className="stars-rate" handleRate={this.handleRate} val={review.rating} />}
-                <textarea rows="6" cols="60" type="text" name="txt" placeholder='enter review...' value={review.txt} onChange={this.handleChange} required />
-                <div className="rate-mobile-view-container">
-                    {mobileStarStats && <HoverRating className="stars-rate" handleRate={this.handleRate} val={review.rating} />}
-                </div>
-                    <button className="add-review" onClick={() => this.onAddReview()}>Add Review</button>
+                <section className="add-review-wrapper">
+                    {!mobileStarStats && <HoverRating className="stars-rate" handleRate={this.handleRate} val={review.rating} />}
+                    <div className="text-area-container">
+                        <textarea rows="6" cols="60" type="text" name="txt" placeholder='enter review...' value={review.txt} onChange={this.handleChange} required />
+                    </div>
+                    <div className="rate-mobile-view-container">
+                        {mobileStarStats && <HoverRating className="stars-rate" handleRate={this.handleRate} val={review.rating} />}
+                    </div>
+                    <div className="add-review-container">
+                        <button className="add-review" onClick={() => this.onAddReview()}>Add Review</button>
+                    </div>
+                </section>
             </>
         )
     }

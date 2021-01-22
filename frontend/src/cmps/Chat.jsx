@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import ChatBox, { ChatFrame } from 'react-chat-plugin';
 import { connect } from 'react-redux'
+import { socketService } from '../services/socketService'
 
 
 export class Chat extends Component {

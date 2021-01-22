@@ -95,19 +95,9 @@ class _Checkout extends Component {
                                 {!isShowFeatures && <a className="included" onClick={() => this.onTogFetaures()} >Show What's included</a>}
                                 {isShowFeatures && <a className="included" onClick={() => this.onTogFetaures()} >Hide What's included</a>}
                             </div>
-                            <div className="pricing flex">
-                                <div>
-                                    <span>Qty</span>
-                                    <select name="quantaty " >
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                    </select>
-                                </div>
-                                <span className="price">${gig.packages[0].price}</span>
-                            </div>
+                            {/* <div className="pricing flex">
+                            </div> */}
+                            <span className="price">${gig.packages[0].price}</span>
                         </div>
                         {isShowFeatures && <div className="features-container flex">
                             <div className="gig-title">
@@ -122,10 +112,10 @@ class _Checkout extends Component {
                         </div>}
                     </div>
                     <div className="checkout-bar flex">
-                        <h6>Summery</h6>
+                        <h6>Summary</h6>
                         <div className="flex space-between">
                             <span>Check Out</span>
-                            <span>{gig.packages[0].price}</span>
+                            <span>${gig.packages[0].price}</span>
                         </div>
                         <div className="fee flex space-between">
                             <span>Service Fee <InfoIcon className="info" /> </span>
