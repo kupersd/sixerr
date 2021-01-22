@@ -19,7 +19,6 @@ import { ImgGallery } from '../cmps/ImgGallery.jsx'
 import { CarouselImgs } from '../cmps/Carousel.jsx'
 import AnchorLink from 'react-anchor-link-smooth-scroll'
 import { socketService } from '../services/socketService.js';
-
 import RichTextEditor from '../cmps/RichTextEditor.jsx'
 import { GigList } from '../cmps/GigList.jsx'
 import Loader from 'react-loader-spinner'
@@ -179,12 +178,6 @@ class _GigDetails extends React.Component {
             console.log('remove succefully');
         })
     }
-    
-    onGigOrder = async () => {
-        const { gig } = this.state
-        await this.props.orderGig(this.state.gig, this.props.user)
-        socketService.emit('new order', { from: this.props.user, txt: 'NEW ORDER !!!!', gig})
-    }
 
 
     onSaveHtml = (htmlDesc) => {
@@ -221,7 +214,7 @@ class _GigDetails extends React.Component {
                 </div> */}
                 {/* <RichTextEditor desc={'<h1>tomer<h1>'} onSaveHtml={this.onSaveHtml} /> */}
                 {/* <PrintEditor html={gig.desc} /> */}
-                
+
                 {isLightBoxOpen && <GigImgLightBox gig={gig} onToggleImgLightbox={this.onToggleImgLightbox} currImg={currImg} onNextPageLightBox={this.onNextPageLightBox} onPrevPageLightBox={this.onPrevPageLightBox} />}
                 <div className="details-wrapper main-container">
                     {/* <div className="details-wrapper main-layout"> */}

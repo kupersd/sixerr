@@ -32,6 +32,7 @@ class _GigEdit extends Component {
         const { gig } = this.state
         gig.tags.filter(tag => tag.length < 1)
         gig.packages[0].features.filter(feature => feature.length < 1)
+        console.log('saving gig:', gig)
         await this.props.addGig(gig)
         this.props.history.push('/gig');
 

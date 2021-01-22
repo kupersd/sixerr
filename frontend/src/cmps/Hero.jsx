@@ -14,38 +14,44 @@ class _Hero extends React.Component {
         currHeroIdx: 0,
         heros: [
             {
-                imgUrl: 'https://images.unsplash.com/photo-1569124589354-615739ae007b',
-                whoAmI: 'woman',
-                username: 'Andrea',
-                occupation: 'Video Editor',
-                rating: 5
+                imgUrl: '/assets/img/hero/woman1.jpg',
+                username: 'Paige Rank',
+                occupation: 'SEO Expert',
             },
             {
-                imgUrl: 'https://images.unsplash.com/photo-1581368135153-a506cf13b1e1',
+                imgUrl: '/assets/img/hero/man-microphone.jpg',
                 whoAmI: 'man',
-                username: 'Zach',
+                username: 'Zach Brater',
                 occupation: 'Narrator'
             },
             {
-                imgUrl: 'https://images.unsplash.com/photo-1593104547489-5cfb3839a3b5',
-                whoAmI: 'woman',
-                username: 'Hiluli',
-                occupation: 'DevOps'
+                imgUrl: '/assets/img/hero/woman-editing.jpg',
+                username: 'Puka Bat David',
+                occupation: 'Mixing Engineer'
             },
             {
-                imgUrl: 'https://images.unsplash.com/photo-1567468219153-4b1dea5227ea',
-                whoAmI: 'woman',
-                username: 'Puka bat David',
-                occupation: 'React JS Expert',
-                rating: 5
+                imgUrl: '/assets/img/hero/man-producer.jpg',
+                username: '60 cent',
+                occupation: 'Producer',
             }
+        ],
+        ctgs: [
+            { imgUrl: '/assets/img/ctg/pencils.jpg', title: 'Logo design', cta: 'Build your brand' },
+            { imgUrl: '/assets/img/ctg/guitar1.jpg', title: 'Guitar session', cta: 'Publish your art' },
+            { imgUrl: '/assets/img/ctg/condenser1.jpg', title: 'Voice over', cta: 'Share your message' },
+            { imgUrl: '/assets/img/ctg/coding1.jpg', title: 'Programming', cta: 'Create amazing things' },
+            { imgUrl: '/assets/img/ctg/canvas.jpg', title: 'Drawing', cta: 'Visualize your dream' },
+            { imgUrl: '/assets/img/ctg/coach.jpg', title: 'Marketing', cta: 'Spread the word' },
+            { imgUrl: '/assets/img/ctg/mixing.jpg', title: 'Mixing', cta: 'Finish your song' },
+            { imgUrl: '/assets/img/ctg/piano.jpg', title: 'Piano Lessons', cta: 'Learn to play' }
+
         ]
     }
 
     heroInterval
 
     componentDidMount() {
-        this.heroInterval = setInterval(this.nextHero, 6000)
+        this.heroInterval = setInterval(this.nextHero, 5000)
         this.props.loadGigs()
     }
 
@@ -72,6 +78,8 @@ class _Hero extends React.Component {
         const { heros, currHeroIdx } = this.state
         const hero = heros[currHeroIdx]
 
+        const { ctgs } = this.state
+
         const jsGigs = [...this.props.gigs.slice(3)]
         const musicGigs = [...this.props.gigs.slice(5)]
         const suggestedGigs = [...this.props.gigs.slice(4)]
@@ -92,40 +100,39 @@ class _Hero extends React.Component {
                         </div>
                         <span>{hero.username}</span>, {hero.occupation}
                     </div>
-                    </section>
-                    <div className="main-container">
+                </section>
+                <div className="main-container">
 
-                        {/* <SixerrApp /> */}
-                        <GigStrip title={'Design'}
-                            gigs={this.props.gigs}
-                            onUserViewGig={this.onUserViewGig}
-                            onFavoriteToggle={this.onFavoriteToggle}
-                            user={this.props.user}
-                            onDelete={this.onDelete} />
-                        <GigCtgList />
-                        <GigStrip title={'Software'}
-                            bgColor={'#f7f7f7'}
-                            gigs={jsGigs}
-                            onUserViewGig={this.onUserViewGig}
-                            onFavoriteToggle={this.onFavoriteToggle}
-                            user={this.props.user}
-                            onDelete={this.onDelete} />
-                        <GigStrip title={'Music'}
-                            gigs={musicGigs}
-                            onUserViewGig={this.onUserViewGig}
-                            onFavoriteToggle={this.onFavoriteToggle}
-                            user={this.props.user}
-                            onDelete={this.onDelete} />
-                        <GigStrip title={'Video'}
-                            bgColor={'#f7f7f7'}
-                            gigs={this.props.gigs}
-                            onUserViewGig={this.onUserViewGig}
-                            onFavoriteToggle={this.onFavoriteToggle}
-                            user={this.props.user}
-                            onDelete={this.onDelete} />
-                        <h3>Suggested</h3>
-                        <GigList gigs={suggestedGigs} onDelete={this.onDelete} onUserViewGig={() => { }} onFavoriteToggle={this.onFavoriteToggle} isSmallPreview={true} />
-                    </div>
+                    {/* <SixerrApp /> */}
+                    <GigStrip title={'Design'}
+                        gigs={this.props.gigs}
+                        onUserViewGig={this.onUserViewGig}
+                        onFavoriteToggle={this.onFavoriteToggle}
+                        user={this.props.user}
+                        onDelete={this.onDelete} />
+                    <GigCtgList ctgs={ctgs.slice(0, 4)} title={`For you`}/>
+                    <GigStrip title={'Software'}
+                        gigs={jsGigs}
+                        onUserViewGig={this.onUserViewGig}
+                        onFavoriteToggle={this.onFavoriteToggle}
+                        user={this.props.user}
+                        onDelete={this.onDelete} />
+                    <GigCtgList ctgs={ctgs.slice(4, 8)} title={`Editor's Pick`}/>
+                    <GigStrip title={'Music'}
+                        gigs={musicGigs}
+                        onUserViewGig={this.onUserViewGig}
+                        onFavoriteToggle={this.onFavoriteToggle}
+                        user={this.props.user}
+                        onDelete={this.onDelete} />
+                    <GigStrip title={'Video'}
+                        gigs={this.props.gigs}
+                        onUserViewGig={this.onUserViewGig}
+                        onFavoriteToggle={this.onFavoriteToggle}
+                        user={this.props.user}
+                        onDelete={this.onDelete} />
+                    <h3>Suggested</h3>
+                    <GigList gigs={suggestedGigs} onDelete={this.onDelete} onUserViewGig={() => { }} onFavoriteToggle={this.onFavoriteToggle} isSmallPreview={true} />
+                </div>
 
                 {/* </section> */}
             </>
