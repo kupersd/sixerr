@@ -111,10 +111,16 @@ class _Profile extends React.Component {
         this.props.updateOrder(order)
     }
 
+    get sellerTotalIncome() {
+        const { ordersAsSeller } = this.state
+        return ordersAsSeller.reduce((sum, order) => sum + order.totalPrice, 0)
+    }
 
 
     render() {
         const { from, memberSince, lastViewed, suggestedGigs, favoriteGigs, myGigs, ordersAsBuyer, ordersAsSeller } = this.state
+        const totalIncome = this.sellerTotalIncome
+
         const { user } = this.props
         console.log(user)
         if (!user) return <div>Loading...</div>
@@ -127,25 +133,31 @@ class _Profile extends React.Component {
                             <input onChange={this.onUploadImg} type="file" id="uploadImg" hidden />
                             <PhotoCameraIcon className="camera-icon" />
                         </label>
-                        <EditableElement field={'fullname'} save={this.onSave} type={'h1'} text={user.fullname} />
+                        {/* <EditableElement field={'fullname'} save={this.onSave} type={'h1'} text={user.fullname} /> */}
+                        <h1>{user.fullname}</h1>
 
-                        <p>From {from}</p>
+                        <p>Level 2 Seller</p>
                         <p>Member since {memberSince}</p>
                         <button>Send Message</button>
                     </div>
 
 
-                    <div className="my-gigs">
-                        <h1>My Gigs</h1>
-                        {myGigs.length === 0 &&
-                            <div className="start-selling flex align-center">
-                                <h2>You do not have any gigs yet.</h2>
-                                <button onClick={() => this.props.history.push('/gig/edit')}>
-                                    Start Selling
+                    {ordersAsSeller.length !== 0 && <div className="seller-orders">
+                        <h1>Active Orders - <span>{ordersAsSeller.length} (${totalIncome})</span></h1>
+                        <OrderList orders={ordersAsSeller} onOrderStatusChanged={this.onOrderStatusChanged} />
+                    </div>}
+                </div>
+
+                <div className="my-gigs">
+                    <h1>My Gigs</h1>
+                    {myGigs.length === 0 &&
+                        <div className="start-selling flex align-center">
+                            <h2>You do not have any gigs yet.</h2>
+                            <button onClick={() => this.props.history.push('/gig/edit')}>
+                                Start Selling
                             </button>
-                            </div>}
-                        <GigList gigs={myGigs} onDelete={this.onDelete} onUserViewGig={() => { }} onFavoriteToggle={this.onFavoriteToggle} user={user} />
-                    </div>
+                        </div>}
+                    <GigList gigs={myGigs} onDelete={this.onDelete} onUserViewGig={() => { }} onFavoriteToggle={this.onFavoriteToggle} user={user} />
                 </div>
 
 

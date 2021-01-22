@@ -37,6 +37,17 @@ class _GigHome extends React.Component {
         this.props.updateUser(user)
     }
 
+    onFavoriteToggle = (ev, gigId) => { 
+        ev.stopPropagation()
+        const user = {...this.props.user}
+        if (user.favoriteIds) {
+            if (user.favoriteIds.find(favoriteId => favoriteId === gigId)) user.favoriteIds = user.favoriteIds.filter(favoriteId => favoriteId !== gigId)
+            else user.favoriteIds.push(gigId)
+        } else user.favoriteIds = [gigId]
+        console.log('user.favoriteIds',user.favoriteIds)
+        this.props.updateUser(user)
+    }
+
     nextHero = () => {
         const herosCount = this.state.heros.length
         const nextHero = (this.state.currHeroIdx === herosCount - 1) ?
@@ -97,7 +108,7 @@ class _GigHome extends React.Component {
 const mapStateToProps = (state) => {
     return {
         gigs: state.gigModule.gigs,
-        // user: state.userModule.user
+        user: state.userModule.user
     }
 }
 
