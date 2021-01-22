@@ -18,6 +18,9 @@ class _Profile extends React.Component {
         memberSince: '2021',
         lastViewed: [],
         myGigs: [],
+        // suggestedGigs: [],
+        // favoriteGigs: [],
+        // ordersAsBuyer: [],
         ordersAsSeller: [],
     }
 
@@ -25,40 +28,46 @@ class _Profile extends React.Component {
         const { user } = this.props
 
         socketService.on('order received', this.onNewOrder)
+        // const gigList = user.viewedGigIds ? user.viewedGigIds : []
+        // user.favoriteIds?.forEach(favId => { if (!gigList.find(id => id === favId)) gigList.push(favId) })
+        // await this.props.loadGigs({ owner: user._id, gigList })
+        // console.log('GIGS', this.props.gigs)
         await this.props.loadGigs() // TODO: CHANGE all waits to first go and then get all at the end....
         await this.props.loadOrders()
-        const ordersAsSeller = this.props.orders.filter(order => user.myGigIds?.find(gigId => gigId === order.gig._id))
-        ordersAsSeller.sort((order1, order2) => {
-            return order2.createdAt - order1.createdAt
-        })
+        console.log('orders', this.props.orders)
+        // const ordersAsBuyer = this.props.orders.filter(order => order.buyer._id === user._id)
+        const ordersAsSeller = this.props.orders.filter(order => user.myGigIds?.some(gigId => gigId === order.gig._id))
         const myGigs = user.myGigIds ? await getGigs(user.myGigIds) : []
 
         const lastViewed = user.viewedGigIds ? await getGigs(user.viewedGigIds) : []
+        const favoriteGigs = user.favoriteIds ? await getGigs(user.favoriteIds) : []
         this.setState(prevState =>
         ({
             ...prevState,
             myGigs,
+            suggestedGigs: this.props.gigs.filter((gig, idx) => !(idx % 3)),
             lastViewed,
+            favoriteGigs,
+            ordersAsBuyer,
             ordersAsSeller
         }))
     }
 
     componentWillUnmount() {
         socketService.off('order received', this.onNewOrder)
+        // clearTimeout(this.timeout)
     }
 
-    
     onNewOrder = async (newMsg) => {
         const { user } = this.props
         // TODO: INTERNAL FUNCTION FOR LOADING ORDERS
         await this.props.loadOrders()
+        const ordersAsBuyer = this.props.orders.filter(order => order.buyer._id === user._id)
         const ordersAsSeller = this.props.orders.filter(order => user.myGigIds?.find(gigId => gigId === order.gig._id))
-        ordersAsSeller.sort((order1, order2) => {
-            return order2.createdAt - order1.createdAt
-        })
         this.setState(prevState =>
         ({
             ...prevState,
+            ordersAsBuyer,
             ordersAsSeller
         }))
         const msg = 'thank you'
@@ -101,6 +110,9 @@ class _Profile extends React.Component {
 
     onOrderStatusChanged = (order) => {
         this.props.updateOrder(order)
+    }
+    setStatus = (status) => {
+
     }
 
     get sellerTotalIncome() {
