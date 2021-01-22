@@ -5,17 +5,16 @@ import DoneIcon from '@material-ui/icons/Done';
 import { Link } from 'react-router-dom'
 
 export default function SideBar({ gig, onGigOrder }) {
-    console.log('gig package',gig.packages[0].desc);
     return (
         <>
             <div className="sidebar">
                 <div className="package-content">
                     <div>
                         <h3 className="flex space-between">
-                            {gig.packages[0].desc}
+                            {'Package Price'}
                 <span>${gig.packages[0].price}</span>
                         </h3>
-                        <p>SEO research, keyword optimizing and content writing</p>
+                        <p>{gig.packages[0].desc}</p>
                     </div>
                     <div >
                         <div className={`icons flex`}>

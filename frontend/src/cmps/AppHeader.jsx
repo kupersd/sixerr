@@ -5,17 +5,20 @@ import { connect } from 'react-redux'
 import { Login } from '../pages/Login'
 import { logout } from '../store/actions/userActions'
 import { socketService } from '../services/socketService'
+import ChatBox, { ChatFrame } from 'react-chat-plugin';
 
 
 class _AppHeader extends React.Component {
 
     state = {
-        isLoginOpen: false
+        isLoginOpen: false,
+        user: null,
     }
 
     componentDidMount() {
         socketService.on('chat addMsg', this.onNewMsg)
     }
+
 
     componentWillUnmount() {
         socketService.off('chat addMsg', this.onNewMsg)
@@ -29,7 +32,9 @@ class _AppHeader extends React.Component {
     }
 
     onNewMsg = (newMsg) => {
+        const { user } = this.props
         console.log('MESSAGE', newMsg)
+        socketService.emit('chat newMsg', { to: newMsg.from._id, from: user, txt: 'cannot wait to get it' })
     }
 
     onLogout = async () => {
@@ -39,20 +44,21 @@ class _AppHeader extends React.Component {
 
     render() {
         const { user } = this.props
+        const { openChat, isRecievedMsg } = this.state
+        console.log("render , openChat", openChat)
         const { isLoginOpen } = this.state
         return (
             <>
                 <div className="site-header main-container">
-
                     <section className="app-header flex space-between align-center">
                         <NavLink to="/">
                             <h1>Sixerr<span>.</span></h1>
                         </NavLink>
+                        {isRecievedMsg && <div>1!!!</div>}
                         <ul className="header-nav clean-list flex align-center bold">
-
                             <NavLink className="fast-trans" to="/"><li>Home</li></NavLink>
                             <NavLink className="fast-trans" to="/gig"><li>Explore</li></NavLink>
-                            <NavLink className="fast-trans" to="/chat"><li>Messages</li></NavLink>
+                            <NavLink onClick={this.onOpenChat} className="fast-trans" to="/chat"><li>Messages</li></NavLink>
                             {user && <NavLink className="fast-trans" to="#" onClick={this.onLogout}>
                                 <li>Logout</li>
                             </NavLink>}

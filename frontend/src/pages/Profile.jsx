@@ -9,6 +9,7 @@ import { EditableElement } from '../cmps/EditableElement.jsx';
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 import { OrderList } from '../cmps/OrderList.jsx';
 import { socketService } from '../services/socketService.js';
+import { Chat } from '../cmps/Chat.jsx';
 
 class _Profile extends React.Component {
 
@@ -72,7 +73,7 @@ class _Profile extends React.Component {
         }))
         const msg = 'thank you'
         console.log('NEWWWWWW', newMsg)
-        socketService.emit('chat newMsg', {to: newMsg.from._id, from: user.fullname, txt:msg})
+        socketService.emit('chat newMsg', {to: newMsg.from._id, from: user, txt:msg})
     }
 
     handleInput = ({ target }) => {

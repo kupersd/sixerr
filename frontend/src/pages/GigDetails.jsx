@@ -50,7 +50,6 @@ class _GigDetails extends React.Component {
         const gigId = this.props.match.params.gigId
         const gig = await loadGig(gigId)
         const gigs = await loadGigs() // TODO: CHANGE all waits to first go and then get all at the end....
-        console.log("componentDidMount , gigs", gigs)
         // console.log("componentDidMount , gigs", gigs)
         // const suggestedGigs = gigs.filter((gig, idx) => !(idx % 3));
         // console.log("componentDidMount , suggestedGigs", suggestedGigs)
@@ -196,7 +195,6 @@ class _GigDetails extends React.Component {
         const { user } = this.props
         const { currImg } = this.state
         const htmlStars = this.getAvgRate()
-        console.log('this.props.gigs', this.props.gigs);
         // if (!gig) return <Loader type="BallTriangle" color="#00BFFF" className="flex justify-center" height={80} width={80} />
         if (!gig) return <Loader className="flex justify-center" type="ThreeDots" height={80} width={80} color={`#2bbe76`} />
         // if (!gig) return

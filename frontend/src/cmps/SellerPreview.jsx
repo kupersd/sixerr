@@ -15,7 +15,7 @@ export function SellerPreview({ seller }) {
                     </div>
                     <div className="content flex column">
                         <a>{seller.fullname}</a>
-                        <span>Creator of AR filters</span>
+                        {/* <span>Creator of AR filters</span> */}
                         <div className="stars-container flex justify-center align center">
                             {/*todo: add real stars from data later */}
                             {/* <Rating name="disabled" value={5} disabled /> */}
