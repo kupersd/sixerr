@@ -10,6 +10,7 @@ class _SixerrApp extends React.Component {
 
     componentDidMount() {
         // this.props.loadGigs({tags: ['logo', 'graphic design']})
+        // this.props.loadGigs({text: 'string'})
         this.props.loadGigs()
     }
 

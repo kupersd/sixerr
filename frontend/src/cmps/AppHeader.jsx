@@ -14,6 +14,11 @@ class _AppHeader extends React.Component {
     }
 
     componentDidMount() {
+        socketService.on('chat addMsg', this.onNewMsg)
+    }
+
+    componentWillUnmount() {
+        socketService.off('chat addMsg', this.onNewMsg)
     }
 
     onToggleLogin = () => {
@@ -21,6 +26,10 @@ class _AppHeader extends React.Component {
         this.setState({ isLoginOpen: !this.state.isLoginOpen })
         if (user) socketService.emit('chat topic', user._id)
 
+    }
+
+    onNewMsg = (newMsg) => {
+        console.log('MESSAGE', newMsg)
     }
 
     onLogout = async () => {

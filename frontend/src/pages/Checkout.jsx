@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { withRouter,Link } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 import InfoIcon from '@material-ui/icons/Info';
 import { loadGig } from '../store/actions/gigActions';
 import { utilService } from '../services/utilService.js'
@@ -48,9 +48,11 @@ class _Checkout extends Component {
 
     onGigOrder = async () => {
         const { gig } = this.state
+        const { user } = this.props
         console.log("onGigOrder= , gig", gig)
-        await this.props.orderGig(gig, this.props.user)
-        socketService.emit('new order', { from: this.props.user, txt: 'NEW ORDER !!!!', gig})
+        await this.props.orderGig(gig, user)
+        socketService.emit('chat topic', `${user._id}&${gig.owner._id}`)
+        socketService.emit('new order', { from: user, txt: 'NEW ORDER !!!!', gig })
         this.props.history.push(`/gig/${gig._id}`)
     }
 
@@ -142,7 +144,7 @@ class _Checkout extends Component {
                             <button onClick={() => this.onGigOrder()} >Purchase now</button>
                         </div>
                         {/* <div className="wont-be-charged flex justify-center"> */}
-                            {/* <span >You Wont Be Charged Yet</span>
+                        {/* <span >You Wont Be Charged Yet</span>
                         </div> */}
                     </div>
                 </div>
