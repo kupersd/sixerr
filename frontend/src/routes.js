@@ -5,6 +5,7 @@ import { Profile } from './pages/Profile.jsx'
 import { Hero } from './cmps/Hero.jsx'
 import { Checkout } from './pages/Checkout.jsx'
 import { Chat } from './cmps/Chat.jsx'
+import { GigHome } from './pages/GigHome.jsx'
 
 export const routes = [
     {
@@ -37,7 +38,7 @@ export const routes = [
     },
     {
         path:'/',
-        component: Hero
+        component: GigHome
     }
 
 ]

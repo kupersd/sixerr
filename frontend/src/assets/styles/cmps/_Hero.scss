@@ -23,17 +23,48 @@
         object-fit: cover;
     }
 
-    h1 {
-        position: absolute;
-        width: 60vw;
-        top: 60%;
-        left: 9.9%;
-        font-size: 2.5rem;
-        color: $lightColor;
+    .hero-cta {
 
-        span {
-            font-weight: 500;
-            font-style: italic;
+        position: absolute;
+        width: 50vw;
+        top: 45%;
+        left: 9%;
+
+        h1 {
+            font-size: 2.5rem;
+            color: $lightColor;
+            margin-bottom: 1rem;
+            span {
+                font-weight: 500;
+                font-style: italic;
+            }
+        }
+        .hero-search {
+            position: relative;
+            .search-icon {
+                color: $darkColor;
+                position: absolute;
+                font-size: 1.2rem;
+            }
+            input {
+                width: 40vw;
+                height: 3.5rem;
+                padding: 0.8rem;
+                font-size: 1.2rem;
+                outline: none;
+                border: none;
+                border-radius: 0.3rem;
+                font-weight: lighter;
+            }
+            button {
+                @include defButton();
+                position: absolute;
+                margin-top: 0;
+                height: 3.5rem;
+                margin-inline-start: -0.5rem;
+                padding: 1px 1rem;
+                border-radius: 0px 0.3rem 0.3rem 0px;
+            }
         }
     }
 

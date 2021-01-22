@@ -43,7 +43,7 @@ export function GigPreview({ gig, onUserViewGig, onFavoriteToggle, user, removeV
 }
 
 function _getRandomRating() {
-    return Math.round(Math.random() * 36 + 14) / 10
+    return Math.round(Math.random() * 22 + 28) / 10
 }
 
 function _getRandomSellerRating() {
@@ -51,7 +51,7 @@ function _getRandomSellerRating() {
 }
 
 function _getRandomVotesCount() {
-    return Math.round(Math.random() * 30 + 100)
+    return Math.round(Math.random() * 230 + 30)
 }
 
 function _isLiked(favoriteIds, gigId) {

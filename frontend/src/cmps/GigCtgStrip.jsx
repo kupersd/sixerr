@@ -12,17 +12,17 @@ const ctgs2 = [
     { imgUrl: '../assets/img/ctg/condenser1.jpg', title: 'Voice over', cta: 'Share your message' },
     { imgUrl: '../assets/img/ctg/conding1.jpg', title: 'Programming', cta: 'Create amazing things' }
 ]
-export function GigCtgList({ctgs, title}) {
+export function GigCtgList({ctgs, title, setFilter}) {
 
     return (
         <section className="gig-ctg-list">
             <h2>{title}</h2>
             <ul className="gig-ctg-wrap clean-list">
 
-                {ctgs.map(ctg => <li key={ctg.imgUrl}>
+                {ctgs.map(ctg => <li key={ctg.imgUrl} onClick={() => setFilter({ tags: [ctg.tag] })}>
                     <h5>{ctg.cta}</h5>
                     <h3>{ctg.title}</h3>
-                    <img src={ctg.imgUrl} alt="" />
+                    <img src={ctg.imgUrl} alt="category" />
                 </li>)}
             </ul>
         </section>
