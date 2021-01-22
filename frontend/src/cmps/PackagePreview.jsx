@@ -57,7 +57,6 @@ class _PackagePreview extends Component {
 
 const mapStateToProps = (state) => {
 
-    return {
         gigs: state.gigModule.gigs,
         user: state.userModule.user
     }
