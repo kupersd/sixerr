@@ -66,7 +66,6 @@ class _GigAddReview extends Component {
 
     render() {
         const { mobileStarStats } = this.props
-        console.log("render , mobileStarStats", mobileStarStats)
         const { review } = this.state
         if (!review) return <div></div>
         return (

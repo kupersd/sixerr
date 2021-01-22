@@ -11,7 +11,11 @@ class _SixerrApp extends React.Component {
     componentDidMount() {
         // this.props.loadGigs({tags: ['logo', 'graphic design']})
         // this.props.loadGigs({text: 'string'})
+<<<<<<< HEAD
         this.props.loadGigs(this.props.filterBy)
+=======
+        this.props.loadGigs()
+>>>>>>> 67ccc51b241843c25e42247ac449c9c021544a7e
     }
 
     onUserViewGig = (gigId) => {
