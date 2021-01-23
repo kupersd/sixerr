@@ -41,7 +41,7 @@ export class GigStrip extends React.Component {
 
         return (
             <section className="gig-strip main-container" style={bgStyle}>
-                <div className="flex space-between">
+                <div className="head flex space-between">
                     <h2 className="strip-title">{this.props.title}</h2>
                     <a className="see-all">See all &gt;</a>
                 </div>

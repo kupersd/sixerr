@@ -64,6 +64,7 @@ select {
             }
         }
         .price {
+            display: none;
             font-weight: 500;
             padding-inline-start: rem(6px);
         }
@@ -129,6 +130,9 @@ select {
                     margin-right: rem(4px);
                     color: rgb(29, 191, 115);
                 }
+                li{
+                    color: #595c67;
+                }
             }
             .gig-title {
                 font-size: 16px;
@@ -140,6 +144,7 @@ select {
         }
     }
     .checkout-bar {
+        height: 326px;
         border: 1px solid lightGrey;
         padding: rem(16px);
         flex-direction: column;
@@ -184,6 +189,7 @@ select {
         }
         .buy-btn-container {
             button {
+            // margin-bottom: rem(-10px);
                 @include defButton;
                 width: 100%;
                 &:hover {
@@ -250,11 +256,12 @@ select {
             }
         }
         .checkout-bar {
+            height: fit-content;
             margin-bottom: rem(8px);
             span {
                 font-size: 16.45px !important;
             }
-            div{
+            div {
                 padding-block-end: 0;
             }
         }
