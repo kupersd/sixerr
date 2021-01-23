@@ -5,39 +5,33 @@ import { GigPreview } from "./GigPreview"
 export class GigStrip extends React.Component {
 
     state = {
-        // gigs: [],
-        posX: 0,
-        clientWidth: 0
+        gigs: [],
     }
-
-    elCard = React.createRef()
 
     componentDidMount() {
-        const { clientWidth } = document.body
-        this.setState({
-            posX: 0,
-            clientWidth,
+        // if (!this.props.tags) return
+
+        const { tags } = this.props
+        if (!tags) return
+        const gigsByTag = this.props.gigs.filter(gig => {
+            return gig.tags.includes(tags[0])
         })
-
-        // console.log('computed style', window.getComputedStyle(this.elCard.current));
+        this.setState({ gigs: gigsByTag })
     }
 
-    scrollRight = () => {
-        console.log(this.elCard)
-        const newPosX = this.state.posX - this.state.clientWidth
-        this.setState({ ...this.state, posX: newPosX })
+    getGigsForDisplay = () => {
+        const { tags } = this.props
+        if (!tags) return this.props.gigs
+        const gigsByTag = this.props.gigs.filter(gig => {
+            return gig.tags.includes(tags[0])
+        })
+        return gigsByTag
     }
-
-    scrollLeft = () => {
-        if (this.state.posX === 0) return
-        const newPosX = this.state.posX + this.state.clientWidth
-        this.setState({ ...this.state, posX: newPosX })
-    }
-
     render() {
         const { posX } = this.state
         const inlineStyle = { transform: `translateX(${posX}px)` }
         const bgStyle = { backgroundColor: this.props.bgColor }
+        const gigs = this.getGigsForDisplay() || []
 
         return (
             <section className="gig-strip main-container" style={bgStyle}>
@@ -46,7 +40,7 @@ export class GigStrip extends React.Component {
                     <a className="see-all">See all &gt;</a>
                 </div>
                 <ul className="strip-wrap clean-list" style={inlineStyle}>
-                    {this.props.gigs.map(gig =>
+                    {gigs.map(gig =>
                         <GigPreview key={gig._id}
                             gig={gig}
                             onUserViewGig={this.props.onUserViewGig}
@@ -55,8 +49,6 @@ export class GigStrip extends React.Component {
                         />
                     )}
                 </ul>
-                {/* { posX !== 0 && <button className="scroll-left" onClick={this.scrollLeft}>&lt;</button>}
-                <button className="scroll-right" onClick={this.scrollRight}>&gt;</button> */}
             </section>
         )
     }

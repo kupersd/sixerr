@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { withRouter, Link } from 'react-router-dom'
-import StarRateIcon from '@material-ui/icons/StarRate';
+import { withRouter } from 'react-router-dom'
 import { loadGigs, setFilter } from "../store/actions/gigActions.js";
 import { updateUser } from "../store/actions/userActions.js";
 import SearchIcon from '@material-ui/icons/Search';
@@ -97,33 +96,36 @@ class _Hero extends React.Component {
             <>
                 <section className="hero">
                     <img src={hero.imgUrl} alt="hero" />
-                    <div className="main-container hero-content">
-                        <div className="hero-cta">
-                            <h1>Find the perfect <span>freelance</span> for your business</h1>
-                            <div className="hero-search">
-                                {/* <SearchIcon className="search-icon" /> */}
-                                <form>
-                                    <input value={this.state.filterBy.text}
-                                        type="search"
-                                        name="text"
-                                        placeholder={`Try "building mobile app"`}
-                                        onChange={this.handleChange} />
-                                    <button onClick={this.onSearch}>Search</button>
-                                </form>
+                    {/* <div className="vilian"> */}
+                        <div className="main-container hero-content">
+                            <div className="hero-cta">
+                                <h1>Find the perfect <span>freelance</span> for your business</h1>
+                                <div className="hero-search">
+                                    {/* <SearchIcon className="search-icon" /> */}
+                                    <form>
+                                        <input value={this.state.filterBy.text}
+                                            type="search"
+                                            name="text"
+                                            placeholder={`Try "building mobile app"`}
+                                            onChange={this.handleChange} />
+                                        <button onClick={this.onSearch}>Search</button>
+                                    </form>
+                                </div>
                             </div>
-                        </div>
-                        <div className="hero-snippet">
-                            <div className="stars">
-                                <SvgStar />
-                                <SvgStar />
-                                <SvgStar />
-                                <SvgStar />
-                                <SvgStar />
+                            <div className="hero-snippet">
+                                <div className="stars">
+                                    <SvgStar />
+                                    <SvgStar />
+                                    <SvgStar />
+                                    <SvgStar />
+                                    <SvgStar />
+                                </div>
+                                <span>{hero.username}</span>, {hero.occupation}
                             </div>
-                            <span>{hero.username}</span>, {hero.occupation}
+                            <div className="carret">V</div>
                         </div>
-                        <div className="carret">V</div>
-                    </div>
+
+                    {/* </div> */}
                 </section>
             </>
         )

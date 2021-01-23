@@ -21,14 +21,19 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
+        // opacity: 0.1;
     }
 
     .hero-content {
-        position: absolute;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
+        position: relative;
+        transform: translateY(-90vh);
+        // top: 0;
+        // left: 0;
+        // bottom: 0;
+        // right: 0;
+        // background-color: red;
+        width: 100%;
+        height: 90vh;
 
         .hero-cta {
     

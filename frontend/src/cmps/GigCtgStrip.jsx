@@ -1,17 +1,31 @@
-export function GigCtgList({ ctgs, title, setFilter }) {
+import React from 'react';
+import { withRouter } from 'react-router-dom'
 
-    return (
-        <section className="gig-ctg-list">
-            <h2>{title}</h2>
-            <ul className="gig-ctg-wrap clean-list">
+class _GigCtgList extends React.Component {
 
-                {ctgs.map(ctg =>
-                    <li key={ctg.imgUrl} onClick={() => setFilter({ tags: [ctg.tag] })}>
-                        <h5>{ctg.cta}</h5>
-                        <h3>{ctg.title}</h3>
-                        <img src={ctg.imgUrl} alt="category" />
-                    </li>)}
-            </ul>
-        </section>
-    )
+    onTagClick = (tag) => {
+        this.props.setFilter({ tags: [tag] })
+        this.props.history.push('/gig')
+    }
+    render() {
+
+        const { ctgs, title, setFilter } = this.props
+
+        return (
+            <section className="gig-ctg-list" >
+                <h2>{title}</h2>
+                <ul className="gig-ctg-wrap clean-list">
+
+                    {ctgs.map(ctg =>
+                        <li key={ctg.imgUrl} onClick={() => this.onTagClick(ctg.tag)}>
+                            <h5>{ctg.cta}</h5>
+                            <h3>{ctg.title}</h3>
+                            <img src={ctg.imgUrl} alt="category" />
+                        </li>)}
+                </ul>
+            </section>
+        )
+    }
 }
+
+export const GigCtgList = withRouter(_GigCtgList)
