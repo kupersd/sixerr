@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 import { Login } from '../pages/Login'
 import { logout } from '../store/actions/userActions'
 import { socketService } from '../services/socketService'
-import ChatBox, { ChatFrame } from 'react-chat-plugin';
 
 
 class _AppHeader extends React.Component {
@@ -58,7 +57,7 @@ class _AppHeader extends React.Component {
                         <ul className="header-nav clean-list flex align-center bold">
                             <NavLink className="fast-trans" to="/"><li>Home</li></NavLink>
                             <NavLink className="fast-trans" to="/gig"><li>Explore</li></NavLink>
-                            <NavLink onClick={this.onOpenChat} className="fast-trans" to="/chat"><li>Messages</li></NavLink>
+                            {/* <NavLink onClick={this.onOpenChat} className="fast-trans" to="/chat"><li>Messages</li></NavLink> */}
                             {user && <NavLink className="fast-trans" to="#" onClick={this.onLogout}>
                                 <li>Logout</li>
                             </NavLink>}

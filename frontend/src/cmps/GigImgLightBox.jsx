@@ -8,8 +8,7 @@ export function GigImgLightBox({ currImg, onToggleImgLightbox, onNextPageLightBo
     return (
         <section className="img-light-box" onClick={() => onToggleImgLightbox()}>
             <div>
-                <img src={currImg} />
-                {/* <CarouselImgs imgUrls={gig.imgUrls} /> */}
+                <img src={currImg} alt="" />
                 <CloseIcon className="close-light-box" onClick={() => onToggleImgLightbox()} />
                 <SkipNextIcon className="next-img" onClick={(ev) => onNextPageLightBox(ev)} />
                 <SkipPreviousIcon className="prev-img" onClick={(ev) => onPrevPageLightBox(ev)} />

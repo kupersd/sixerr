@@ -1,22 +1,15 @@
 .review-card {
-    // margin-block-start: 2rem;
     border-bottom: 1px solid #dadbdd;
     .avatar-container {
-        // margin-block-start: 2.22rem;
         margin-block-start: rem(27px);
-        // margin-block-start: 1.15rem;
         padding-inline-end: 1rem;
         .avatar {
             width: 32px;
             height: 32px;
         }
     }
-    .info {
-    }
     .review-info {
         padding-block-start: 1.25rem;
-        // margin-top: 8px;
-        // padding-block-start: 10rem;
         h5 {
             margin: 0;
             font-size: 16px;
@@ -29,24 +22,16 @@
             padding-top: 0.8rem;
             span {
                 cursor: pointer;
-                // color: #404145;
-
                 font-weight: 600;
-                // margin-top: 0.1rem;
                 font-size: 15px;
                 cursor: pointer;
+                color: #555a5a;
             }
             padding: 0.8rem;
             padding-inline-start: 0;
             .helpful {
-                // color: #222325;
                 color: rgb(146, 146, 146);
                 padding: 0.1rem;
-                // color: rgb(146, 146, 146);
-
-                // color: #222325
-                // margin-top:0.8rem;
-                // margin-inline-end: rem(20px);
                 cursor: pointer;
                 margin-inline-end: 0.2px;
             }
@@ -57,23 +42,16 @@
                 cursor: pointer;
                 padding-inline-end: 1rem;
             }
-
             .thumb-down {
                 color: rgb(245, 0, 0);
                 color: rgb(146, 146, 146);
                 padding: 0.1rem;
                 cursor: pointer;
-
-                // margin-inline-end:0 !important;
-            }
-            .MuiSvgIcon-root {
-                // font-size: 1.2rem;
             }
         }
         .rating {
             margin: 0;
             font-size: 1.2rem;
-            // color: $starsColor;
             color: #ffbf00;
             font-weight: 700;
         }
@@ -82,14 +60,11 @@
             color: #ffbf00;
             font-weight: 700;
         }
-        // padding-block-start: rem(12px);
         padding-block-end: rem(12px);
     }
     p {
         margin: 0 !important;
         margin-block-start: 0.5rem;
-        // margin-block-end: 2rem;
-        // padding:8px 0px;
         color: #404145;
         font: 400 16px/24px "Macan", "Helvetica Neue", Helvetica, Arial, sans-serif;
     }
@@ -110,7 +85,6 @@
         padding-block-start: 0.3rem;
         padding: 0, 0, 3rem, 3rem;
         span {
-            // margin: 0;
             margin-inline-start: 10px;
             color: #95979d;
             font-size: rem(14px);

@@ -22,11 +22,6 @@ class RichTextEditor extends React.Component {
         this.toggleInlineStyle = this._toggleInlineStyle.bind(this);
     }
     componentDidMount() {
-        // if(!this.props.desc) this.state = { editorState: EditorState.createEmpty() };
-        // console.log('this.props.desc!!!', this.props.desc);
-        // console.log('propss!!!!!!', this.props.desc);
-        // const { editorState } = this.state
-        // if (editorState) this.onSetHtml(draftToHtml(convertToRaw(editorState.getCurrentContent())))
         this.setState({ innerHtml: this.props.desc })
     }
 
@@ -87,16 +82,11 @@ class RichTextEditor extends React.Component {
 
     render() {
         const desc = this.props.desc
-        // if(document.querySelector('.RichEditor-root')) document.querySelector('.RichEditor-root').innerHTML=`${desc}`
         if (document.querySelector('.data-text')) {
             let span = document.querySelector('.data-text')
             console.log("document.querySelector('.data-text')!!!", document.querySelector('.data-text'))
             span.innerHtml = `5`
         }
-        // if (document.querySelector('.RichEditor-root')) document.querySelector('.RichEditor-root').innerHTML = `${desc}`
-        // if (document.querySelector('.RichEditor-editor')) document.querySelector('.RichEditor-editor').innerHTML = `${desc}`
-        // if (document.querySelector('.public-DraftStyleDefault-block public-DraftStyleDefault-ltr span')) document.querySelector('.public-DraftStyleDefault-block public-DraftStyleDefault-ltr span').innerHTML = `${desc}`
-
 
         console.log("render , desc", desc)
         if (this.state.innerHtml) console.log("innerHtml", this.state.innerHtml)
@@ -110,7 +100,6 @@ class RichTextEditor extends React.Component {
             }
         }
 
-        // blockRendererFn?: (block: ContentBlock) => ?Object
         return (
             <div className="RichEditor-root main-layout">
                 <BlockStyleControls
@@ -121,9 +110,6 @@ class RichTextEditor extends React.Component {
                     editorState={editorState}
                     onToggle={this.toggleInlineStyle}
                 />
-                {/* <div dangerouslySetInnerHTML={{__html:`${desc}`}}>
-
-                </div> */}
                 <div className={className} onClick={this.focus}   >
                     <Editor
                         blockStyleFn={getBlockStyle}
@@ -246,26 +232,6 @@ const InlineStyleControls = (props) => {
         </div>
     );
 };
-
-// class MyEditor extends React.Component {
-//     // ...
-//     _onBoldClick() {
-//       this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'BOLD'));
-//     }
-
-//     render() {
-//       return (
-//         <div>
-//           <button onClick={this._onBoldClick.bind(this)}>Bold</button>
-//           <Editor
-//             editorState={this.state.editorState}
-//             handleKeyCommand={this.handleKeyCommand}
-//             onChange={this.onChange}
-//           />
-//         </div>
-//       );
-//     }
-//   }
 
 
 export default RichTextEditor;

@@ -1,26 +1,22 @@
 import React, { Component } from 'react'
-import ChatBox, { ChatFrame } from 'react-chat-plugin';
-import { connect } from 'react-redux'
+import ChatBox from 'react-chat-plugin';
+import { socketService } from '../services/socketService'
 
 
 export class Chat extends Component {
     state = {
         user: null,
         messages: [],
-        // msg,
     };
 
     componentDidMount() {
         const { user } = this.props
-        console.log("componentDidMount , user", user)
-        // const {msg} = this.props
         this.setState({ user })
     }
 
 
     //from app header : 
     onNewMsg = (newMsg) => {
-        // const { user } = this.props
         console.log('MESSAGE', newMsg)
         const user = newMsg.from
         this.setState({ isRecievedMsg: true, user}).then(() => {
@@ -67,16 +63,3 @@ export class Chat extends Component {
     }
 }
 
-
-// const mapStateToProps = (state) => {
-
-//     return {
-//         gigs: state.gigModule.gigs,
-//         user: state.userModule.user
-//     }
-// }
-
-// const mapDispatchToProps = {
-// }
-
-// export const Chat = connect(mapStateToProps, mapDispatchToProps)(_Chat)

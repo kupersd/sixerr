@@ -42,17 +42,12 @@ class _Checkout extends Component {
         this.setState({ isAprrovedInfo: !isAprrovedInfo })
     }
 
-    // onGigOrder = () => {
-    //     this.props.orderGig(this.state.gig, this.props.user)
-    // }
 
     onGigOrder = async () => {
         const { gig } = this.state
         const { user } = this.props
         console.log("onGigOrder= , gig", gig)
-        //order gig from here 
         await this.props.orderGig(gig, user)
-        //send msg to server with user,order,gig
         socketService.emit('new order', { from: user, txt: 'NEW ORDER !!!!', gig })
         this.props.history.push(`/gig/${gig._id}`)
     }
@@ -64,7 +59,8 @@ class _Checkout extends Component {
         console.log('user', this.state.user);
         console.log("render , gig", gig)
         if (!gig) return <div>Loading</div>
-        const totalPrice = randomFee + gig.packages[0].price
+        const packPrice = gig.packages[0].price.toFixed(2)
+        const totalPrice = randomFee + gig.packages[0].price.toFixed(2)
         return (
             <section className="chackout-container main-container">
                 {!isAprrovedInfo && <div className="requirements flex justify-center">
@@ -93,21 +89,9 @@ class _Checkout extends Component {
                                     <span className="total-reviews">({gig.reviews.length} reviews)</span>
                                 </div>
                                 {!isShowFeatures && <a className="included" onClick={() => this.onTogFetaures()} >Show What's included</a>}
-                                {isShowFeatures && <a className="included" onClick={() => this.onTogFetaures()} >Hide What's included</a>}
+                                {isShowFeatures && <a className="included" onClick={() => this.onTogFetaures()} >Hide Features included</a>}
                             </div>
-                            <div className="pricing flex">
-                                <div>
-                                    <span>Qty</span>
-                                    <select name="quantaty " >
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                    </select>
-                                </div>
-                                <span className="price">${gig.packages[0].price}</span>
-                            </div>
+                            <span className="price">${gig.packages[0].price}</span>
                         </div>
                         {isShowFeatures && <div className="features-container flex">
                             <div className="gig-title">
@@ -122,15 +106,16 @@ class _Checkout extends Component {
                         </div>}
                     </div>
                     <div className="checkout-bar flex">
-                        <h6>Summery</h6>
+                        <h6>Summary</h6>
                         <div className="flex space-between">
                             <span>Check Out</span>
-                            <span>{gig.packages[0].price}</span>
+                            <span>${packPrice}</span>
                         </div>
                         <div className="fee flex space-between">
                             <span>Service Fee <InfoIcon className="info" /> </span>
+                            <div className="hide">modal open</div>
                             {/* <span>Service Fee <ContactSupportIcon className="info" /> </span> */}
-                            <span>${randomFee}</span>
+                            <span>${randomFee.toFixed(2)}</span>
                         </div>
                         <div className="border flex align-center"></div>
                         <div className="payment-summery flex space-between">
@@ -144,9 +129,6 @@ class _Checkout extends Component {
                         <div className="buy-btn-container">
                             <button onClick={() => this.onGigOrder()} >Purchase now</button>
                         </div>
-                        {/* <div className="wont-be-charged flex justify-center"> */}
-                        {/* <span >You Wont Be Charged Yet</span>
-                        </div> */}
                     </div>
                 </div>
             </section>
