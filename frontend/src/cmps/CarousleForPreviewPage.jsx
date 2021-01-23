@@ -4,27 +4,21 @@ import Carousel from 'react-elastic-carousel';
 
 export class CarouslePreview extends Component {
     state = {
-        items: [
-        ]
+        items: []
     }
-
     componentDidMount() {
-        // const { imgUrls } = this.props
-        // console.log("componentDidMount , imgUrls", imgUrls)
-        // this.setState({ items: imgUrls })
         this.createItems()
     }
     createItems = () => {
+        //Note for ori - see that you send imgUrls as a paremter or call it like that !
         const { imgUrls } = this.props
         let items = []
-        imgUrls.map((img,idx) => {
-            console.log("imgUrls.map , img", img)
-            const item = {id:idx,title:img}
+        imgUrls.map((src,idx) => {
+            const item = {id:idx,src}
             items.push(item)
         })
         this.setState({items})
     }
-
     render() {
         const { items } = this.state;
         return (

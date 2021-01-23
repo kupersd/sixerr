@@ -36,13 +36,9 @@ export default function SideBar({ gig, onGigOrder }) {
                     </div>
                     <div className="btns-container flex justify-center">
                         <Link to={`/gig/checkout/${gig._id}`}><button className="continue">Continue<span>{' '}</span>(${packPrice})</button></Link>
-                        {/* <button className="continue" onClick={onGigOrder} >Continue<span>{' '}</span>(${gig.packages[0].price})</button> */}
                     </div>
                 </div>
             </div>
-            {/* <div>
-                    <button>Contact Seller</button>
-                </div> */}
         </>
     )
 }

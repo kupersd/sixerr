@@ -1,7 +1,5 @@
 import React from 'react'
 import Avatar from '@material-ui/core/Avatar';
-// var FontAwesome = require('react-fontawesome')
-import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownAltIcon from '@material-ui/icons/ThumbDownAlt';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 
@@ -38,22 +36,15 @@ export function ReviewPreview({ review, user, onToggleHelfull, isHelful }) {
                     {/* todo : add country and flags */}
                     <p>{review.txt}</p>
                     <p className="published-at">Published 20 Days Ago</p>
-                    {/* <div className={`icons flex ${(onToggleHelfull)?' liked' : ''}}> */}
-                    {/* <div className={`icons flex ${isHelful?' liked' : ``}}> */}
                     <div className={`icons flex`} >
+                        
                         <ThumbUpAltIcon className="helpful" onClick={() => onToggleHelfull()} />
-                        {/* <i class="far fa-thumbs-up"></i> */}
-                        {/* <i class="far fa-thumbs-up"></i> */}
-
                         <span className={`helpful-name ${isHelful ? ' liked' : ''}`}>Helpful</span>
                         <ThumbDownAltIcon className={`thumb-down ${isHelful ? ' liked' : ''}`} />
-                        {/* <i class="far fa-thumbs-down"></i> */}
-
                         <span>Not Helpful</span>
                     </div>
                 </div>
             </section>
-            {/* <p className="review-published-date">Published 2 Days Ago</p> */}
         </>
     )
 }

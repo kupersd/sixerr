@@ -31,7 +31,6 @@
         padding-block-end: 0.125rem;
         width: 100%;
         margin-top: rem(12px);
-        // margin-bottom: rem();
         &:hover {
             color: #fff;
             background: #7a7d85;
@@ -39,14 +38,10 @@
     }
     .text-area-container {
         width: 100%;
+        resize: none;
         textarea {
             padding: 0.7rem;
             width: 100%;
-        }
-    }
-    .rate-mobile-view-container{
-        div{
-            // background-color: yellowgreen;
         }
     }
 }

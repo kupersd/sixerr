@@ -1,11 +1,11 @@
 import Avatar from '@material-ui/core/Avatar';
-import StarRateIcon from '@material-ui/icons/StarRate';
 import {
     IconFlagUS,
 }
     from 'material-ui-flags';
 
 export function ShortReviewPreview({ reviews, idx }) {
+
     if (!reviews[idx].by) return <div></div>
     return (
         <>
@@ -23,14 +23,10 @@ export function ShortReviewPreview({ reviews, idx }) {
                     </div>
                 </div>
                 <p >{reviews[idx].txt}</p>
-                {/* <p className="cut-text text-with-dots ">{reviews[idx].txt}</p> */}
             </div>
         </>
     )
 }
 
-//remove padding from short-content
-//div flex  =>     padding-inline-start: 30px;  padding-block-start: 18px;
-// p => margin-block-end:0; ,     padding-inline-start: 86.5px; ,padding-block-end: 4px;
 
     

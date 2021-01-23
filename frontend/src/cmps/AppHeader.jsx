@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 import { Login } from '../pages/Login'
 import { logout } from '../store/actions/userActions'
 import { socketService } from '../services/socketService'
-import ChatBox, { ChatFrame } from 'react-chat-plugin';
 
 
 class _AppHeader extends React.Component {
