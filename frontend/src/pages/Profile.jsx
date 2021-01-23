@@ -47,7 +47,7 @@ class _Profile extends React.Component {
         socketService.off('order received', this.onNewOrder)
     }
 
-    
+
     onNewOrder = async (newMsg) => {
         const { user } = this.props
         // TODO: INTERNAL FUNCTION FOR LOADING ORDERS
@@ -130,20 +130,48 @@ class _Profile extends React.Component {
 
                         <p>Level 2 Seller</p>
                         <p>Member since {memberSince}</p>
-                        <button>Send Message</button>
+                        <hr />
+                        <div className="seller-scores">
+                            <div className="seller-score flex space-between align-center">
+                                <p>Response rate</p>
+                                <div className="score-bar" style={_userScoreBarStyle(91)}></div>
+                                <span>91%</span>
+                            </div>
+                            <div className="seller-score flex space-between align-center">
+                                <p>Delivery time</p>
+                                <div className="score-bar" style={_userScoreBarStyle(77)}></div>
+                                <span>77%</span>
+                            </div>
+                            <div className="seller-score flex space-between align-center">
+                                <p>Order Completion</p>
+                                <div className="score-bar" style={_userScoreBarStyle(95)}></div>
+                                <span>95%</span>
+                            </div>
+                        </div>
+                        <hr />
+                        <div className="seller-scores">
+                            <div className="seller-earnings flex space-between align-center">
+                                <p>Earnings In January</p>
+                                <span>${totalIncome}</span>
+                            </div>
+                            <div className="seller-earnings flex space-between align-center">
+                                <p>Response Time</p>
+                                <span className="green">2Hrs</span>
+                            </div>
+                        </div>
                     </div>
 
 
                     {ordersAsSeller.length !== 0 && <div className="seller-orders">
                         <h1>Active Orders - <span>{ordersAsSeller.length} (${totalIncome})</span></h1>
-                        <OrderList orders={ordersAsSeller} onOrderStatusChanged={this.onOrderStatusChanged} />
+                        <OrderList orders={ordersAsSeller.slice(0, 8)} onOrderStatusChanged={this.onOrderStatusChanged} />
                     </div>}
+                    <section className="chart-wrapper">
+                        <ProfileCharts income={totalIncome}
+                        />
+                    </section>
                 </div>
 
-                <section className="chart-wrapper">
-                    <ProfileCharts
-                    />
-                </section>
                 <div className="my-gigs">
                     <h1>My Gigs</h1>
                     {myGigs.length === 0 &&
@@ -181,24 +209,6 @@ const mapDispatchToProps = {
 
 export const Profile = connect(mapGlobalStateToProps, mapDispatchToProps)(_Profile)
 
-
-{/* {ordersAsSeller.length !== 0 && <div className="seller-orders">
-                    <h1>Orders from me</h1>
-                    <OrderList orders={ordersAsSeller} onOrderStatusChanged={this.onOrderStatusChanged} />
-                </div>}
-
-                {ordersAsBuyer.length !== 0 &&
-                        <div className="buyer-orders">
-                            <h1>My Orders</h1>
-                            <OrderList orders={ordersAsBuyer} />
-                        </div>}
-
-                {lastViewed.length !== 0 &&
-                    <div className="recently-viewed flex column">
-                        <h1>Last viewed</h1>
-                        <GigList gigs={lastViewed} onDelete={this.onDelete} onUserViewGig={() => { }} onFavoriteToggle={this.onFavoriteToggle} user={user} removeViewed={this.onRemoveViewed} />
-                    </div>}
-                <h1>Favorites</h1>
-                <GigList gigs={favoriteGigs} onDelete={this.onDelete} onUserViewGig={() => { }} onFavoriteToggle={this.onFavoriteToggle} user={user} />
-                <h1>Suggested</h1>
-                <GigList gigs={suggestedGigs} onDelete={this.onDelete} onUserViewGig={() => { }} onFavoriteToggle={this.onFavoriteToggle} user={user} isSmallPreview={true} /> */}
+function _userScoreBarStyle(score) {
+    return { background: `linear-gradient(90deg, ${SIXERR_GREEN} ${score}%, rgb(181, 182, 186) ${score}.01%, rgb(200, 200, 200) 100%)` }
+}

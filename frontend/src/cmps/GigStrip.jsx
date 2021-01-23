@@ -41,7 +41,10 @@ export class GigStrip extends React.Component {
 
         return (
             <section className="gig-strip main-container" style={bgStyle}>
-                <h2 className="strip-title">{this.props.title}</h2>
+                <div className="flex space-between">
+                    <h2 className="strip-title">{this.props.title}</h2>
+                    <a className="see-all">See all &gt;</a>
+                </div>
                 <ul className="strip-wrap clean-list" style={inlineStyle}>
                     {this.props.gigs.map(gig =>
                         <GigPreview key={gig._id}

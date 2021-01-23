@@ -2,13 +2,19 @@
 
     position: relative;
     overflow: hidden;
+    transform: translateX(-10px);
 
     .strip-title {
-        font-size: 2rem;
+        font-size: 1.5rem;
         margin: 0.75rem 0 0.75rem;
         color: $darkColor;
     }
 
+    .see-all {
+        color: $greenColor;
+        align-self: center;
+        font-size: 0.875rem;
+    }
     .strip-wrap {
         margin-inline-start: -1.5rem;
         display: grid;

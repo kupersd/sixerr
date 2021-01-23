@@ -65,7 +65,7 @@ class _GigHome extends React.Component {
         return (
             <>
                 <Hero />
-                <div className="main-container">
+                <div className="home-page main-container">
 
                     <GigStrip title={'Design'}
                         gigs={this.props.gigs}
@@ -83,12 +83,6 @@ class _GigHome extends React.Component {
                     <GigCtgList ctgs={ctgs.slice(4, 8)} title={`Editor's Pick`}/>
                     <GigStrip title={'Music'}
                         gigs={musicGigs}
-                        onUserViewGig={this.onUserViewGig}
-                        onFavoriteToggle={this.onFavoriteToggle}
-                        user={this.props.user}
-                        onDelete={this.onDelete} />
-                    <GigStrip title={'Video'}
-                        gigs={this.props.gigs}
                         onUserViewGig={this.onUserViewGig}
                         onFavoriteToggle={this.onFavoriteToggle}
                         user={this.props.user}

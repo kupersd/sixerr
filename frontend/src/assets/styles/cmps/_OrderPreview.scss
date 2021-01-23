@@ -1,15 +1,23 @@
 .order-item {
     border: $border;
 
+    position: relative;
     color: $darkColor;
     margin-bottom: 0.5rem;
     
+    .item-color {
+        // background-color: red;
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 0.25rem;
+    }
+
     .order-top {
         padding: 1rem;
         display: grid;
         grid-template-columns: 1fr 2fr 1fr 3fr;
-        // grid-template-columns: repeat(4, minmax(100px, 1fr));
-        // grid-template-rows: 10vh 5vh;
         
         .order-img {
             
@@ -30,16 +38,31 @@
                 font-weight: bold;
             }
         }
-        
-        .order-buyer, .order-price, .order-date {
+
+        .order-buyer-wrapper{
+            padding-inline-start: 1rem;
+            img {
+                display: inline-block;
+                width: 3rem;
+                height: 3rem;
+                object-fit: cover;
+                border-radius: 50%;
+            }
+        }
+
+        .order-price, .order-date {
             flex-direction: column;
             align-items: flex-start;
             justify-content: center;
             padding-inline-start: 1rem;
-            
         }
-        .order-buyer span {
-            text-transform: capitalize;
+        
+        .order-buyer {
+            padding-inline-start: 0.5rem;
+
+            span {
+                text-transform: capitalize;
+            }
         }
         .order-date .clock {
             margin-inline-end: 0.25rem;
@@ -53,13 +76,13 @@
     }
     .order-bottom {
         padding: 0.5rem 1rem;
-        border-top: $border;
+        // border-top: $border;
         grid-column: 1 / -1 ;
 
         p {
             margin: 0;
         }
-
+        
         .order-status {
             span {
                 width: 5rem;

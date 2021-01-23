@@ -13,27 +13,23 @@
         .about-user {
             border: $border;
             height: fit-content;
+            max-width: 30vw;
             h1 {
                 color: $darkColor;
-                margin: 0.25rem 0 0.25rem;
+                margin: 0.25rem 0 0.75rem;
                 text-align: center;
             }
 
             p {
                 color: $headerColor;
                 text-align: center;
-                padding-inline-start: 5%;
                 margin: 0.25rem 0 0;
 
                 &:last-of-type {
                     margin-bottom: 1rem;
                 }
             }
-            button {
-                width: 90%;
-                margin: 1rem auto 1.25rem;
-                @include defButton;
-            }
+
             .img-upload {
                 position: relative;
                 display: block;
@@ -72,8 +68,53 @@
     
             }
             
-            > * {
-                outline: none;
+            .seller-scores {
+                margin: 0.5rem 0;
+                .seller-score, .seller-earnings {
+                    padding: 0 1rem;
+                    p {
+                        text-align: left;
+                        text-transform: capitalize;
+                        font-size: 0.875rem;
+                        margin: 0.5rem 0;
+                        color: $ctgColor;
+                        width: 9rem;
+                    }
+                    span {
+                        font-size: 0.875rem;
+                        font-weight: bold;
+                    }
+                    .score-bar {
+                        margin-inline-start: 1rem;
+                        height: 0.5rem;
+                        width: 7vw;
+                        border-radius: 0.25rem;
+                        // background-color: $greenColor;
+                        // background: linear-gradient(90deg, rgba($greenColor,1) 91%, rgba($borderColor,1) 91.1%, rgba($borderColor,1) 100%);
+                    }
+                }
+            }
+        }
+        .chart-wrapper {
+            grid-column: 1 / 2;
+            max-width: 30vw;
+        }
+    }
+
+
+    .seller-orders {
+        grid-column: 2/3;
+        grid-row: 1/4;
+        h1 {
+            margin-top: 0;
+            font-size: 1.2rem;
+            border: $border;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+
+            span {
+                color: $headerColor;
+                font-weight: normal;
             }
         }
     }
@@ -99,28 +140,6 @@
         margin-bottom: 1.5rem;
     }
 
-    .seller-orders {
-        // background-color: sandybrown;
-
-        h1 {
-            margin-top: 0;
-            font-size: 1.2rem;
-            border: $border;
-            padding: 1rem;
-            margin-bottom: 1.5rem;
-
-            span {
-                color: $headerColor;
-                font-weight: normal;
-            }
-        }
-    }
-    .buyer-orders {
-        // border: $border;
-        h1 {
-            padding-inline-start: 0;
-        }
-    }
     .recently-viewed {
         h1 {
             color: $darkColor;

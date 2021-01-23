@@ -43,35 +43,56 @@ export function OrderPreview({ order, onOrderStatusChanged }) {
     }
 
     return (
-        <li className="order-item">
-            <div className="order-top">
-                <div className="order-img">
-                    <img src={order.gig.imgUrl} alt="" />
-                </div>
-                <div className="order-buyer flex">
-                    {/* <h4>{order.gig.title}</h4> */}
-                    <p><span>{order.buyer.fullname}</span></p>
-                    <p className="green">View Order</p>
-                </div>
-                <div className="order-price flex">
-                    <p className="light-grey">Price</p>
-                    <p className="light-grey">$325</p>
-                </div>
-                <div className="order-date flex">
-                    <p className="light-grey">Delivery Time</p>
-                    <div className="flex align-center light-grey">
-                        <ScheduleIcon className="clock" />
-                        <p>3d, 11h</p>
+        <>
+            <li className="order-item">
+                <div className="item-color" style={getOrderProps().statusStyle}></div>
+                <div className="order-top">
+                    <div className="order-img">
+                        <img src={order.gig.imgUrl} alt="" />
+                    </div>
+                    <div className="order-buyer-wrapper flex align-center">
+
+                        <img src={order.buyer.imgUrl} />
+                        <div className="order-buyer">
+                            <p><span>{order.buyer.fullname}</span></p>
+                            <p className="green">View Order</p>
+                        </div>
+                    </div>
+                    <div className="order-price flex">
+                        <p className="light-grey">Price</p>
+                        <p className="light-grey">${order.totalPrice}</p>
+                    </div>
+                    <div className="order-date flex">
+                        <p className="light-grey">Delivery Time</p>
+                        <div className="flex align-center light-grey">
+                            <ScheduleIcon className="clock" />
+                            <p>{_getDueTime(order.createdAt)}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div className="order-bottom flex space-between align-center">
-                <div className="order-status flex align-center">
-                    <span style={getOrderProps().statusStyle}>{order.status}</span>
-                    <p className="light-grey">{getOrderProps().statusMsg}</p>
+                <hr />
+                <div className="order-bottom flex space-between align-center">
+                    <div className="order-status flex align-center">
+                        <span style={getOrderProps().statusStyle}>{order.status}</span>
+                        <p className="light-grey">{getOrderProps().statusMsg}</p>
+                    </div>
+                    <button onClick={setOrderStatus}>{getOrderProps().ctaButtonText}</button>
                 </div>
-                <button onClick={setOrderStatus}>{getOrderProps().ctaButtonText}</button>
-            </div>
-        </li >
+            </li >
+        </>
     )
+}
+
+function _getDueTime(orderTimeStamp) {
+    const gigDeliveryDays = 3
+    const DAY = 24 * 60 * 60 * 1000
+    const HOUR = 60 * 60 * 1000
+
+    let timeToComplete = ((orderTimeStamp + gigDeliveryDays * DAY) - Date.now())
+    const daysDue = Math.floor(timeToComplete / DAY)
+    timeToComplete -= daysDue * DAY
+    const hoursDue = Math.floor(timeToComplete / HOUR)
+
+    return `${daysDue} Days, ${hoursDue} Hrs`
+
 }
