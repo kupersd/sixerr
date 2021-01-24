@@ -253,7 +253,6 @@ class _GigDetails extends React.Component {
 
 
 
-
     render() {
         const { gig, numImgChoosen, isTitleEditble, isGigOwner, isDescEditble, isLightBoxOpen, isFullSizeScreen, shortReviewSize, isHelful } = this.state
         const { user } = this.props
