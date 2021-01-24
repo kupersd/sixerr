@@ -13,20 +13,25 @@ class _GigHome extends React.Component {
 
     state = {
         ctgs: [
-            { imgUrl: '/assets/img/ctg/pencils.jpg', title: 'Logo design', cta: 'Build your brand', tag:'Logo' },
-            { imgUrl: '/assets/img/ctg/guitar1.jpg', title: 'Guitar session', cta: 'Publish your art', tag:'Guitar' },
-            { imgUrl: '/assets/img/ctg/condenser1.jpg', title: 'Voice over', cta: 'Share your message', tag:'Voice' },
-            { imgUrl: '/assets/img/ctg/coding1.jpg', title: 'Programming', cta: 'Create amazing things', tag:'Programming' },
-            { imgUrl: '/assets/img/ctg/canvas.jpg', title: 'Drawing', cta: 'Visualize your dream', tag:'Drawing' },
-            { imgUrl: '/assets/img/ctg/coach.jpg', title: 'Marketing', cta: 'Spread the word', tag:'Marketing' },
-            { imgUrl: '/assets/img/ctg/mixing.jpg', title: 'Mixing', cta: 'Finish your song', tag:'Mixing' },
-            { imgUrl: '/assets/img/ctg/piano.jpg', title: 'Piano Lessons', cta: 'Learn to play', tag:'Piano' }
-        ]
+            { imgUrl: '/assets/img/ctg/pencils.jpg', title: 'Logo design', cta: 'Build your brand', tag: 'Logo' },
+            { imgUrl: '/assets/img/ctg/guitar1.jpg', title: 'Guitar session', cta: 'Publish your art', tag: 'Guitar' },
+            { imgUrl: '/assets/img/ctg/condenser1.jpg', title: 'Voice over', cta: 'Share your message', tag: 'Voice' },
+            { imgUrl: '/assets/img/ctg/coding1.jpg', title: 'Programming', cta: 'Create amazing things', tag: 'Programming' },
+            { imgUrl: '/assets/img/ctg/canvas.jpg', title: 'Drawing', cta: 'Visualize your dream', tag: 'Drawing' },
+            { imgUrl: '/assets/img/ctg/coach.jpg', title: 'Marketing', cta: 'Spread the word', tag: 'Marketing' },
+            { imgUrl: '/assets/img/ctg/mixing.jpg', title: 'Mixing', cta: 'Finish your song', tag: 'Mixing' },
+            { imgUrl: '/assets/img/ctg/piano.jpg', title: 'Piano Lessons', cta: 'Learn to play', tag: 'Piano' }
+        ],
+        gigs: []
     }
 
 
     componentDidMount() {
-        this.props.loadGigs()
+        this.loadGigs()
+    }
+    
+    loadGigs = async () => {
+        await this.props.loadGigs()
     }
 
     onUserViewGig = (gigId) => {
@@ -37,52 +42,46 @@ class _GigHome extends React.Component {
         this.props.updateUser(user)
     }
 
-    onFavoriteToggle = (ev, gigId) => { 
+    onFavoriteToggle = (ev, gigId) => {
         ev.stopPropagation()
-        const user = {...this.props.user}
+        const user = { ...this.props.user }
         if (user.favoriteIds) {
             if (user.favoriteIds.find(favoriteId => favoriteId === gigId)) user.favoriteIds = user.favoriteIds.filter(favoriteId => favoriteId !== gigId)
             else user.favoriteIds.push(gigId)
         } else user.favoriteIds = [gigId]
-        console.log('user.favoriteIds',user.favoriteIds)
         this.props.updateUser(user)
-    }
-
-    nextHero = () => {
-        const herosCount = this.state.heros.length
-        const nextHero = (this.state.currHeroIdx === herosCount - 1) ?
-            0 : this.state.currHeroIdx + 1
-        this.setState({ currHeroIdx: nextHero })
     }
 
     render() {
         const { ctgs } = this.state
         const { gigs } = this.props
 
-        const jsGigs = [...gigs.slice(3)]
-        const musicGigs = [...gigs.slice(5)]
         const suggestedGigs = [...gigs.slice(8, 16)]
         return (
-            <>
+            <section>
                 <Hero />
+                {!gigs.length && <div>Loading</div>}
                 <div className="home-page main-container">
 
                     <GigStrip title={'Design'}
-                        gigs={this.props.gigs}
+                        tags={['Logo']}
+                        gigs={gigs}
                         onUserViewGig={this.onUserViewGig}
                         onFavoriteToggle={this.onFavoriteToggle}
                         user={this.props.user}
                         onDelete={this.onDelete} />
-                    <GigCtgList ctgs={ctgs.slice(0, 4)} title={`For you`} setFilter={this.props.setFilter}/>
-                    <GigStrip title={'Software'}
-                        gigs={jsGigs}
+                    <GigCtgList ctgs={ctgs.slice(0, 4)} title={`For you`} setFilter={this.props.setFilter} />
+                    <GigStrip title={'Branding'}
+                        tags={['Branding']}
+                        gigs={gigs}
                         onUserViewGig={this.onUserViewGig}
                         onFavoriteToggle={this.onFavoriteToggle}
                         user={this.props.user}
                         onDelete={this.onDelete} />
-                    <GigCtgList ctgs={ctgs.slice(4, 8)} title={`Editor's Pick`}/>
+                    <GigCtgList ctgs={ctgs.slice(4, 8)} title={`Editor's Pick`} />
                     <GigStrip title={'Music'}
-                        gigs={musicGigs}
+                        tags={['Guitar']}
+                        gigs={gigs}
                         onUserViewGig={this.onUserViewGig}
                         onFavoriteToggle={this.onFavoriteToggle}
                         user={this.props.user}
@@ -90,9 +89,7 @@ class _GigHome extends React.Component {
                     <h3>Suggested</h3>
                     <GigList gigs={suggestedGigs} onDelete={this.onDelete} onUserViewGig={() => { }} onFavoriteToggle={this.onFavoriteToggle} isSmallPreview={true} />
                 </div>
-
-                {/* </section> */}
-            </>
+            </section>
         )
     }
 }

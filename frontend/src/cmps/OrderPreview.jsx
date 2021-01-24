@@ -1,4 +1,5 @@
-import ScheduleIcon from '@material-ui/icons/Schedule';
+import ScheduleIcon from '@material-ui/icons/Schedule'
+import { CSSTransition } from 'react-transition-group'
 
 export function OrderPreview({ order, onOrderStatusChanged }) {
 
@@ -32,8 +33,6 @@ export function OrderPreview({ order, onOrderStatusChanged }) {
                     ctaButtonText: 'Start Over',
                     nextStatus: 'pending'
                 }
-
-
         }
     }
 
@@ -73,7 +72,10 @@ export function OrderPreview({ order, onOrderStatusChanged }) {
                 <hr />
                 <div className="order-bottom flex space-between align-center">
                     <div className="order-status flex align-center">
-                        <span style={getOrderProps().statusStyle}>{order.status}</span>
+                        <CSSTransition timeout={500} classNames="alert">
+
+                            <span style={getOrderProps().statusStyle}>{order.status}</span>
+                        </CSSTransition>
                         <p className="light-grey">{getOrderProps().statusMsg}</p>
                     </div>
                     <button onClick={setOrderStatus}>{getOrderProps().ctaButtonText}</button>
