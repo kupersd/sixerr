@@ -15,6 +15,7 @@
             font-size: 16px;
             line-height: 120%;
             margin-right: 10px;
+            text-transform: capitalize;
         }
         .icons {
             padding: 0.1rem;
@@ -97,6 +98,7 @@
         .country-name {
             margin: 0;
             padding-inline-start: rem(5px);
+            text-transform: capitalize;
         }
     }
     .star {

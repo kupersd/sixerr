@@ -28,27 +28,34 @@
         border-top: 1px solid #dadbdd;
     }
     .suggestd-list-wrapper {
+        display: grid;
+        grid-template-columns: 1fr;
+        margin-left: 0.6rem;
         .gig-strip {
+       
             margin-top: 40px;
-            .strip-wrap:not(:first-child) {
+            display: flex;
+            flex-direction: column;
+            .strip-wrap{
+                //should change hereif we change main-layout
+                margin-left: 0.6rem;
                 grid-template-columns: 0px;
                 grid-template-rows: minmax(350px, 1fr);
-                // gap: 9.5rem; mobile
                 gap: 9.5rem;
+            }
+            .strip-wrap{
+                margin-left: 0;
             }
             li {
                 width: 270px;
-                margin-left: rem(-130.5px);
-            }
-            .strip-title{
-                padding-block-end: 13px;
+                margin-left: rem(-150.5px);
             }
         }
     }
 
     .desc {
         margin-block-start: 1rem;
-        margin-block-end: rem(64px);
+        // margin-block-end: rem(64px);
         h2 {
             color: #404145;
             margin: 0;
@@ -65,6 +72,10 @@
             margin: 0;
             padding: 0;
             color: #62646a;
+        }
+        .content-edit-wrapper {
+            padding-block-end: rem(45px);
+            border-bottom: 1px solid #dadbdd;
         }
     }
 
@@ -203,6 +214,9 @@
                 display: none;
             }
         }
+        .seller-stats{
+            padding-bottom: 0px;
+        }
     }
 }
 
@@ -228,6 +242,10 @@
         }
         padding-inline-start: none !important;
         .suggestd-list-wrapper {
+            margin-left: 0;
+            .head{
+                margin-left: 0.6rem;
+            }
             .gig-strip {
                 margin-top: 40px;
                 .strip-wrap:not(:first-child) {
@@ -296,14 +314,11 @@
                 .strip-wrap:not(:first-child) {
                     grid-template-columns: 0px;
                     grid-template-rows: minmax(350px, 1fr);
-                    gap: 8rem;
+                    gap: 7.5rem;
                 }
                 li {
                     width: rem(250px);
                     margin-left: -7rem;
-                }
-                .strip-title {
-                    margin-left: -0.6rem;
                 }
             }
         }
@@ -357,6 +372,7 @@
         .short-review-header {
             flex-direction: column;
             justify-content: center;
+            padding-block-start: rem(35px);
             h2 {
                 padding: 0;
                 padding-block-end: rem(15px);
@@ -382,6 +398,7 @@
             margin-block-start: rem(10px);
         }
         .desc {
+            margin-block-start: rem(-20px);
             h2 {
                 display: flex;
                 padding-block-end: rem(10px);

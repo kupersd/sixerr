@@ -59,8 +59,8 @@ class _Checkout extends Component {
         console.log('user', this.state.user);
         console.log("render , gig", gig)
         if (!gig) return <div>Loading</div>
+        const totalPrice = (randomFee + gig.packages[0].price).toFixed(2)
         const packPrice = gig.packages[0].price.toFixed(2)
-        const totalPrice = randomFee + gig.packages[0].price.toFixed(2)
         return (
             <section className="chackout-container main-container">
                 {!isAprrovedInfo && <div className="requirements flex justify-center">

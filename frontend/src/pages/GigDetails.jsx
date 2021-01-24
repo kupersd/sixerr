@@ -200,7 +200,7 @@ class _GigDetails extends React.Component {
     }
 
     getStars = () => {
-        const {gig} = this.state
+        const { gig } = this.state
         const { reviews } = gig
         let totalStarsRate = 0, fiveStarCount = 0, fourStarCount = 0, threeStarCount = 0, twoStarCount = 0, oneStarCount = 0
         reviews.map((review) => {
@@ -300,16 +300,18 @@ class _GigDetails extends React.Component {
                                 {/* {!isDescEditble && < button onClick={this.toggleIsDescEditble}>edit</button>} */}
                             </div>
                             <SellerPreview seller={gig.owner} gig={gig} getBiggestStarRate={this.getBiggestStarRate} calculateAvgHalfRating={this.calculateAvgHalfRating} getStars={this.getStars} />
-                            <div className="suggestd-list-wrapper">
-                                <GigStrip title={'Suggested For You'}
-                                    className="suggested-strip-scroll-list"
-                                    gigs={this.props.gigs}
-                                    onUserViewGig={this.onUserViewGig}
-                                    onFavoriteToggle={this.onFavoriteToggle}
-                                    user={this.props.user}
-                                    onDelete={this.onDelete} />
+                            <div>
+                                <div className="suggestd-list-wrapper ">
+                                    <GigStrip title={'Suggested For You'}
+                                        className="suggested-strip-scroll-list"
+                                        gigs={this.props.gigs}
+                                        onUserViewGig={this.onUserViewGig}
+                                        onFavoriteToggle={this.onFavoriteToggle}
+                                        user={this.props.user}
+                                        onDelete={this.onDelete} />
+                                </div>
                             </div>
-                            <ReviewStats gig={gig} htmlStars={htmlStars} getBiggestStarRate={this.getBiggestStarRate} calculateAvgHalfRating={this.calculateAvgHalfRating} getStars={this.getStars}  />
+                            <ReviewStats gig={gig} htmlStars={htmlStars} getBiggestStarRate={this.getBiggestStarRate} calculateAvgHalfRating={this.calculateAvgHalfRating} getStars={this.getStars} />
                             {user && <GigAddReview gig={gig} user={user} onAddReview={this.onAddReview} mobileStarStats={this.state.mobileStarStats} />}
                             <div className="review-list-wrapper">
                                 <ReviewList gig={gig} user={user} onToggleHelfull={this.onToggleHelfull} isHelful={isHelful} />
