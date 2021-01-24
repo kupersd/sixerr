@@ -63,7 +63,7 @@ class _GigHome extends React.Component {
                 {!gigs.length && <div>Loading</div>}
                 <div className="home-page main-container">
 
-                    <GigStrip title={'Design'}
+                    <GigStrip title={'Logo & Graphics'}
                         tags={['Logo']}
                         gigs={gigs}
                         onUserViewGig={this.onUserViewGig}
@@ -71,16 +71,16 @@ class _GigHome extends React.Component {
                         user={this.props.user}
                         onDelete={this.onDelete} />
                     <GigCtgList ctgs={ctgs.slice(0, 4)} title={`For you`} setFilter={this.props.setFilter} />
-                    <GigStrip title={'Branding'}
-                        tags={['Branding']}
+                    <GigStrip title={'Music'}
+                        tags={['Guitar']}
                         gigs={gigs}
                         onUserViewGig={this.onUserViewGig}
                         onFavoriteToggle={this.onFavoriteToggle}
                         user={this.props.user}
                         onDelete={this.onDelete} />
                     <GigCtgList ctgs={ctgs.slice(4, 8)} title={`Editor's Pick`} />
-                    <GigStrip title={'Music'}
-                        tags={['Guitar']}
+                    <GigStrip title={'Web Design'}
+                        tags={['Web Design']}
                         gigs={gigs}
                         onUserViewGig={this.onUserViewGig}
                         onFavoriteToggle={this.onFavoriteToggle}
