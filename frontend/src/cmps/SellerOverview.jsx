@@ -2,7 +2,6 @@ import Avatar from '@material-ui/core/Avatar';
 
 export function SellerOverview({ gig, htmlStars, getBiggestStarRate, calculateAvgHalfRating, getStars }) {
     const avgRate = getStars()
-
     const biggestStarRtae = getBiggestStarRate()
 
     const createStarsAreey = () => {
