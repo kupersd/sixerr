@@ -253,7 +253,6 @@ class _GigDetails extends React.Component {
 
 
 
-
     render() {
         const { gig, numImgChoosen, isTitleEditble, isGigOwner, isDescEditble, isLightBoxOpen, isFullSizeScreen, shortReviewSize, isHelful } = this.state
         const { user } = this.props
@@ -269,7 +268,7 @@ class _GigDetails extends React.Component {
                         <div className="main-details">
                             <EditableElement field={'title'} type={'h1'} text={gig.title} save={this.onSave} editable={isTitleEditble} />
                             {isTitleEditble && <button onClick={this.onEdit}>Save</button>}
-                            <SellerOverview gig={gig} htmlStars={htmlStars} />
+                            <SellerOverview gig={gig} htmlStars={htmlStars} getBiggestStarRate={this.getBiggestStarRate} calculateAvgHalfRating={this.calculateAvgHalfRating} getStars={this.getStars} />
                             {!isFullSizeScreen && <div className="carousle-container" >
                                 <CarouselImgs imgUrls={gig.imgUrls} />
                             </div>}
