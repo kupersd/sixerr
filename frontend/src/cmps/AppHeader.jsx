@@ -21,22 +21,23 @@ class _AppHeader extends React.Component {
     }
 
     componentDidMount() {
+        const { user } = this.props
         socketService.on('chat addMsg', this.onNewMsg)
         socketService.on('order received', this.onOrderReceived)
-        const { user } = this.props
-        if (user) socketService.emit('chat topic', user._id)
+        // if (user) socketService.emit('chat topic', user._id)
 
     }
 
 
     componentWillUnmount() {
         socketService.off('chat addMsg', this.onNewMsg)
+        socketService.off('order received', this.onOrderReceived)
     }
 
     onToggleLogin = () => {
         const { user } = this.props
         this.setState({ isLoginOpen: !this.state.isLoginOpen })
-        if (user) socketService.emit('chat topic', user._id)
+        // if (user) socketService.emit('chat topic', user._id)
 
     }
 

@@ -1,11 +1,17 @@
-// FRONTEND INITAL CONNECTION
-componentDidMount() {
-    const { user } = this.props
-    socketService.on('chat addMsg', this.onNewMsg)
-    if (user) socketService.emit('chat topic', user._id)
+// BACKEND INITAL CONNECTION
+socketService.join(user._id)
+
+function join(userId) {
+    const store = asyncLocalStorage.getStore()
+    const { sessionId } = store
+    if (!sessionId) return logger.debug('Shoudnt happen, no sessionId in asyncLocalStorage store')
+    const socket = gSocketBySessionIdMap[sessionId]
+    if (!socket) return logger.debug('Shouldnt happen, No socket in map', gSocketBySessionIdMap)
+    socket.join(userId)
 }
 
-// FRO
+
+// FRONTEND - ORDER INITIATION 
 onGigOrder = async () => {
     const { gig } = this.state
     const { user } = this.props
@@ -40,12 +46,22 @@ function connectSockets() {
 }
 
 // FRONTEND
+
+// LISTENING ON ORDERS
 socketService.on('order received', this.onNewOrder)
 
+// ACTION ON NEW ORDER
 onNewOrder = async (newMsg) => {
     const { user } = this.props
     await this.props.loadOrders()
-    socketService.emit('chat newMsg', {to: newMsg.from._id, from: user.fullname, txt:msg})
+    socketService.emit('chat newMsg', { to: newMsg.from._id, from: user.fullname, txt: msg })
 }
+
+// LISTENING ON MESSAGES
+
+socketService.on('chat addMsg', this.onNewMsg)
+
+
+
 
 

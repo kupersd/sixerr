@@ -7,9 +7,11 @@ async function setupAsyncLocalStorage(req, res, next) {
     if (req.sessionID) {
       const store = asyncLocalStorage.getStore()
       store.sessionId = req.sessionID
+      console.log('MIDDLE STORE', store)
       if (req.session.user) {
         store.userId = req.session.user._id
         store.isAdmin = req.session.user.isAdmin
+        console.log('MIDDLE1234 STORE', store)
       }
     }
     next()
