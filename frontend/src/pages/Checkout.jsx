@@ -24,16 +24,12 @@ class _Checkout extends Component {
     async componentDidMount() {
         const gigId = this.props.match.params.gigId
         const gig = await loadGig(gigId)
-        console.log("componentDidMount , gig", gig)
         const { user } = this.props
-        console.log("componentDidMount , user", user)
         this.setState({ gig, user })
     }
 
     onTogFetaures = () => {
-        console.log('hey');
         let { isShowFeatures } = this.state
-        console.log("isShowFeatures", isShowFeatures)
         isShowFeatures = !isShowFeatures
         this.setState({ isShowFeatures })
     }
@@ -47,7 +43,6 @@ class _Checkout extends Component {
     onGigOrder = async () => {
         const { gig } = this.state
         const { user } = this.props
-        console.log("onGigOrder= , gig", gig)
         await this.props.orderGig(gig, user)
         socketService.emit('new order', { from: user, txt: 'NEW ORDER !!!!', gig })
         this.props.history.push(`/gig/${gig._id}`)
@@ -119,8 +114,6 @@ class _Checkout extends Component {
         //random fee....
         const randomFee = utilService.getRandomInt(2, 5)
         const { gig, isShowFeatures, isAprrovedInfo } = this.state
-        console.log('user', this.state.user);
-        console.log("render , gig", gig)
         if (!gig) return <Loader className="flex justify-center" type="ThreeDots" height={80} width={80} color={`#2bbe76`} />
         const starsArr = this.createStarsAreey()
         const totalPrice = (randomFee + gig.packages[0].price).toFixed(2)

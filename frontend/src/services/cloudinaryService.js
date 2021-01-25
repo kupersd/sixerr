@@ -3,7 +3,6 @@ export const cloudinaryService = {
 }
 
 async function uploadImg(ev) {
-    console.log('Dudi')
     const CLOUD_NAME = "dzocvtwca"
     const UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`
 
@@ -16,7 +15,6 @@ async function uploadImg(ev) {
             body: formData
         })
         const data = await res.json()
-        console.log(data);
         return data
 
     } catch (err) {

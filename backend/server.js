@@ -34,7 +34,7 @@ const userRoutes = require('./api/user/user.routes')
 const reviewRoutes = require('./api/review/review.routes')
 const gigRoutes = require('./api/gig/gig.routes')
 const orderRoutes = require('./api/order/order.routes')
-const {connectSockets} = require('./services/socket.service')
+const { connectSockets } = require('./services/socket.service')
 
 // INITIALIZING DB FROM DBJSON - 1 TIME
 // const dbPopulateService = require('./services/db-populate.service');
@@ -42,6 +42,11 @@ const {connectSockets} = require('./services/socket.service')
 console.log('server')
 
 // routes
+app.get('/api/setupSession', (req, res, next) => {
+    req.session.startedAt = Date.now()
+    next()
+})
+
 const setupAsyncLocalStorage = require('./middlewares/setupAls.middleware')
 app.all('*', setupAsyncLocalStorage)
 

@@ -24,7 +24,7 @@ class _AppHeader extends React.Component {
         const { user } = this.props
         socketService.on('chat addMsg', this.onNewMsg)
         socketService.on('order received', this.onOrderReceived)
-        // if (user) socketService.emit('chat topic', user._id)
+        if (user) socketService.emit('chat topic', user._id)
 
     }
 
@@ -37,7 +37,7 @@ class _AppHeader extends React.Component {
     onToggleLogin = () => {
         const { user } = this.props
         this.setState({ isLoginOpen: !this.state.isLoginOpen })
-        // if (user) socketService.emit('chat topic', user._id)
+        if (user) socketService.emit('chat topic', user._id)
 
     }
 
@@ -68,7 +68,6 @@ class _AppHeader extends React.Component {
     render() {
         const { user } = this.props
         const { openChat, isRecievedMsg } = this.state
-        console.log("render , openChat", openChat)
         const { isLoginOpen } = this.state
         const { modal } = this.state
         const modalStyle = { opacity: modal.opacity }

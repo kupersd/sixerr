@@ -13,7 +13,6 @@ async function getGig(req, res) {
 }
 
 async function getGigs(req, res) {
-    console.log('Query', req.query)
     const { text, owner, gigList, tags } = req.query
     const filterBy = {
         text: text || '',

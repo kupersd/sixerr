@@ -11,7 +11,6 @@ export class EditableElement extends React.Component {
     contentEditable = React.createRef();
 
     componentDidMount() {
-        console.log(this.props)
     }
 
     handleChange = evt => {

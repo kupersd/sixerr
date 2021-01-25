@@ -1,33 +1,34 @@
 import io from 'socket.io-client'
+import { httpService } from './httpService'
 
-const baseUrl = (process.env.NODE_ENV === 'production')? '' : '//localhost:3030'
-export const socketService = createSocketService()
+const baseUrl = (process.env.NODE_ENV === 'production') ? '' : '//localhost:3030'
+// export const socketService = createSocketService()
 // export const socketService = createDummySocketService()
 
-window.socketService = socketService
+// window.socketService = socketService
 
 
-function createSocketService() {
-  var socket
-  const socketService = {
-    setup() {
-      socket = io(baseUrl)
-    },
-    on(eventName, cb) {
-      socket.on(eventName, cb)
-    },
-    off(eventName, cb) {
-      socket.off(eventName, cb)
-    },
-    emit(eventName, data) {
-      socket.emit(eventName, data)
-    },
-    terminate() {
-      socket = null
-    }
-  }
-  return socketService
+// function createSocketService() {
+var socket
+
+async function setup() {
+  await httpService.get('/api/setupSession')
+  socket = io(baseUrl)
 }
+async function on(eventName, cb) {
+  await httpService.get('/api/setupSession')
+  socket.on(eventName, cb)
+}
+function off(eventName, cb) {
+  socket.off(eventName, cb)
+}
+function emit(eventName, data) {
+  socket.emit(eventName, data)
+}
+function terminate() {
+  socket = null
+}
+
 
 // eslint-disable-next-line
 function createDummySocketService() {
@@ -53,13 +54,19 @@ function createDummySocketService() {
       })
     },
     debugMsg() {
-      this.emit('chat addMsg', {from: 'Someone', txt: 'Aha it worked!'})
+      this.emit('chat addMsg', { from: 'Someone', txt: 'Aha it worked!' })
     },
   }
   return socketService
 }
 
-
+export const socketService = {
+  setup,
+  on,
+  off,
+  terminate,
+  emit,
+}
 // Basic Tests
 // function cb(x) {console.log(x)}
 // socketService.on('baba', cb)

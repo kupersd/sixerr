@@ -84,7 +84,6 @@ async function add(gig) {
 
 function _buildCriteria(filterBy) {
     const criteria = {}
-    console.log('list', filterBy.gigList)
     const txtCriteria = { $regex: filterBy.text, $options: 'i' }
     // const tagCriterias = filterBy.tags.map(tag => ({ $regex: tag, $options: 'i' }))
     if (filterBy.owner || filterBy.gigList.length) {

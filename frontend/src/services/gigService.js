@@ -11,9 +11,7 @@ export const gigService = {
 }
 
 function query(filterBy) {
-    console.log('filterBy', filterBy)
     const queryString = Object.keys(filterBy).map(key => `${key}=${filterBy[key]}`).join('&');
-    console.log('queryString', queryString)
     // return httpService.get(`${BASE_URL}/?${queryString}`)
     return httpService.get(BASE_URL, filterBy)
 }
@@ -27,7 +25,6 @@ async function deleteGig(gigId) {
 }
 
 async function save(gigToSave) {
-    console.log("save , gigToSave", gigToSave)
     if (gigToSave._id) {
         return httpService.put(`${BASE_URL}/${gigToSave._id}`, gigToSave) // UPDATE
     } else {

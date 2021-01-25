@@ -25,7 +25,7 @@ function connectSockets(http, session) {
         autoSave: true
     }));
     gIo.on('connection', socket => {
-        // console.log('socket.handshake', socket.handshake)
+        console.log('sessionId in conection',socket.handshake.sessionID)
         gSocketBySessionIdMap[socket.handshake.sessionID] = socket
         socket.on('disconnect', socket => {
             console.log('Someone disconnected', socket.myTopic)
@@ -39,24 +39,14 @@ function connectSockets(http, session) {
                 socket.leave(socket.myTopic)
             }
             socket.join(topic)
-            // logger.debug('Session ID is', socket.handshake.sessionID)
             socket.myTopic = topic
-            // const { userId } = store
-            // console.log(userId)
-
         })
         socket.on('chat newMsg', msg => {
             console.log('msg', msg)
-            // emits to all sockets:
-            // gIo.emit('chat addMsg', msg)
-            // emits only to sockets in the same room
             gIo.to(msg.to).emit('chat addMsg', msg)
         })
         socket.on('new order', msg => {
             console.log('msg', msg)
-            // emits to all sockets:
-            // gIo.emit('chat addMsg', msg)
-            // emits only to sockets in the same room
             gIo.to(msg.gig.owner._id).emit('order received', msg)
         })
 
@@ -75,6 +65,7 @@ function broadcast({ type, data }) {
 function join(userId) {
     const store = asyncLocalStorage.getStore()
     const { sessionId } = store
+    console.log('sessionId in JOIN', sessionId)
     if (!sessionId) return logger.debug('Shoudnt happen, no sessionId in asyncLocalStorage store')
     const socket = gSocketBySessionIdMap[sessionId]
     if (!socket) return logger.debug('Shouldnt happen, No socket in map', gSocketBySessionIdMap)

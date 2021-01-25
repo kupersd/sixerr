@@ -34,7 +34,6 @@ class _Profile extends React.Component {
         // console.log('GIGS', this.props.gigs)
         await this.props.loadGigs() // TODO: CHANGE all waits to first go and then get all at the end....
         await this.props.loadOrders()
-        console.log('orders', this.props.orders)
         // const ordersAsBuyer = this.props.orders.filter(order => order.buyer._id === user._id)
         const ordersAsSeller = this.props.orders.filter(order => user.myGigIds?.some(gigId => gigId === order.gig._id))
         const myGigs = user.myGigIds ? await getGigs(user.myGigIds) : []
@@ -123,10 +122,8 @@ class _Profile extends React.Component {
     render() {
         const { chart, from, memberSince, lastViewed, suggestedGigs, favoriteGigs, myGigs, ordersAsBuyer, ordersAsSeller } = this.state
         const totalIncome = this.sellerTotalIncome
-        console.log('chart data:', chart)
 
         const { user } = this.props
-        console.log(user)
         if (!user) return <div>Loading...</div>
         return (
             <section className="profile main-container mrg-top">

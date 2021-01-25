@@ -111,10 +111,8 @@ class _Profile extends React.Component {
     render() {
         const { chart, memberSince, myGigs, ordersAsSeller } = this.state
         const totalIncome = this.sellerTotalIncome
-        console.log('chart data:', chart)
 
         const { user } = this.props
-        console.log(user)
         if (!user) return <div>Loading...</div>
         return (
             <section className="profile main-container mrg-top">

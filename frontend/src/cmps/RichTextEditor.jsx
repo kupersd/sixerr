@@ -73,9 +73,7 @@ class RichTextEditor extends React.Component {
     }
     handleChange = ({ target }) => {
         const field = target.name
-        console.log("field", field)
         let value = target.value
-        console.log("value", value)
     }
 
 
@@ -84,14 +82,10 @@ class RichTextEditor extends React.Component {
         const desc = this.props.desc
         if (document.querySelector('.data-text')) {
             let span = document.querySelector('.data-text')
-            console.log("document.querySelector('.data-text')!!!", document.querySelector('.data-text'))
             span.innerHtml = `5`
         }
 
-        console.log("render , desc", desc)
-        if (this.state.innerHtml) console.log("innerHtml", this.state.innerHtml)
         const { editorState } = this.state;
-        console.log("render , editorState", editorState)
         let className = 'RichEditor-editor';
         var contentState = editorState.getCurrentContent();
         if (!contentState.hasText()) {

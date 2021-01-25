@@ -40,8 +40,6 @@ const orderService = {
 
 async function go() {
     const { userMap, users } = await saveUsers()
-    // console.log('userMap', userMap)
-    // console.log('produceMap', produceMap)
     const gigMap = await saveGigs(userMap)
     await saveOrders(userMap, gigMap)   
 
@@ -54,7 +52,6 @@ async function go() {
 }
 
 async function saveUsers() {
-    console.log('Importing ', dbJSON.user.length, 'Users')
     const localUserIds = []
     const prms = dbJSON.user.map((user) => {
         const localUserId = user._id
@@ -79,7 +76,6 @@ async function saveUsers() {
 }
 
 function saveGigs(userMap) {
-    console.log('Importing ', dbJSON.gig.length, 'Gigs!')
     const localGigIds = []
     const prms = dbJSON.gig.map(gig => {
         const localGigId = gig._id
@@ -106,7 +102,6 @@ function saveGigs(userMap) {
 }
 
 function saveOrders(userMap, gigMap) {
-    console.log('Importing ', dbJSON.order.length, 'Orders!')
     const prms = dbJSON.order.map(order => {
         delete order._id
         order.buyer = userMap[order.buyer._id]
