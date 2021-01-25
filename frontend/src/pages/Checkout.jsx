@@ -8,6 +8,7 @@ import { connect } from 'react-redux'
 import { orderGig } from '../store/actions/orderActions'
 import ContactSupportIcon from '@material-ui/icons/ContactSupport';
 import { socketService } from '../services/socketService.js';
+import Loader from 'react-loader-spinner'
 
 
 
@@ -42,9 +43,6 @@ class _Checkout extends Component {
         this.setState({ isAprrovedInfo: !isAprrovedInfo })
     }
 
-    // onGigOrder = () => {
-    //     this.props.orderGig(this.state.gig, this.props.user)
-    // }
 
     onGigOrder = async () => {
         const { gig } = this.state
@@ -55,14 +53,78 @@ class _Checkout extends Component {
         this.props.history.push(`/gig/${gig._id}`)
     }
 
+    getStars = () => {
+        const { gig } = this.state
+        const { reviews } = gig
+        let totalStarsRate = 0, fiveStarCount = 0, fourStarCount = 0, threeStarCount = 0, twoStarCount = 0, oneStarCount = 0
+        reviews.map((review) => {
+            var rating = parseFloat(review.rating)
+            if (!rating) rating = 0
+            if (rating > 4 && rating <= 5) fiveStarCount++
+            if (rating <= 4 && rating > 3) fourStarCount++
+            if (rating <= 3 && rating > 2) threeStarCount++
+            if (rating <= 2 && rating > 1) twoStarCount++
+            if (rating <= 1 && rating >= 0) oneStarCount++
+            return totalStarsRate += rating
+        })
+        totalStarsRate = totalStarsRate / gig.reviews.length
+        const avgRate = { oneStarCount, twoStarCount, threeStarCount, fourStarCount, fiveStarCount, totalStarsRate }
+        return avgRate
+    }
+
+    calculateAvgHalfRating = () => {
+        const avgRate = this.getStars()
+        let totalStarsRate = avgRate.totalStarsRate
+        if (totalStarsRate <= 5 && totalStarsRate >= 4.5) totalStarsRate = 5
+        if (totalStarsRate < 4.5 && totalStarsRate >= 4) totalStarsRate = 4.5
+        if (totalStarsRate < 4 && totalStarsRate >= 3.5) totalStarsRate = 4
+        if (totalStarsRate < 3.5 && totalStarsRate >= 3) totalStarsRate = 3.5
+        if (totalStarsRate < 3 && totalStarsRate >= 2.5) totalStarsRate = 3
+        if (totalStarsRate < 2.5 && totalStarsRate >= 2) totalStarsRate = 2.5
+        if (totalStarsRate < 2 && totalStarsRate >= 1.5) totalStarsRate = 2
+        if (totalStarsRate < 1.5 && totalStarsRate >= 1) totalStarsRate = 1.5
+        if (totalStarsRate < 1 && totalStarsRate >= 0.5) totalStarsRate = 1
+        if (totalStarsRate < 0.5 && totalStarsRate >= 0) totalStarsRate = 0.5
+        if (totalStarsRate < 0) return ''
+        return totalStarsRate
+    }
+    getBiggestStarRate = () => {
+        const avgRate = this.getStars()
+        const oneStarPercentage = avgRate.oneStarCount
+        const twoStarPercentage = avgRate.twoStarCount
+        const threeStarPercentage = avgRate.threeStarCount
+        const fourStarPercentage = avgRate.fourStarCount
+        const fiveStarPercentage = avgRate.fiveStarCount
+        const maxRateStarNumber = Math.max(oneStarPercentage, twoStarPercentage, threeStarPercentage, fourStarPercentage, fiveStarPercentage)
+        if (maxRateStarNumber === fiveStarPercentage) return 5
+        if (maxRateStarNumber === fourStarPercentage) return 4
+        if (maxRateStarNumber === threeStarPercentage) return 3
+        if (maxRateStarNumber === twoStarPercentage) return 2
+        if (maxRateStarNumber === oneStarPercentage) return 1
+        return -1
+    }
+     createStarsAreey = () => {
+        const biggestStarRtae = this.getBiggestStarRate()
+        var starsArr = []
+        for (var i = 0; i < biggestStarRtae; i++) {
+            starsArr.push(<svg key={i * 5} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1792 1792" width="15" height="15"><path fill="currentColor" d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z"></path></svg>)
+        }
+        return starsArr
+    }
+
+
+
+
     render() {
         //random fee....
         const randomFee = utilService.getRandomInt(2, 5)
         const { gig, isShowFeatures, isAprrovedInfo } = this.state
         console.log('user', this.state.user);
         console.log("render , gig", gig)
-        if (!gig) return <div>Loading</div>
-        const totalPrice = randomFee + gig.packages[0].price
+        if (!gig) return <Loader className="flex justify-center" type="ThreeDots" height={80} width={80} color={`#2bbe76`} />
+        const starsArr = this.createStarsAreey()
+        const totalPrice = (randomFee + gig.packages[0].price).toFixed(2)
+        const packPrice = gig.packages[0].price.toFixed(2)
         return (
             <section className="chackout-container main-container">
                 {!isAprrovedInfo && <div className="requirements flex justify-center">
@@ -81,31 +143,18 @@ class _Checkout extends Component {
                                 <p className="title">{gig.title}</p>
                                 <div className="stars-container flex">
                                     <div >
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1792 1792" width="15" height="15"><path fill="currentColor" d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z"></path></svg>
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1792 1792" width="15" height="15"><path fill="currentColor" d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z"></path></svg>
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1792 1792" width="15" height="15"><path fill="currentColor" d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z"></path></svg>
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1792 1792" width="15" height="15"><path fill="currentColor" d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z"></path></svg>
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1792 1792" width="15" height="15"><path fill="currentColor" d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z"></path></svg>
+                                        {starsArr.map((star) => {
+                                            return star
+                                        })}
                                     </div>
-                                    <span className="rate">5.0</span>
+                                    {/* <span className="rate">5.0</span> */}
+                                    <span className="total-stars">{(starsArr.length - 1 === -1) ? 0 : starsArr.length}</span>
                                     <span className="total-reviews">({gig.reviews.length} reviews)</span>
                                 </div>
                                 {!isShowFeatures && <a className="included" onClick={() => this.onTogFetaures()} >Show What's included</a>}
-                                {isShowFeatures && <a className="included" onClick={() => this.onTogFetaures()} >Hide What's included</a>}
+                                {isShowFeatures && <a className="included" onClick={() => this.onTogFetaures()} >Hide Features included</a>}
                             </div>
-                            <div className="pricing flex">
-                                <div>
-                                    <span>Qty</span>
-                                    <select name="quantaty " >
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                    </select>
-                                </div>
-                                <span className="price">${gig.packages[0].price}</span>
-                            </div>
+                            <span className="price">${gig.packages[0].price}</span>
                         </div>
                         {isShowFeatures && <div className="features-container flex">
                             <div className="gig-title">
@@ -120,15 +169,16 @@ class _Checkout extends Component {
                         </div>}
                     </div>
                     <div className="checkout-bar flex">
-                        <h6>Summery</h6>
+                        <h6>Summary</h6>
                         <div className="flex space-between">
                             <span>Check Out</span>
-                            <span>{gig.packages[0].price}</span>
+                            <span>${packPrice}</span>
                         </div>
                         <div className="fee flex space-between">
                             <span>Service Fee <InfoIcon className="info" /> </span>
+                            <div className="hide">modal open</div>
                             {/* <span>Service Fee <ContactSupportIcon className="info" /> </span> */}
-                            <span>${randomFee}</span>
+                            <span>${randomFee.toFixed(2)}</span>
                         </div>
                         <div className="border flex align-center"></div>
                         <div className="payment-summery flex space-between">
@@ -142,9 +192,6 @@ class _Checkout extends Component {
                         <div className="buy-btn-container">
                             <button onClick={() => this.onGigOrder()} >Purchase now</button>
                         </div>
-                        {/* <div className="wont-be-charged flex justify-center"> */}
-                        {/* <span >You Wont Be Charged Yet</span>
-                        </div> */}
                     </div>
                 </div>
             </section>

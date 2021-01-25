@@ -17,6 +17,13 @@ button {
     outline: none;
 }
 
+hr {
+    margin: 0 1rem;
+    padding: 0;
+    border: 0;
+    border-top: thin solid $borderColor;
+}
+
 #root.darkened .main-screen {
     visibility: visible;
     opacity: 1;

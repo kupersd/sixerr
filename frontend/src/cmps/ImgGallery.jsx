@@ -8,8 +8,6 @@ export function ImgGallery({ gig, numImgChoosen, onChooseImg, onToggleImgLightbo
             <div className="img-details-conatiner" onClick={() => onToggleImgLightbox()}>
                 <FullscreenIcon className="full-screen-icon" />
                 <img src={gig.imgUrls[numImgChoosen]} alt="" />
-                {/* CarouselImgs has a little bit css in gig Details */}
-                {/* <CarouselImgs imgUrls={gig.imgUrls} /> */}
             </div>
             <div className="main-imgs-container">
                 <div className="imgs-gallery-container flex">

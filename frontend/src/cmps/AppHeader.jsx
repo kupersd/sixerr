@@ -10,14 +10,21 @@ import { socketService } from '../services/socketService'
 class _AppHeader extends React.Component {
 
     state = {
-        isLoginOpen: false
+        isLoginOpen: false,
+        user: null,
+        isMsgModal: true,
+        modalMsg: ''
     }
 
     componentDidMount() {
         const { user } = this.props
         socketService.on('chat addMsg', this.onNewMsg)
+        socketService.on('order received', this.onOrderReceived)
+        const { user } = this.props
         if (user) socketService.emit('chat topic', user._id)
+
     }
+
 
     componentWillUnmount() {
         socketService.off('chat addMsg', this.onNewMsg)
@@ -32,6 +39,18 @@ class _AppHeader extends React.Component {
 
     onNewMsg = (newMsg) => {
         console.log('MESSAGE', newMsg)
+        this.setState({ ...this.state, isMsgModal: true, modalMsg: newMsg.txt}, this.hideModal)
+    }
+
+    onOrderReceived = (newMsg) => {
+        console.log('MESSAGE', newMsg)
+        this.setState({ ...this.state, isMsgModal: true, modalMsg: newMsg.txt}, this.hideModal)
+    }
+
+    hideModal = () => {
+        setTimeout(() => {
+            this.setState({ ...this.state, isMsgModal: false, modalMsg: ''})
+        }, 5000)
     }
 
     onLogout = async () => {
@@ -41,20 +60,21 @@ class _AppHeader extends React.Component {
 
     render() {
         const { user } = this.props
+        const { openChat, isRecievedMsg } = this.state
+        console.log("render , openChat", openChat)
         const { isLoginOpen } = this.state
         return (
             <>
                 <div className="site-header main-container">
-
                     <section className="app-header flex space-between align-center">
                         <NavLink to="/">
                             <h1>Sixerr<span>.</span></h1>
                         </NavLink>
+                        {isRecievedMsg && <div>1!!!</div>}
                         <ul className="header-nav clean-list flex align-center bold">
-
                             <NavLink className="fast-trans" to="/"><li>Home</li></NavLink>
                             <NavLink className="fast-trans" to="/gig"><li>Explore</li></NavLink>
-                            <NavLink className="fast-trans" to="/chat"><li>Messages</li></NavLink>
+                            {/* <NavLink onClick={this.onOpenChat} className="fast-trans" to="/chat"><li>Messages</li></NavLink> */}
                             {user && <NavLink className="fast-trans" to="#" onClick={this.onLogout}>
                                 <li>Logout</li>
                             </NavLink>}
@@ -69,6 +89,9 @@ class _AppHeader extends React.Component {
                         </ul>
 
                     </section>
+                    {this.state.isMsgModal && <div className="msg-modal">
+                        {this.state.modalMsg}
+                    </div>}
                 </div>
                 {isLoginOpen && !user && <Login toggleLogin={this.onToggleLogin} />}
             </>

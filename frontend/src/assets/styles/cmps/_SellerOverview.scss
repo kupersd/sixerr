@@ -2,9 +2,7 @@
     display: flex;
     align-items: center;
     padding-block-end: rem(24px);
-    min-width: rem(400px);
     > * {
-        // padding-inline-end:1rem ;
         margin-inline-end: 0.3rem;
     }
     .owner-fullname {
@@ -15,10 +13,10 @@
         font-size: rem(14px);
     }
 
-
     .order-count {
         color: rgb(192, 192, 192);
-        padding-block-start: rem(2px);
+        // padding-block-start: rem(2px);
+        padding-top: rem(3.1px);
     }
     .avatar {
         width: rem(32px);
@@ -31,30 +29,36 @@
         }
         .space {
             padding-inline-start: rem(5px);
+            padding-block-end: 1px;
         }
     }
+
     .seller-stars-container {
         display: flex;
         align-items: center;
-        svg,span {
+        svg,
+        span {
             color: #ffbf00;
             font-weight: 700;
-            margin-inline-start: rem(2px);
+            // margin-inline-start: rem(2px);
             margin-block-start: rem(1px);
+            margin-inline-start: 0.2rem;
         }
-        span{
-            margin-block-start: rem(3.625px);
-            margin-inline-start: rem(5px);
+        span {
+            margin-block-start: rem(2.5px);
+            margin-inline-start: 0.3125rem;
         }
-
     }
-    .level{
-        padding-inline-start:rem(1px) ;
+    .level {
+        padding-inline-start: rem(1px);
         font-size: 14px;
         color: #62646a;
     }
-    .total-reviews{
-        padding-block-start: rem(1.625px);
-        color: #404145;
+    .total-reviews {
+        padding-block-start: 0.102531rem;
+        color: #62646a;
+    }
+    .space-end{
+        padding-top: 1px;
     }
 }

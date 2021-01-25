@@ -34,7 +34,7 @@ export class HoverRating extends React.Component {
         width: 200,
         display: 'flex',
         alignItems: 'center',
-        margin: '10px 0px'
+        // margin: '10px 0px'
       }}>
         <Rating
           name="hover-feedback"

@@ -26,7 +26,7 @@ export class CarouselImgs extends React.Component {
     
     Item = (i) => {
         const imgs = this.props.imgUrls
-        const img= <img src={`${imgs[i.item.idx]}`} />
+        const img= <img alt="" src={`${imgs[i.item.idx]}` } />
         return (
             img
         )
@@ -34,7 +34,6 @@ export class CarouselImgs extends React.Component {
 
     render() {
         const {items} = this.state
-        console.log("render , items", items)
         if(!items || !items.length) return <div></div>
         return (
             <Carousel>

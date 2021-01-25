@@ -5,11 +5,12 @@ import { updateUser, onImageChange } from "../store/actions/userActions.js";
 import { loadGigs, getGigs } from "../store/actions/gigActions.js";
 import { loadOrders, updateOrder } from "../store/actions/orderActions.js";
 import { GigList } from '../cmps/GigList.jsx';
-import { EditableElement } from '../cmps/EditableElement.jsx';
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 import { OrderList } from '../cmps/OrderList.jsx';
 import { socketService } from '../services/socketService.js';
+import { ProfileCharts } from '../cmps/ProfileCharts.jsx';
 
+const SIXERR_GREEN = 'rgb(43, 190, 118)'
 class _Profile extends React.Component {
 
     state = {
@@ -17,62 +18,52 @@ class _Profile extends React.Component {
         memberSince: '2021',
         lastViewed: [],
         myGigs: [],
-        suggestedGigs: [],
-        favoriteGigs: [],
-        ordersAsBuyer: [],
-        ordersAsSeller: []
-
+        ordersAsSeller: [],
     }
 
     async componentDidMount() {
         const { user } = this.props
 
         socketService.on('order received', this.onNewOrder)
-        // const gigList = user.viewedGigIds ? user.viewedGigIds : []
-        // user.favoriteIds?.forEach(favId => { if (!gigList.find(id => id === favId)) gigList.push(favId) })
-        // await this.props.loadGigs({ owner: user._id, gigList })
-        // console.log('GIGS', this.props.gigs)
         await this.props.loadGigs() // TODO: CHANGE all waits to first go and then get all at the end....
         await this.props.loadOrders()
-        console.log('orders', this.props.orders)
-        const ordersAsBuyer = this.props.orders.filter(order => order.buyer._id === user._id)
-        const ordersAsSeller = this.props.orders.filter(order => user.myGigIds?.some(gigId => gigId === order.gig._id))
+        const ordersAsSeller = this.props.orders.filter(order => user.myGigIds?.find(gigId => gigId === order.gig._id))
+        ordersAsSeller.sort((order1, order2) => {
+            return order2.createdAt - order1.createdAt
+        })
         const myGigs = user.myGigIds ? await getGigs(user.myGigIds) : []
 
         const lastViewed = user.viewedGigIds ? await getGigs(user.viewedGigIds) : []
-        const favoriteGigs = user.favoriteIds ? await getGigs(user.favoriteIds) : []
         this.setState(prevState =>
         ({
             ...prevState,
             myGigs,
-            suggestedGigs: this.props.gigs.filter((gig, idx) => !(idx % 3)),
             lastViewed,
-            favoriteGigs,
-            ordersAsBuyer,
             ordersAsSeller
         }))
     }
 
     componentWillUnmount() {
         socketService.off('order received', this.onNewOrder)
-        // clearTimeout(this.timeout)
     }
+
 
     onNewOrder = async (newMsg) => {
         const { user } = this.props
         // TODO: INTERNAL FUNCTION FOR LOADING ORDERS
         await this.props.loadOrders()
-        const ordersAsBuyer = this.props.orders.filter(order => order.buyer._id === user._id)
-        const ordersAsSeller = this.props.orders.filter(order => user.myGigIds?.some(gigId => gigId === order.gig._id))
+        const ordersAsSeller = this.props.orders.filter(order => user.myGigIds?.find(gigId => gigId === order.gig._id))
+        ordersAsSeller.sort((order1, order2) => {
+            return order2.createdAt - order1.createdAt
+        })
         this.setState(prevState =>
         ({
             ...prevState,
-            ordersAsBuyer,
             ordersAsSeller
         }))
+        const msg = 'thank you'
         console.log('NEWWWWWW', newMsg)
-        const msg = 'Thank you!'
-        socketService.emit('chat newMsg', {to: newMsg.from._id, from: user.fullname, txt:msg})
+        socketService.emit('chat newMsg', { to: newMsg.from._id, from: user, txt: msg })
     }
 
     handleInput = ({ target }) => {
@@ -109,45 +100,77 @@ class _Profile extends React.Component {
     }
 
     onOrderStatusChanged = (order) => {
-        order.status = order.status === 'pending' ? 'approved' : 'completed'
         this.props.updateOrder(order)
     }
 
-
+    get sellerTotalIncome() {
+        const { ordersAsSeller } = this.state
+        return ordersAsSeller.reduce((acc, order) => acc + order.totalPrice, 0)
+    }
 
     render() {
-        const { from, memberSince, lastViewed, suggestedGigs, favoriteGigs, myGigs, ordersAsBuyer, ordersAsSeller } = this.state
+        const { chart, memberSince, myGigs, ordersAsSeller } = this.state
+        const totalIncome = this.sellerTotalIncome
+        console.log('chart data:', chart)
+
         const { user } = this.props
         console.log(user)
         if (!user) return <div>Loading...</div>
         return (
             <section className="profile main-container mrg-top">
-                <div className="flex top-section space-between">
+                <div className="top-section">
                     <div className="about-user flex column">
                         <label className="img-upload pointer" htmlFor="uploadImg">
                             <img src={user.imgUrl} />
                             <input onChange={this.onUploadImg} type="file" id="uploadImg" hidden />
                             <PhotoCameraIcon className="camera-icon" />
                         </label>
-                        <EditableElement field={'fullname'} save={this.onSave} type={'h1'} text={user.fullname} />
+                        {/* <EditableElement field={'fullname'} save={this.onSave} type={'h1'} text={user.fullname} /> */}
+                        <h1>{user.fullname}</h1>
 
-                        <p>From {from}</p>
+                        <p>Level 2 Seller</p>
                         <p>Member since {memberSince}</p>
-                        <button>Send Message</button>
+                        <hr />
+                        <div className="seller-scores">
+                            <div className="seller-score flex space-between align-center">
+                                <p>Response rate</p>
+                                <div className="score-bar" style={_userScoreBarStyle(91)}></div>
+                                <span>91%</span>
+                            </div>
+                            <div className="seller-score flex space-between align-center">
+                                <p>Delivery time</p>
+                                <div className="score-bar" style={_userScoreBarStyle(77)}></div>
+                                <span>77%</span>
+                            </div>
+                            <div className="seller-score flex space-between align-center">
+                                <p>Order Completion</p>
+                                <div className="score-bar" style={_userScoreBarStyle(95)}></div>
+                                <span>95%</span>
+                            </div>
+                        </div>
+                        <hr />
+                        <div className="seller-scores">
+                            <div className="seller-earnings flex space-between align-center">
+                                <p>Earnings In January</p>
+                                <span>${totalIncome}</span>
+                            </div>
+                            <div className="seller-earnings flex space-between align-center">
+                                <p>Response Time</p>
+                                <span className="green">2Hrs</span>
+                            </div>
+                        </div>
                     </div>
 
-                    {ordersAsBuyer.length !== 0 &&
-                        <div className="buyer-orders">
-                            <h1>My Orders</h1>
-                            <OrderList orders={ordersAsBuyer} />
-                        </div>}
+
+                    {ordersAsSeller.length !== 0 && <div className="seller-orders">
+                        <h1>Active Orders - <span>{ordersAsSeller.length} (${totalIncome})</span></h1>
+                        <OrderList orders={ordersAsSeller.slice(0, 8)} onOrderStatusChanged={this.onOrderStatusChanged} />
+                    </div>}
+                    <section className="chart-wrapper">
+                        <ProfileCharts income={totalIncome}
+                        />
+                    </section>
                 </div>
-
-                {ordersAsSeller.length !== 0 && <div className="seller-orders">
-                    <h1>Orders from me</h1>
-                    <OrderList orders={ordersAsSeller} onOrderStatusChanged={this.onOrderStatusChanged} />
-                </div>}
-
 
                 <div className="my-gigs">
                     <h1>My Gigs</h1>
@@ -161,15 +184,8 @@ class _Profile extends React.Component {
                     <GigList gigs={myGigs} onDelete={this.onDelete} onUserViewGig={() => { }} onFavoriteToggle={this.onFavoriteToggle} user={user} />
                 </div>
 
-                {lastViewed.length !== 0 &&
-                    <div className="recently-viewed flex column">
-                        <h1>Last viewed</h1>
-                        <GigList gigs={lastViewed} onDelete={this.onDelete} onUserViewGig={() => { }} onFavoriteToggle={this.onFavoriteToggle} user={user} removeViewed={this.onRemoveViewed} />
-                    </div>}
-                <h1>Favorites</h1>
-                <GigList gigs={favoriteGigs} onDelete={this.onDelete} onUserViewGig={() => { }} onFavoriteToggle={this.onFavoriteToggle} user={user} />
-                <h1>Suggested</h1>
-                <GigList gigs={suggestedGigs} onDelete={this.onDelete} onUserViewGig={() => { }} onFavoriteToggle={this.onFavoriteToggle} user={user} isSmallPreview={true} />
+
+
             </section>
         )
     }
@@ -193,4 +209,6 @@ const mapDispatchToProps = {
 
 export const Profile = connect(mapGlobalStateToProps, mapDispatchToProps)(_Profile)
 
-
+function _userScoreBarStyle(score) {
+    return { background: `linear-gradient(90deg, ${SIXERR_GREEN} ${score}%, rgb(181, 182, 186) ${score}.01%, rgb(200, 200, 200) 100%)` }
+}

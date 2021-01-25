@@ -1,5 +1,5 @@
 .about-seller-container {
-    margin-block-end: rem(25px);
+    padding-block-start: 45px;
     h2 {
         color: #404145;
         margin: 0;
@@ -26,11 +26,6 @@
         }
         .contact-btn-div {
             margin-block-start: rem(18px);
-            // button {
-            //     // @include defButton;
-            //     width: 130px;
-            //     margin-block-start: 0.5rem;
-            // }
         }
         button {
             margin-block-start: rem(20px);
@@ -53,9 +48,12 @@
         
     }
     .content {
-        padding-block-end: rem(20px);
+        padding-block-end: rem(15px);
         span{
             color:#62646a;
+        }
+        .seller-fullname{
+            text-transform: capitalize;
         }
     }
 }
@@ -81,7 +79,7 @@
             flex-grow: 1;
             padding: 0.5rem;
         }
-        border-bottom: 1px solid grey;
+        // border-bottom: 1px solid grey;
         span{
             color:#7a7d85;
         }

@@ -17,10 +17,13 @@ export function GigPreview({ gig, onUserViewGig, onFavoriteToggle, user, removeV
                         <img src={gig.imgUrls[0]} alt="gig preview" />
                     </div>
                 </Link>
-                <Link to="/profile">
-                    <div className="gig-owner">
-                        <p>{gig.owner.fullname}</p>
-                        <p>Level {_getRandomSellerRating()} seller</p>
+                <Link to="#">
+                    <div className="gig-owner flex">
+                        <img src={gig.owner.imgUrl} />
+                        <div className="gig-owner-text flex">
+                            <p>{gig.owner.fullname}</p>
+                            <p>Level {_getRandomSellerRating()} seller</p>
+                        </div>
                     </div>
                 </Link>
                 <Link to={`/gig/${gig._id}`}>
@@ -44,7 +47,7 @@ export function GigPreview({ gig, onUserViewGig, onFavoriteToggle, user, removeV
 }
 
 function _getRandomRating() {
-    return Math.round(Math.random() * 36 + 14) / 10
+    return Math.round(Math.random() * 12 + 38) / 10
 }
 
 function _getRandomSellerRating() {
@@ -52,7 +55,7 @@ function _getRandomSellerRating() {
 }
 
 function _getRandomVotesCount() {
-    return Math.round(Math.random() * 30 + 100)
+    return Math.round(Math.random() * 230 + 30)
 }
 
 function _isLiked(favoriteIds, gigId) {

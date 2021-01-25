@@ -7,7 +7,6 @@ export function ShortReviewList({ gig, reviews,currShortReviewIdx,shortReviewSiz
     if (!gig) return <div>loading</div>
     return (
         <section className="short-review slide flex" style={{ transform: `translateX(${currShortReviewIdx * shortReviewSize}rem)`}} >
-        {/* <section className="short-review slide flex" style={{ transform: `translateX(${currShortReviewIdx * 100}%)`}} > */}
             {reviews.map((review, idx) => <ShortReviewPreview key={`${review.id}`} reviews={reviews} idx={idx} />)}
         </section>
     )

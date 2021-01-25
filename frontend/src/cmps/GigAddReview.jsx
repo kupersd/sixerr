@@ -52,6 +52,7 @@ class _GigAddReview extends Component {
         const { gig } = this.state
         let reviewToAdd = { ...review }
         // todo: add purchase date when we have data
+        if(review.txt === '') return
         const purchasedAt = "purchase At"
         const date = Date.now()
         reviewToAdd.createdAt = date
@@ -66,17 +67,22 @@ class _GigAddReview extends Component {
 
     render() {
         const { mobileStarStats } = this.props
-        console.log("render , mobileStarStats", mobileStarStats)
         const { review } = this.state
         if (!review) return <div></div>
         return (
             <>
-                {!mobileStarStats && <HoverRating className="stars-rate" handleRate={this.handleRate} val={review.rating} />}
-                <textarea rows="6" cols="60" type="text" name="txt" placeholder='enter review...' value={review.txt} onChange={this.handleChange} required />
-                <div className="rate-mobile-view-container">
-                    {mobileStarStats && <HoverRating className="stars-rate" handleRate={this.handleRate} val={review.rating} />}
-                </div>
-                    <button className="add-review" onClick={() => this.onAddReview()}>Add Review</button>
+                <section className="add-review-wrapper">
+                    {!mobileStarStats && <HoverRating className="stars-rate" handleRate={this.handleRate} val={review.rating} />}
+                    <div className="text-area-container">
+                        <textarea rows="6" cols="60" type="text" name="txt" placeholder='enter review...' value={review.txt} onChange={this.handleChange} required />
+                    </div>
+                    <div className="rate-mobile-view-container">
+                        {mobileStarStats && <HoverRating className="stars-rate" handleRate={this.handleRate} val={review.rating} required />}
+                    </div>
+                    <div className="add-review-container">
+                        <button className="add-review" onClick={() => this.onAddReview()}>Add Review</button>
+                    </div>
+                </section>
             </>
         )
     }

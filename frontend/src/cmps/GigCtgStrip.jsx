@@ -1,30 +1,31 @@
+import React from 'react';
+import { withRouter } from 'react-router-dom'
 
-// const ctgs = [
-//     { imgUrl: '../assets/img/ctg/pencils.jpg', title: 'Logo design', cta: 'Build your brand' },
-//     { imgUrl: '../assets/img/ctg/guitar1.jpg', title: 'Guitar session', cta: 'Publish your art' },
-//     { imgUrl: '../assets/img/ctg/condenser1.jpg', title: 'Voice over', cta: 'Share your message' },
-//     { imgUrl: '../assets/img/ctg/coding1.jpg', title: 'Programming', cta: 'Create amazing things' }
-// ]
+class _GigCtgList extends React.Component {
 
-const ctgs2 = [
-    { imgUrl: '../assets/img/ctg/pencils.jpg', title: 'Logo design', cta: 'Build your brand' },
-    { imgUrl: '../assets/img/ctg/guitar1.jpg', title: 'Guitar session', cta: 'Publish your art' },
-    { imgUrl: '../assets/img/ctg/condenser1.jpg', title: 'Voice over', cta: 'Share your message' },
-    { imgUrl: '../assets/img/ctg/conding1.jpg', title: 'Programming', cta: 'Create amazing things' }
-]
-export function GigCtgList({ctgs, title}) {
+    onTagClick = (tag) => {
+        this.props.setFilter({ tags: [tag] })
+        this.props.history.push('/gig')
+    }
+    render() {
 
-    return (
-        <section className="gig-ctg-list">
-            <h2>{title}</h2>
-            <ul className="gig-ctg-wrap clean-list">
+        const { ctgs, title, setFilter } = this.props
 
-                {ctgs.map(ctg => <li key={ctg.imgUrl}>
-                    <h5>{ctg.cta}</h5>
-                    <h3>{ctg.title}</h3>
-                    <img src={ctg.imgUrl} alt="" />
-                </li>)}
-            </ul>
-        </section>
-    )
+        return (
+            <section className="gig-ctg-list" >
+                <h2>{title}</h2>
+                <ul className="gig-ctg-wrap clean-list">
+
+                    {ctgs.map(ctg =>
+                        <li className="pointer" key={ctg.imgUrl} onClick={() => this.onTagClick(ctg.tag)}>
+                            <h5>{ctg.cta}</h5>
+                            <h3>{ctg.title}</h3>
+                            <img src={ctg.imgUrl} alt="category" />
+                        </li>)}
+                </ul>
+            </section>
+        )
+    }
 }
+
+export const GigCtgList = withRouter(_GigCtgList)
