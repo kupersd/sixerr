@@ -28,29 +28,32 @@ function connectSockets(http, session) {
         // console.log('socket.handshake', socket.handshake)
         gSocketBySessionIdMap[socket.handshake.sessionID] = socket
         socket.on('disconnect', socket => {
-            console.log('Someone disconnected', socket)
+            console.log('Someone disconnected', socket.myTopic)
             if (socket.handshake) {
                 gSocketBySessionIdMap[socket.handshake.sessionID] = null
             }
         })
         socket.on('chat topic', topic => {
-            console.log ('topic' ,topic)
+            console.log('topic', topic)
             if (socket.myTopic) {
                 socket.leave(socket.myTopic)
             }
             socket.join(topic)
             // logger.debug('Session ID is', socket.handshake.sessionID)
             socket.myTopic = topic
+            // const { userId } = store
+            // console.log(userId)
+
         })
         socket.on('chat newMsg', msg => {
-            console.log ('msg' ,msg)
+            console.log('msg', msg)
             // emits to all sockets:
             // gIo.emit('chat addMsg', msg)
             // emits only to sockets in the same room
             gIo.to(msg.to).emit('chat addMsg', msg)
         })
         socket.on('new order', msg => {
-            console.log ('msg' ,msg)
+            console.log('msg', msg)
             // emits to all sockets:
             // gIo.emit('chat addMsg', msg)
             // emits only to sockets in the same room
@@ -69,11 +72,20 @@ function broadcast({ type, data }) {
     if (!excludedSocket) return logger.debug('Shouldnt happen, No socket in map', gSocketBySessionIdMap)
     excludedSocket.broadcast.emit(type, data)
 }
+function join(userId) {
+    const store = asyncLocalStorage.getStore()
+    const { sessionId } = store
+    if (!sessionId) return logger.debug('Shoudnt happen, no sessionId in asyncLocalStorage store')
+    const socket = gSocketBySessionIdMap[sessionId]
+    if (!socket) return logger.debug('Shouldnt happen, No socket in map', gSocketBySessionIdMap)
+    socket.join(userId)
+}
 
 module.exports = {
     connectSockets,
     emit,
-    broadcast
+    broadcast,
+    join
 }
 
 

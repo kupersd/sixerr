@@ -51,7 +51,6 @@ class _Checkout extends Component {
         const { user } = this.props
         console.log("onGigOrder= , gig", gig)
         await this.props.orderGig(gig, user)
-        socketService.emit('chat topic', `${user._id}&${gig.owner._id}`)
         socketService.emit('new order', { from: user, txt: 'NEW ORDER !!!!', gig })
         this.props.history.push(`/gig/${gig._id}`)
     }

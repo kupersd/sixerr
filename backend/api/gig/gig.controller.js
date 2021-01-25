@@ -1,6 +1,7 @@
 const gigService = require('./gig.service')
 const logger = require('../../services/logger.service')
 
+
 async function getGig(req, res) {
     try {
         const gig = await gigService.getById(req.params.id)

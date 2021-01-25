@@ -14,7 +14,9 @@ class _AppHeader extends React.Component {
     }
 
     componentDidMount() {
+        const { user } = this.props
         socketService.on('chat addMsg', this.onNewMsg)
+        if (user) socketService.emit('chat topic', user._id)
     }
 
     componentWillUnmount() {

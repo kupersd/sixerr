@@ -70,8 +70,8 @@ class _Profile extends React.Component {
             ordersAsBuyer,
             ordersAsSeller
         }))
-        const msg = prompt('Write a msg to the buyer')
         console.log('NEWWWWWW', newMsg)
+        const msg = 'Thank you!'
         socketService.emit('chat newMsg', {to: newMsg.from._id, from: user.fullname, txt:msg})
     }
 
