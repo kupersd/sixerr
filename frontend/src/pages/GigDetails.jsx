@@ -46,7 +46,6 @@ class _GigDetails extends React.Component {
     }
 
     async componentDidMount() {
-        socketService.setup()
         const gigId = this.props.match.params.gigId
         const gig = await loadGig(gigId)
         this.props.loadGigs()
