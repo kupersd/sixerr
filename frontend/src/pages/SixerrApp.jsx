@@ -44,13 +44,11 @@ class _SixerrApp extends React.Component {
             if (user.favoriteIds.find(favoriteId => favoriteId === gigId)) user.favoriteIds = user.favoriteIds.filter(favoriteId => favoriteId !== gigId)
             else user.favoriteIds.push(gigId)
         } else user.favoriteIds = [gigId]
-        console.log('user.favoriteIds',user.favoriteIds)
         this.props.updateUser(user)
     }
 
     render() {
         const {user} = this.props
-        if (user) console.log('user favorites', user.favoriteIds)
         return (
             <section className="sixerr-app main-container">
                 {/* <div className="flex space-around align-center mrg-top mrg-bottom">

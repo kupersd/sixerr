@@ -2,7 +2,6 @@ import { gigService } from "../../services/gigService.js";
 import { cloudinaryService } from "../../services/cloudinaryService.js";
 
 export function loadGigs(filterBy ={}) {
-    console.log(filterBy)
     return async (dispatch) => {
     // return async (dispatch, getState) => {
         // const { filterBy } = getState().gigModule
@@ -37,7 +36,6 @@ export function removeGig(gigId) {
 }
 
 export function addGig(gig) {
-    console.log("addGig , gig", gig)
     return async (dispatch) => {
         const savedGig = await gigService.save(gig)
         const action = {

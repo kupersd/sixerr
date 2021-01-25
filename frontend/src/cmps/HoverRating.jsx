@@ -26,7 +26,6 @@ export class HoverRating extends React.Component {
     this.setState({ value: newValue }, () => { this.props.handleRate(newValue) })
   }
   setHover = (newHover) => {
-    console.log("HoverRating , setHover", newHover)
   }
   render() {
     return (

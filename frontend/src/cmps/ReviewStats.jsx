@@ -10,7 +10,6 @@ export function ReviewStats({ htmlStars, gig, getStars, getBiggestStarRate, calc
     const threeStarPercentage = avgRate.threeStarCount / gig.reviews.length*100
     const fourStarPercentage = avgRate.fourStarCount / gig.reviews.length*100
     const fiveStarPercentage = avgRate.fiveStarCount / gig.reviews.length*100
-    console.log("ReviewStats , fiveStarPercentage", fiveStarPercentage)
     const biggestStarRtae = getBiggestStarRate()
 
     const createStarsAreey = () => {

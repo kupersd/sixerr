@@ -25,7 +25,6 @@ export const httpService = {
 }
 
 async function ajax(endpoint, method = 'get', data = null) {
-    console.log('data', data)
     try {
         var res
         if (method === 'GET') {

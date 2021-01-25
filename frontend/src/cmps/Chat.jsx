@@ -17,10 +17,8 @@ export class Chat extends Component {
 
     //from app header : 
     onNewMsg = (newMsg) => {
-        console.log('MESSAGE', newMsg)
         const user = newMsg.from
         this.setState({ isRecievedMsg: true, user}).then(() => {
-            console.log("this.setState , newMsg????", newMsg)
             this.handleOnSendMessage(newMsg.txt)
         })
         socketService.emit('chat newMsg', { to: newMsg.from._id, from: user, txt: 'cannot wait to get it' })
@@ -49,7 +47,6 @@ export class Chat extends Component {
 
     render() {
         const { user } = this.state
-        console.log("render!!!!!!! , user", user)
         if (!user) return <div>log in you stupid!</div>
         return (
             <ChatBox

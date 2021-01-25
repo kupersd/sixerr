@@ -85,7 +85,6 @@ async function add(order) {
 function _buildCriteria(filterBy) {
     const criteria = {}
     if (filterBy.name) {
-        console.log(filterBy.name)
         criteria.name = { $regex: filterBy.name, $options: 'i' }
     }
     if (filterBy.type !== 'all') {

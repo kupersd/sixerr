@@ -60,7 +60,6 @@ class _GigAddReview extends Component {
         gig.reviews.unshift(reviewToAdd)
         this.props.updateGig(gig).then(() => {
             this.setState({ review: null })
-            console.log('review added succefully')
         })
 
     }

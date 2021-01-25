@@ -3,7 +3,6 @@ import Favorite from '@material-ui/icons/Favorite';
 import ClearIcon from '@material-ui/icons/Clear';
 
 export function GigPreview({ gig, onUserViewGig, onFavoriteToggle, user, removeViewed }) {
-    console.log('gig', gig)
     return (
         <li onClick={() => { onUserViewGig(gig._id) }} className="preview-item">
             <div className="preview-inner">

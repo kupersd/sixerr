@@ -32,7 +32,6 @@ class _GigEdit extends Component {
         const { gig } = this.state
         gig.tags.filter(tag => tag.length < 1)
         gig.packages[0].features.filter(feature => feature.length < 1)
-        console.log('saving gig:', gig)
         await this.props.addGig(gig)
         this.props.history.push('/gig');
 
@@ -182,7 +181,6 @@ class _GigEdit extends Component {
 
     uploadImage = async (ev) => {
         const data = await cloudinaryService.uploadImg(ev)
-        console.log(data)
         const newUrl = data.secure_url;
         const imgUrls = [...this.state.gig.imgUrls, newUrl]
         this.setState(prevState => {
