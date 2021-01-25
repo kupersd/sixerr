@@ -18,7 +18,7 @@ export function GigPreview({ gig, onUserViewGig, onFavoriteToggle, user, removeV
                 </Link>
                 <Link to="#">
                     <div className="gig-owner flex">
-                        <img src={gig.owner.imgUrl} />
+                        <img src={gig.owner.imgUrl} alt="gig owner"/>
                         <div className="gig-owner-text flex">
                             <p>{gig.owner.fullname}</p>
                             <p>Level {_getRandomSellerRating()} seller</p>

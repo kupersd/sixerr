@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import StarRateIcon from '@material-ui/icons/StarRate';
+import Loader from 'react-loader-spinner'
+
 import { GigStrip } from '../cmps/GigStrip.jsx';
 import { GigList } from '../cmps/GigList.jsx';
 import { GigCtgList } from '../cmps/GigCtgStrip.jsx';
@@ -29,7 +30,7 @@ class _GigHome extends React.Component {
     componentDidMount() {
         this.loadGigs()
     }
-    
+
     loadGigs = async () => {
         await this.props.loadGigs()
     }
@@ -60,7 +61,8 @@ class _GigHome extends React.Component {
         return (
             <section>
                 <Hero />
-                {!gigs.length && <div>Loading</div>}
+                {/* {!gigs.length && <div>Loading</div>} */}
+                {!gigs.length && <Loader className="flex justify-center align-center" type="ThreeDots" height={80} width={80} color={`#2bbe76`} />}
                 <div className="home-page main-container">
 
                     <GigStrip title={'Logo & Graphics'}
@@ -78,7 +80,7 @@ class _GigHome extends React.Component {
                         onFavoriteToggle={this.onFavoriteToggle}
                         user={this.props.user}
                         onDelete={this.onDelete} />
-                    <GigCtgList ctgs={ctgs.slice(4, 8)} title={`Editor's Pick`} />
+                    <GigCtgList ctgs={ctgs.slice(4, 8)} title={`Editor's Pick`} setFilter={this.props.setFilter} />
                     <GigStrip title={'Web Design'}
                         tags={['Web Design']}
                         gigs={gigs}

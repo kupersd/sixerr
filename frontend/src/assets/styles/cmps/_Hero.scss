@@ -104,6 +104,11 @@
                 text-align: right;
                 color: $starsColor
             }
+
+            @media screen and (max-width: $smallLayout) {
+                visibility: hidden;
+            }
+
         }
         .carret {
             font-size: 1.5rem;

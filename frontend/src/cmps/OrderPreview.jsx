@@ -33,6 +33,13 @@ export function OrderPreview({ order, onOrderStatusChanged }) {
                     ctaButtonText: 'Start Over',
                     nextStatus: 'pending'
                 }
+            default:
+                return {
+                    statusStyle: { backgroundColor: 'rgb(255, 0, 0)' },
+                    statusMsg: 'Something went wrong. Contact sys-op',
+                    ctaButtonText: 'Bug Found!',
+                    nextStatus: 'pending'
+                }
         }
     }
 

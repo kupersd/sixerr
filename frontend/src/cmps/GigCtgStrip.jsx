@@ -9,7 +9,7 @@ class _GigCtgList extends React.Component {
     }
     render() {
 
-        const { ctgs, title, setFilter } = this.props
+        const { ctgs, title } = this.props
 
         return (
             <section className="gig-ctg-list" >

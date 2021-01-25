@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import { connect } from 'react-redux'
-import { socketService } from '../services/socketService.js';
 
 import { login, logout, addUser } from "../store/actions/userActions.js"
 
@@ -19,10 +18,6 @@ class _Login extends Component {
             fullname: ''
         }
     }
-
-    // componentDidMount () {
-
-    // }
 
     componentWillUnmount() {
         this.setState(
@@ -113,7 +108,6 @@ class _Login extends Component {
 
     render() {
 
-        const loggedInUser = this.props.user //TODO pay attention later 
         const { isSignUp, msg } = this.state
 
         let signupSection = (

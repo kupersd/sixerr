@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { GigFilter } from '../cmps/GigFilter.jsx';
 import { GigList } from '../cmps/GigList.jsx';
 import { loadGigs, setFilter, removeGig } from "../store/actions/gigActions.js";
 import { updateUser } from "../store/actions/userActions.js";

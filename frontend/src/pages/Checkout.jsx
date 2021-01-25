@@ -127,11 +127,11 @@ class _Checkout extends Component {
         const packPrice = gig.packages[0].price.toFixed(2)
         return (
             <section className="chackout-container main-container">
-                {!isAprrovedInfo && <div className="requirements flex justify-center">
+                {/* {!isAprrovedInfo && <div className="requirements flex justify-center">
                     <InfoIcon />
                     <span>Hey! {gig.owner.fullname} is waiting for your requirements right after you complete the order</span>
                     <a onClick={this.onHideInfo}>Ok, got it</a>
-                </div>}
+                </div>} */}
                 <div className="content-container">
                     <div className="content">
                         <h3><span> Customize Your Package</span></h3>

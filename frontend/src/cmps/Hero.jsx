@@ -87,11 +87,6 @@ class _Hero extends React.Component {
         const { heros, currHeroIdx } = this.state
         const hero = heros[currHeroIdx]
 
-        const { ctgs } = this.state
-
-        const jsGigs = [...this.props.gigs.slice(3)]
-        const musicGigs = [...this.props.gigs.slice(5)]
-        const suggestedGigs = [...this.props.gigs.slice(8, 16)]
         return (
             <>
                 <section className="hero">

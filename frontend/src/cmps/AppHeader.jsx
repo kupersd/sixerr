@@ -6,14 +6,18 @@ import { Login } from '../pages/Login'
 import { logout } from '../store/actions/userActions'
 import { socketService } from '../services/socketService'
 
+const MODAL_TIME = 3000
 
 class _AppHeader extends React.Component {
 
     state = {
         isLoginOpen: false,
         user: null,
-        isMsgModal: true,
-        modalMsg: ''
+        modal: {
+            isOpen: true,
+            msg: '',
+            opacity: '0'
+        }
     }
 
     componentDidMount() {
@@ -38,18 +42,21 @@ class _AppHeader extends React.Component {
 
     onNewMsg = (newMsg) => {
         console.log('MESSAGE', newMsg)
-        this.setState({ ...this.state, isMsgModal: true, modalMsg: newMsg.txt}, this.hideModal)
+        this.setState({ ...this.state, modal: { isOpen: true, opacity: '1', msg: newMsg.txt } }, this.hideModal)
     }
 
     onOrderReceived = (newMsg) => {
         console.log('MESSAGE', newMsg)
-        this.setState({ ...this.state, isMsgModal: true, modalMsg: newMsg.txt}, this.hideModal)
+        this.setState({ ...this.state, modal: { isOpen: true, opacity: '1', msg: newMsg.txt } }, this.hideModal)
     }
 
     hideModal = () => {
         setTimeout(() => {
-            this.setState({ ...this.state, isMsgModal: false, modalMsg: ''})
-        }, 5000)
+            this.setState({ ...this.state, modal: { isOpen: true, opacity: '0', msg: 'DEBUGGING IS SO MUCH FUUUUN' } })
+        }, MODAL_TIME)
+        setTimeout(() => {
+            this.setState({ ...this.state, modal: { isOpen: true, opacity: '0', msg: '' } })
+        }, MODAL_TIME + 1000)
     }
 
     onLogout = async () => {
@@ -62,13 +69,16 @@ class _AppHeader extends React.Component {
         const { openChat, isRecievedMsg } = this.state
         console.log("render , openChat", openChat)
         const { isLoginOpen } = this.state
+        const { modal } = this.state
+        const modalStyle = { opacity: modal.opacity }
+
         return (
             <>
                 <div className="site-header main-container">
                     <section className="app-header flex space-between align-center">
-                        <NavLink to="/">
-                            <h1>Sixerr<span>.</span></h1>
-                        </NavLink>
+                        {/* <NavLink to="/"> */}
+                        <h1 onClick={() => this.onNewMsg({ txt: 'DEBUGGING IS SO MUCH FUUUUN' })}>Sixerr<span>.</span></h1>
+                        {/* </NavLink> */}
                         {isRecievedMsg && <div>1!!!</div>}
                         <ul className="header-nav clean-list flex align-center bold">
                             <NavLink className="fast-trans" to="/"><li>Home</li></NavLink>
@@ -88,8 +98,9 @@ class _AppHeader extends React.Component {
                         </ul>
 
                     </section>
-                    {this.state.isMsgModal && <div className="msg-modal">
-                        {this.state.modalMsg}
+                    {this.state.modal.isOpen && <div className="msg-modal shadow" style={modalStyle}>
+                        <h4>New Message</h4>
+                        <p>{this.state.modal.msg}</p>
                     </div>}
                 </div>
                 {isLoginOpen && !user && <Login toggleLogin={this.onToggleLogin} />}

@@ -9,8 +9,6 @@ export class GigStrip extends React.Component {
     }
 
     componentDidMount() {
-        // if (!this.props.tags) return
-
         const { tags } = this.props
         if (!tags) return
         const gigsByTag = this.props.gigs.filter(gig => {
@@ -28,8 +26,6 @@ export class GigStrip extends React.Component {
         return gigsByTag
     }
     render() {
-        const { posX } = this.state
-        const inlineStyle = { transform: `translateX(${posX}px)` }
         const bgStyle = { backgroundColor: this.props.bgColor }
         const gigs = this.getGigsForDisplay() || []
 
@@ -37,7 +33,7 @@ export class GigStrip extends React.Component {
             <section className="gig-strip" style={bgStyle}>
                 <div className="head flex space-between">
                     <h2 className="strip-title">{this.props.title}</h2>
-                    <a className="see-all">See all &gt;</a>
+                    <a className="see-all pointer">See all &gt;</a>
                 </div>
                 <ul className="strip-wrap clean-list">
                     {gigs.map(gig =>

@@ -63,15 +63,28 @@
     }
     .msg-modal {
         position: absolute;
-        height: 3rem;
-        width: 30vw;
+        z-index: 9;
+        opacity: 0;
+        padding: 1rem;
         top: 5rem;
         left: 50%;
         transform: translateX(-50%);
-        background-color: $greenColor;
+        border: 2px solid $greenColor;
+        border-radius: 0.25rem;
+        background-color: #fff;
+
+        transition: 1.0s;
         @media screen and (max-width: $smallLayout) {
             width: 90vw;
         }
-
+        h4 {
+            margin: 0 0 1rem;
+            color: $greenColor;
+        }
+        p {
+            color: $ctgColor;
+            margin: 0;
+            font-size: 0.875rem;
+        }
     }
 }
