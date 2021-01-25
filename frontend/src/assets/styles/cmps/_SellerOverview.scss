@@ -15,7 +15,8 @@
 
     .order-count {
         color: rgb(192, 192, 192);
-        padding-block-start: rem(2px);
+        // padding-block-start: rem(2px);
+        padding-top: rem(3.1px);
     }
     .avatar {
         width: rem(32px);
@@ -31,6 +32,7 @@
             padding-block-end: 1px;
         }
     }
+
     .seller-stars-container {
         display: flex;
         align-items: center;
@@ -38,8 +40,9 @@
         span {
             color: #ffbf00;
             font-weight: 700;
-            margin-inline-start: rem(2px);
+            // margin-inline-start: rem(2px);
             margin-block-start: rem(1px);
+            margin-inline-start: 0.2rem;
         }
         span {
             margin-block-start: rem(2.5px);
@@ -53,6 +56,9 @@
     }
     .total-reviews {
         padding-block-start: 0.102531rem;
-        color: #404145;
+        color: #62646a;
+    }
+    .space-end{
+        padding-top: 1px;
     }
 }

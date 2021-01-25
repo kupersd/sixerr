@@ -90,11 +90,16 @@ select {
                 color: #ffbf00;
             }
             .total-reviews {
-                margin-bottom: rem(2.45px);
+                // margin-bottom: rem(2.45px);
+                margin-bottom: 0.2373046804rem;
                 color: #95979d;
                 font-weight: 500;
                 font-size: 14px;
                 padding-inline-start: rem(4px);
+            }
+            .total-stars{
+                padding-left: 2px;
+                margin-bottom: 4px;
             }
         }
         .gig-img-container {
