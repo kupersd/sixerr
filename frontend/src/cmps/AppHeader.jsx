@@ -12,10 +12,13 @@ class _AppHeader extends React.Component {
     state = {
         isLoginOpen: false,
         user: null,
+        isMsgModal: true,
+        modalMsg: ''
     }
 
     componentDidMount() {
         socketService.on('chat addMsg', this.onNewMsg)
+        socketService.on('order received', this.onOrderReceived)
         const { user } = this.props
         if (user) socketService.emit('chat topic', user._id)
 
@@ -34,9 +37,19 @@ class _AppHeader extends React.Component {
     }
 
     onNewMsg = (newMsg) => {
-        const { user } = this.props
         console.log('MESSAGE', newMsg)
-        socketService.emit('chat newMsg', { to: newMsg.from._id, from: user, txt: 'cannot wait to get it' })
+        this.setState({ ...this.state, isMsgModal: true, modalMsg: newMsg.txt}, this.hideModal)
+    }
+
+    onOrderReceived = (newMsg) => {
+        console.log('MESSAGE', newMsg)
+        this.setState({ ...this.state, isMsgModal: true, modalMsg: newMsg.txt}, this.hideModal)
+    }
+
+    hideModal = () => {
+        setTimeout(() => {
+            this.setState({ ...this.state, isMsgModal: false, modalMsg: ''})
+        }, 5000)
     }
 
     onLogout = async () => {
@@ -75,6 +88,9 @@ class _AppHeader extends React.Component {
                         </ul>
 
                     </section>
+                    {this.state.isMsgModal && <div className="msg-modal">
+                        {this.state.modalMsg}
+                    </div>}
                 </div>
                 {isLoginOpen && !user && <Login toggleLogin={this.onToggleLogin} />}
             </>

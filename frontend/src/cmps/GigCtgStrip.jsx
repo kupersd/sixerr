@@ -17,7 +17,7 @@ class _GigCtgList extends React.Component {
                 <ul className="gig-ctg-wrap clean-list">
 
                     {ctgs.map(ctg =>
-                        <li key={ctg.imgUrl} onClick={() => this.onTagClick(ctg.tag)}>
+                        <li className="pointer" key={ctg.imgUrl} onClick={() => this.onTagClick(ctg.tag)}>
                             <h5>{ctg.cta}</h5>
                             <h3>{ctg.title}</h3>
                             <img src={ctg.imgUrl} alt="category" />

@@ -109,7 +109,7 @@ class _Profile extends React.Component {
     }
 
     render() {
-        const { chart, from, memberSince, lastViewed, suggestedGigs, favoriteGigs, myGigs, ordersAsBuyer, ordersAsSeller } = this.state
+        const { chart, memberSince, myGigs, ordersAsSeller } = this.state
         const totalIncome = this.sellerTotalIncome
         console.log('chart data:', chart)
 

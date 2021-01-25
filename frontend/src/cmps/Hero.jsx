@@ -97,33 +97,33 @@ class _Hero extends React.Component {
                 <section className="hero">
                     <img src={hero.imgUrl} alt="hero" />
                     {/* <div className="vilian"> */}
-                        <div className="main-container hero-content">
-                            <div className="hero-cta">
-                                <h1>Find the perfect <span>freelance</span> for your business</h1>
-                                <div className="hero-search">
-                                    {/* <SearchIcon className="search-icon" /> */}
-                                    <form>
-                                        <input value={this.state.filterBy.text}
-                                            type="search"
-                                            name="text"
-                                            placeholder={`Try "building mobile app"`}
-                                            onChange={this.handleChange} />
-                                        <button onClick={this.onSearch}>Search</button>
-                                    </form>
-                                </div>
+                    <div className="main-container hero-content">
+                        <div className="hero-cta">
+                            <h1>Find the perfect <span>freelance</span> for your business</h1>
+                            <div className="hero-search">
+                                {/* <SearchIcon className="search-icon" /> */}
+                                <form>
+                                    <input value={this.state.filterBy.text}
+                                        type="search"
+                                        name="text"
+                                        autoComplete="off"
+                                        placeholder={`Try "building mobile app"`}
+                                        onChange={this.handleChange} />
+                                    <button onClick={this.onSearch}>Search</button>
+                                </form>
                             </div>
-                            <div className="hero-snippet">
-                                <div className="stars">
-                                    <SvgStar />
-                                    <SvgStar />
-                                    <SvgStar />
-                                    <SvgStar />
-                                    <SvgStar />
-                                </div>
-                                <span>{hero.username}</span>, {hero.occupation}
-                            </div>
-                            <div className="carret">V</div>
                         </div>
+                        <div className="hero-snippet">
+                            <div className="stars">
+                                <SvgStar />
+                                <SvgStar />
+                                <SvgStar />
+                                <SvgStar />
+                                <SvgStar />
+                            </div>
+                            <span>{hero.username}</span>, {hero.occupation}
+                        </div>
+                    </div>
 
                     {/* </div> */}
                 </section>
