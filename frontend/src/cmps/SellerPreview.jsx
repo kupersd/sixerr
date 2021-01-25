@@ -25,7 +25,7 @@ export function SellerPreview({ gig, seller, getStars, getBiggestStarRate, calcu
                         <img src={seller.imgUrl} alt="" />
                     </div>
                     <div className="content flex column">
-                        <span>{seller.fullname}</span>
+                        <span className="seller-fullname">{seller.fullname}</span>
                         <div className="stars-container flex  align center">
                             {starsArr.map((star) => {
                                 return star
